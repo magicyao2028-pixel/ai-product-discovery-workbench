@@ -1,0 +1,296 @@
+{
+  "project_id": "SYNTH-DISCOVERY-001",
+  "project_name": "AI Campaign Brief Assistant",
+  "analysis_date": "2026-08-10",
+  "status": "ready_for_human_review",
+  "discovery": {
+    "business_context": "A synthetic small retail marketing team wants to reduce campaign rework before content production starts.",
+    "evidence_count": 4,
+    "opportunity_ranking": [
+      {
+        "opportunity_id": "OPP-001",
+        "title": "Standardize campaign intake before production",
+        "score": 20.0,
+        "formula": "impact * confidence * 10 / effort",
+        "evidence_ids": [
+          "E-001",
+          "E-002",
+          "E-003"
+        ],
+        "evidence_types": [
+          "interview",
+          "support_log",
+          "workflow_audit"
+        ],
+        "eligible": true,
+        "exclusion_reasons": []
+      },
+      {
+        "opportunity_id": "OPP-002",
+        "title": "Publish campaigns automatically",
+        "score": 2.4,
+        "formula": "impact * confidence * 10 / effort",
+        "evidence_ids": [
+          "E-004"
+        ],
+        "evidence_types": [
+          "stakeholder_request"
+        ],
+        "eligible": false,
+        "exclusion_reasons": [
+          "fewer_than_two_evidence_items",
+          "single_evidence_type",
+          "confidence_below_threshold"
+        ]
+      }
+    ],
+    "selected_opportunity_id": "OPP-001"
+  },
+  "prd": {
+    "title": "AI Campaign Brief Assistant",
+    "problem_statement": "Marketing coordinators lack a consistent way to capture audience, ownership and acceptance criteria before work begins.",
+    "primary_user": "Small-business marketing coordinators",
+    "goals": [
+      "Capture the minimum evidence needed for a reviewable campaign brief",
+      "Make ownership and acceptance criteria visible before production"
+    ],
+    "non_goals": [
+      "Generate final advertising creatives",
+      "Publish campaigns or change live advertising budgets",
+      "Claim validated market demand or measured commercial impact"
+    ],
+    "requirements": [
+      {
+        "requirement_id": "REQ-001",
+        "title": "Guided campaign intake",
+        "opportunity_id": "OPP-001",
+        "status": "included",
+        "exclusion_reasons": [],
+        "user_story": "As a marketing coordinator, I want required audience, channel and objective fields so that the production team receives a complete brief.",
+        "acceptance_criteria": [
+          "Submission is blocked when audience, channel or objective is blank",
+          "The review page shows the originating evidence IDs"
+        ],
+        "evidence_ids": [
+          "E-001",
+          "E-002"
+        ],
+        "evidence_types": [
+          "interview",
+          "workflow_audit"
+        ],
+        "external_action": false
+      },
+      {
+        "requirement_id": "REQ-002",
+        "title": "Named approval owner and acceptance criteria",
+        "opportunity_id": "OPP-001",
+        "status": "included",
+        "exclusion_reasons": [],
+        "user_story": "As a campaign manager, I want a named owner and testable acceptance criteria so that production handoff decisions are explicit.",
+        "acceptance_criteria": [
+          "Every brief names one human approval owner",
+          "Every included requirement has at least one testable acceptance criterion"
+        ],
+        "evidence_ids": [
+          "E-002",
+          "E-003"
+        ],
+        "evidence_types": [
+          "support_log",
+          "workflow_audit"
+        ],
+        "external_action": false
+      }
+    ],
+    "release_gate": "Human owner approves evidence, scope and acceptance criteria."
+  },
+  "requirement_review": [
+    {
+      "requirement_id": "REQ-001",
+      "title": "Guided campaign intake",
+      "opportunity_id": "OPP-001",
+      "status": "included",
+      "exclusion_reasons": [],
+      "user_story": "As a marketing coordinator, I want required audience, channel and objective fields so that the production team receives a complete brief.",
+      "acceptance_criteria": [
+        "Submission is blocked when audience, channel or objective is blank",
+        "The review page shows the originating evidence IDs"
+      ],
+      "evidence_ids": [
+        "E-001",
+        "E-002"
+      ],
+      "evidence_types": [
+        "interview",
+        "workflow_audit"
+      ],
+      "external_action": false
+    },
+    {
+      "requirement_id": "REQ-002",
+      "title": "Named approval owner and acceptance criteria",
+      "opportunity_id": "OPP-001",
+      "status": "included",
+      "exclusion_reasons": [],
+      "user_story": "As a campaign manager, I want a named owner and testable acceptance criteria so that production handoff decisions are explicit.",
+      "acceptance_criteria": [
+        "Every brief names one human approval owner",
+        "Every included requirement has at least one testable acceptance criterion"
+      ],
+      "evidence_ids": [
+        "E-002",
+        "E-003"
+      ],
+      "evidence_types": [
+        "support_log",
+        "workflow_audit"
+      ],
+      "external_action": false
+    },
+    {
+      "requirement_id": "REQ-003",
+      "title": "Automatic campaign publishing",
+      "opportunity_id": "OPP-002",
+      "status": "excluded",
+      "exclusion_reasons": [
+        "not_linked_to_selected_opportunity",
+        "insufficient_evidence",
+        "external_action_out_of_scope"
+      ],
+      "user_story": "As a stakeholder, I want the system to publish a live campaign without review.",
+      "acceptance_criteria": [
+        "The system sends a live publish command"
+      ],
+      "evidence_ids": [
+        "E-004"
+      ],
+      "evidence_types": [
+        "stakeholder_request"
+      ],
+      "external_action": true
+    }
+  ],
+  "traceability_matrix": [
+    {
+      "evidence_id": "E-001",
+      "evidence_type": "interview",
+      "opportunity_id": "OPP-001",
+      "requirement_id": "REQ-001",
+      "acceptance_criteria": [
+        "Submission is blocked when audience, channel or objective is blank",
+        "The review page shows the originating evidence IDs"
+      ]
+    },
+    {
+      "evidence_id": "E-002",
+      "evidence_type": "workflow_audit",
+      "opportunity_id": "OPP-001",
+      "requirement_id": "REQ-001",
+      "acceptance_criteria": [
+        "Submission is blocked when audience, channel or objective is blank",
+        "The review page shows the originating evidence IDs"
+      ]
+    },
+    {
+      "evidence_id": "E-002",
+      "evidence_type": "workflow_audit",
+      "opportunity_id": "OPP-001",
+      "requirement_id": "REQ-002",
+      "acceptance_criteria": [
+        "Every brief names one human approval owner",
+        "Every included requirement has at least one testable acceptance criterion"
+      ]
+    },
+    {
+      "evidence_id": "E-003",
+      "evidence_type": "support_log",
+      "opportunity_id": "OPP-001",
+      "requirement_id": "REQ-002",
+      "acceptance_criteria": [
+        "Every brief names one human approval owner",
+        "Every included requirement has at least one testable acceptance criterion"
+      ]
+    }
+  ],
+  "low_fidelity_prototype": {
+    "fidelity": "low",
+    "screens": [
+      {
+        "screen_id": "SCREEN-01",
+        "title": "Campaign intake",
+        "purpose": "Capture the minimum complete brief before analysis.",
+        "fields": [
+          "Objective",
+          "Audience",
+          "Channel",
+          "Success metric"
+        ],
+        "primary_action": "Validate brief",
+        "requirement_ids": [
+          "REQ-001"
+        ]
+      },
+      {
+        "screen_id": "SCREEN-02",
+        "title": "Evidence and requirement review",
+        "purpose": "Show why each requirement is included and who owns approval.",
+        "fields": [
+          "Evidence links",
+          "Acceptance criteria",
+          "Decision owner"
+        ],
+        "primary_action": "Request human approval",
+        "requirement_ids": [
+          "REQ-001",
+          "REQ-002"
+        ]
+      }
+    ],
+    "excluded_screens": [
+      {
+        "screen_id": "SCREEN-03",
+        "reason": "references_excluded_requirement"
+      }
+    ],
+    "note": "Structure and interaction intent only; no final visual specification."
+  },
+  "governance": {
+    "decision_owner": "Product Manager",
+    "human_approval_required": true,
+    "external_action_executed": false,
+    "production_release_executed": false
+  },
+  "trace": [
+    {
+      "step": "validate_discovery_packet",
+      "status": "completed"
+    },
+    {
+      "step": "rank_opportunities",
+      "status": "completed"
+    },
+    {
+      "step": "gate_requirements",
+      "status": "completed"
+    },
+    {
+      "step": "compile_prd",
+      "status": "completed"
+    },
+    {
+      "step": "map_low_fidelity_flow",
+      "status": "completed"
+    },
+    {
+      "step": "request_human_approval",
+      "status": "required"
+    }
+  ],
+  "limitations": [
+    "All discovery evidence and product details are synthetic.",
+    "Scores are prioritization aids, not validated market demand or commercial outcomes.",
+    "The low-fidelity flow communicates structure and behavior, not final visual design.",
+    "No LLM call, production deployment or external business action is implemented."
+  ]
+}

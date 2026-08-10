@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Product Discovery Workbench</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">Evidence before features · Offline v0.1</p>
+      <h1>AI Product Discovery Workbench</h1>
+      <p class="lead">A traceable path from synthetic discovery evidence to opportunity choice, requirements, acceptance criteria, and a low-fidelity product flow.</p>
+      <div class="notice"><strong>Portfolio disclosure:</strong> every interview, workflow observation, product detail, and result shown here is synthetic.</div>
+    </header>
+
+    <section>
+      <div class="section-head"><p>01</p><h2>Opportunity decision</h2></div>
+      <div class="opportunities">
+        <article class="selected">
+          <div><span class="tag good">Selected for review</span><span class="score">20.00</span></div>
+          <h3>Standardize campaign intake before production</h3>
+          <p>Evidence types: interview, workflow audit, support log.</p>
+          <small>Score = impact × confidence × 10 ÷ effort</small>
+        </article>
+        <article>
+          <div><span class="tag warn">Excluded</span><span class="score">2.40</span></div>
+          <h3>Publish campaigns automatically</h3>
+          <p>Only one stakeholder request; confidence below threshold.</p>
+          <small>No external action enters the v0.1 PRD.</small>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><p>02</p><h2>Evidence-to-requirement trace</h2></div>
+      <div class="trace">
+        <div class="node evidence"><b>E-001 · Interview</b><span>Missing audience and channel create clarification loops.</span></div>
+        <div class="arrow">→</div>
+        <div class="node opportunity"><b>OPP-001 · Intake quality</b><span>Capture complete information before production.</span></div>
+        <div class="arrow">→</div>
+        <div class="node requirement"><b>REQ-001 · Guided intake</b><span>Block incomplete briefs and show supporting evidence.</span></div>
+        <div class="arrow">→</div>
+        <div class="node acceptance"><b>Acceptance</b><span>Audience, channel, and objective are required.</span></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><p>03</p><h2>Low-fidelity product flow</h2></div>
+      <div class="wireframes">
+        <article>
+          <span>SCREEN-01</span><h3>Campaign intake</h3>
+          <label>Objective</label><div class="field"></div>
+          <label>Audience</label><div class="field"></div>
+          <label>Channel</label><div class="field short"></div>
+          <button>Validate brief</button>
+        </article>
+        <div class="flow-arrow">→</div>
+        <article>
+          <span>SCREEN-02</span><h3>Evidence review</h3>
+          <div class="list"><i></i><i></i><i></i></div>
+          <div class="list small"><i></i><i></i></div>
+          <button>Request human approval</button>
+        </article>
+      </div>
+      <p class="caption">This specifies structure and interaction intent—not final visual design or validated usability.</p>
+    </section>
+
+    <section class="governance">
+      <div><span>Human approval</span><strong>Required</strong></div>
+      <div><span>External actions</span><strong>0 executed</strong></div>
+      <div><span>Production release</span><strong>0 executed</strong></div>
+      <div><span>Paid APIs</span><strong>None</strong></div>
+    </section>
+
+    <footer>
+      <p>Internal AI-application exploration for Changsha Shiju Trading Co., Ltd. · Synthetic data only.</p>
+      <a href="https://github.com/magicyao2028-pixel/ai-product-discovery-workbench">View source, tests, PRD, and handoff on GitHub</a>
+    </footer>
+  </main>
+</body>
+</html>

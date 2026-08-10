@@ -1,0 +1,129 @@
+{
+  "project_id": "SYNTH-DISCOVERY-001",
+  "project_name": "AI Campaign Brief Assistant",
+  "analysis_date": "2026-08-10",
+  "decision_owner": "Product Manager",
+  "business_context": "A synthetic small retail marketing team wants to reduce campaign rework before content production starts.",
+  "goals": [
+    "Capture the minimum evidence needed for a reviewable campaign brief",
+    "Make ownership and acceptance criteria visible before production"
+  ],
+  "non_goals": [
+    "Generate final advertising creatives",
+    "Publish campaigns or change live advertising budgets",
+    "Claim validated market demand or measured commercial impact"
+  ],
+  "evidence": [
+    {
+      "evidence_id": "E-001",
+      "evidence_type": "interview",
+      "observed_on": "2026-07-18",
+      "summary": "Synthetic marketing coordinators report repeated clarification when audience and channel are missing.",
+      "synthetic": true
+    },
+    {
+      "evidence_id": "E-002",
+      "evidence_type": "workflow_audit",
+      "observed_on": "2026-07-22",
+      "summary": "A synthetic workflow review marks audience, approval owner and success metric as the most frequent missing fields.",
+      "synthetic": true
+    },
+    {
+      "evidence_id": "E-003",
+      "evidence_type": "support_log",
+      "observed_on": "2026-07-29",
+      "summary": "Synthetic support notes show handoff delays when acceptance criteria are not recorded.",
+      "synthetic": true
+    },
+    {
+      "evidence_id": "E-004",
+      "evidence_type": "stakeholder_request",
+      "observed_on": "2026-08-02",
+      "summary": "A synthetic stakeholder asks for one-click automatic campaign publishing.",
+      "synthetic": true
+    }
+  ],
+  "opportunities": [
+    {
+      "opportunity_id": "OPP-001",
+      "title": "Standardize campaign intake before production",
+      "problem_statement": "Marketing coordinators lack a consistent way to capture audience, ownership and acceptance criteria before work begins.",
+      "user_segment": "Small-business marketing coordinators",
+      "evidence_ids": ["E-001", "E-002", "E-003"],
+      "impact": 5,
+      "confidence": 0.8,
+      "effort": 2
+    },
+    {
+      "opportunity_id": "OPP-002",
+      "title": "Publish campaigns automatically",
+      "problem_statement": "A stakeholder wants to remove manual publishing steps.",
+      "user_segment": "Campaign managers",
+      "evidence_ids": ["E-004"],
+      "impact": 4,
+      "confidence": 0.3,
+      "effort": 5
+    }
+  ],
+  "requirements": [
+    {
+      "requirement_id": "REQ-001",
+      "opportunity_id": "OPP-001",
+      "title": "Guided campaign intake",
+      "user_story": "As a marketing coordinator, I want required audience, channel and objective fields so that the production team receives a complete brief.",
+      "acceptance_criteria": [
+        "Submission is blocked when audience, channel or objective is blank",
+        "The review page shows the originating evidence IDs"
+      ],
+      "evidence_ids": ["E-001", "E-002"],
+      "external_action": false
+    },
+    {
+      "requirement_id": "REQ-002",
+      "opportunity_id": "OPP-001",
+      "title": "Named approval owner and acceptance criteria",
+      "user_story": "As a campaign manager, I want a named owner and testable acceptance criteria so that production handoff decisions are explicit.",
+      "acceptance_criteria": [
+        "Every brief names one human approval owner",
+        "Every included requirement has at least one testable acceptance criterion"
+      ],
+      "evidence_ids": ["E-002", "E-003"],
+      "external_action": false
+    },
+    {
+      "requirement_id": "REQ-003",
+      "opportunity_id": "OPP-002",
+      "title": "Automatic campaign publishing",
+      "user_story": "As a stakeholder, I want the system to publish a live campaign without review.",
+      "acceptance_criteria": ["The system sends a live publish command"],
+      "evidence_ids": ["E-004"],
+      "external_action": true
+    }
+  ],
+  "prototype_screens": [
+    {
+      "screen_id": "SCREEN-01",
+      "title": "Campaign intake",
+      "purpose": "Capture the minimum complete brief before analysis.",
+      "fields": ["Objective", "Audience", "Channel", "Success metric"],
+      "primary_action": "Validate brief",
+      "requirement_ids": ["REQ-001"]
+    },
+    {
+      "screen_id": "SCREEN-02",
+      "title": "Evidence and requirement review",
+      "purpose": "Show why each requirement is included and who owns approval.",
+      "fields": ["Evidence links", "Acceptance criteria", "Decision owner"],
+      "primary_action": "Request human approval",
+      "requirement_ids": ["REQ-001", "REQ-002"]
+    },
+    {
+      "screen_id": "SCREEN-03",
+      "title": "Automatic publishing",
+      "purpose": "Represent the excluded external-action concept.",
+      "fields": ["Platform account", "Campaign ID"],
+      "primary_action": "Publish live campaign",
+      "requirement_ids": ["REQ-003"]
+    }
+  ]
+}
