@@ -16,8 +16,8 @@
 
 ### Included requirements
 
-- **REQ-001 - Guided campaign intake**: As a marketing coordinator, I want required audience, channel and objective fields so that the production team receives a complete brief. [E-001] [E-002]
-- **REQ-002 - Named approval owner and acceptance criteria**: As a campaign manager, I want a named owner and testable acceptance criteria so that production handoff decisions are explicit. [E-002] [E-003]
+- **REQ-001 v1.0 - Guided campaign intake**: As a marketing coordinator, I want required audience, channel and objective fields so that the production team receives a complete brief. [E-001] [E-002]
+- **REQ-002 v1.0 - Named approval owner and acceptance criteria**: As a campaign manager, I want a named owner and testable acceptance criteria so that production handoff decisions are explicit. [E-002] [E-003]
 
 ## Excluded requirements
 
@@ -28,11 +28,19 @@
 - **SCREEN-01 - Campaign intake**: Capture the minimum complete brief before analysis. Primary action: Validate brief.
 - **SCREEN-02 - Evidence and requirement review**: Show why each requirement is included and who owns approval. Primary action: Request human approval.
 
+## Requirement change decision log
+
+- **DEC-REQ-001-1.0**: REQ-001 v1.0 -> v1.1; recommendation `review_revision`; [FB-001] [FB-002] [E-001] [E-002]; approval pending; change executed: no.
+- **DEC-REQ-002-1.0**: REQ-002 v1.0 -> v1.0; recommendation `retain`; [FB-003] [E-003]; approval pending; change executed: no.
+- **DEC-REQ-003-1.0**: REQ-003 v1.0 -> v1.0; recommendation `no_change_excluded_requirement`; [FB-004] [E-004]; approval pending; change executed: no.
+
 ## Governance
 
 - Decision owner: Product Manager
 - Human approval required: yes
 - External action executed: no
 - Production release executed: no
+- Requirement change executed: no
+- Change approval status: pending human approval
 
 _All research evidence, product details and outputs are synthetic portfolio examples._

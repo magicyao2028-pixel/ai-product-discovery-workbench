@@ -11,6 +11,8 @@ Discovery JSON
   -> requirement inclusion/exclusion
   -> PRD and traceability matrix
   -> low-fidelity screen filter
+  -> dated feedback aggregation
+  -> pending requirement change decision log
   -> JSON + Markdown artifacts
   -> human product decision
 ```
@@ -20,7 +22,7 @@ Discovery JSON
 | Component | Responsibility |
 | --- | --- |
 | `models.py` | Parse typed artifacts and validate dates, IDs, ranges, and relationships |
-| `engine.py` | Rank opportunities, gate requirements, compile PRD, trace evidence, and filter screens |
+| `engine.py` | Rank opportunities, gate requirements, compile PRD, trace evidence, filter screens, and create non-executing feedback decisions |
 | `report.py` | Render a human-readable decision report with citations and exclusions |
 | `cli.py` | Provide a reproducible local entry point and save artifacts |
 
@@ -35,6 +37,9 @@ The repository demonstrates an AI-product delivery workflow but v0.1 is not an a
 - unsupported requirements remain visible as exclusions;
 - screens that depend on excluded requirements are omitted;
 - external action and production release flags remain `false`.
+- feedback must cite declared requirement and evidence IDs and cannot be future-dated;
+- a recommendation can propose the next minor version, but `requirement_change_executed` remains `false`;
+- the current PRD is compiled before feedback recommendations and is never mutated by them.
 
 ## Production gaps
 

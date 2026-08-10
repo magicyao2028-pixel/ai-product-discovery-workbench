@@ -62,6 +62,7 @@
     "requirements": [
       {
         "requirement_id": "REQ-001",
+        "version": "1.0",
         "title": "Guided campaign intake",
         "opportunity_id": "OPP-001",
         "status": "included",
@@ -83,6 +84,7 @@
       },
       {
         "requirement_id": "REQ-002",
+        "version": "1.0",
         "title": "Named approval owner and acceptance criteria",
         "opportunity_id": "OPP-001",
         "status": "included",
@@ -108,6 +110,7 @@
   "requirement_review": [
     {
       "requirement_id": "REQ-001",
+      "version": "1.0",
       "title": "Guided campaign intake",
       "opportunity_id": "OPP-001",
       "status": "included",
@@ -129,6 +132,7 @@
     },
     {
       "requirement_id": "REQ-002",
+      "version": "1.0",
       "title": "Named approval owner and acceptance criteria",
       "opportunity_id": "OPP-001",
       "status": "included",
@@ -150,6 +154,7 @@
     },
     {
       "requirement_id": "REQ-003",
+      "version": "1.0",
       "title": "Automatic campaign publishing",
       "opportunity_id": "OPP-002",
       "status": "excluded",
@@ -169,6 +174,119 @@
         "stakeholder_request"
       ],
       "external_action": true
+    }
+  ],
+  "feedback_review": [
+    {
+      "feedback_id": "FB-001",
+      "requirement_id": "REQ-001",
+      "observed_on": "2026-08-05",
+      "effect": "supports",
+      "summary": "A synthetic review confirms that required intake fields reduce clarification loops.",
+      "evidence_ids": [
+        "E-001"
+      ],
+      "synthetic": true
+    },
+    {
+      "feedback_id": "FB-002",
+      "requirement_id": "REQ-001",
+      "observed_on": "2026-08-07",
+      "effect": "challenges",
+      "summary": "A synthetic workflow review asks whether an incomplete brief can be saved as a draft before validation.",
+      "evidence_ids": [
+        "E-002"
+      ],
+      "synthetic": true
+    },
+    {
+      "feedback_id": "FB-003",
+      "requirement_id": "REQ-002",
+      "observed_on": "2026-08-08",
+      "effect": "supports",
+      "summary": "A synthetic handoff review supports keeping one named approval owner and explicit acceptance criteria.",
+      "evidence_ids": [
+        "E-003"
+      ],
+      "synthetic": true
+    },
+    {
+      "feedback_id": "FB-004",
+      "requirement_id": "REQ-003",
+      "observed_on": "2026-08-09",
+      "effect": "no_effect",
+      "summary": "A synthetic stakeholder restates the publishing request without addressing the external-action boundary.",
+      "evidence_ids": [
+        "E-004"
+      ],
+      "synthetic": true
+    }
+  ],
+  "requirement_change_decision_log": [
+    {
+      "decision_id": "DEC-REQ-001-1.0",
+      "requirement_id": "REQ-001",
+      "current_version": "1.0",
+      "proposed_version": "1.1",
+      "recommendation": "review_revision",
+      "rationale": "At least one dated feedback item challenges the current requirement.",
+      "feedback_counts": {
+        "supports": 1,
+        "challenges": 1,
+        "no_effect": 0
+      },
+      "feedback_ids": [
+        "FB-001",
+        "FB-002"
+      ],
+      "evidence_ids": [
+        "E-001",
+        "E-002"
+      ],
+      "approval_status": "pending_human_approval",
+      "requirement_change_executed": false
+    },
+    {
+      "decision_id": "DEC-REQ-002-1.0",
+      "requirement_id": "REQ-002",
+      "current_version": "1.0",
+      "proposed_version": "1.0",
+      "recommendation": "retain",
+      "rationale": "Dated feedback supports the requirement and none challenges it.",
+      "feedback_counts": {
+        "supports": 1,
+        "challenges": 0,
+        "no_effect": 0
+      },
+      "feedback_ids": [
+        "FB-003"
+      ],
+      "evidence_ids": [
+        "E-003"
+      ],
+      "approval_status": "pending_human_approval",
+      "requirement_change_executed": false
+    },
+    {
+      "decision_id": "DEC-REQ-003-1.0",
+      "requirement_id": "REQ-003",
+      "current_version": "1.0",
+      "proposed_version": "1.0",
+      "recommendation": "no_change_excluded_requirement",
+      "rationale": "The requirement is outside the current evidence-approved PRD.",
+      "feedback_counts": {
+        "supports": 0,
+        "challenges": 0,
+        "no_effect": 1
+      },
+      "feedback_ids": [
+        "FB-004"
+      ],
+      "evidence_ids": [
+        "E-004"
+      ],
+      "approval_status": "pending_human_approval",
+      "requirement_change_executed": false
     }
   ],
   "traceability_matrix": [
@@ -259,7 +377,9 @@
     "decision_owner": "Product Manager",
     "human_approval_required": true,
     "external_action_executed": false,
-    "production_release_executed": false
+    "production_release_executed": false,
+    "requirement_change_executed": false,
+    "change_approval_status": "pending_human_approval"
   },
   "trace": [
     {
@@ -272,6 +392,14 @@
     },
     {
       "step": "gate_requirements",
+      "status": "completed"
+    },
+    {
+      "step": "classify_feedback",
+      "status": "completed"
+    },
+    {
+      "step": "compile_change_decision_log",
       "status": "completed"
     },
     {
@@ -291,6 +419,7 @@
     "All discovery evidence and product details are synthetic.",
     "Scores are prioritization aids, not validated market demand or commercial outcomes.",
     "The low-fidelity flow communicates structure and behavior, not final visual design.",
-    "No LLM call, production deployment or external business action is implemented."
+    "No LLM call, production deployment or external business action is implemented.",
+    "Feedback classifications are declared human inputs; recommendations do not mutate requirements."
   ]
 }

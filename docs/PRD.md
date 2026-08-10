@@ -14,7 +14,7 @@ AI Product Discovery Workbench helps a product owner turn a structured evidence 
 
 Small teams often jump from stakeholder requests to features. Evidence is scattered, prioritization assumptions stay implicit, unsupported requirements survive into delivery, and low-fidelity prototypes are mistaken for finished designs.
 
-## v0.1 scope
+## v0.2 scope
 
 1. Validate synthetic dated discovery evidence.
 2. Rank declared opportunities with a visible formula.
@@ -23,6 +23,9 @@ Small teams often jump from stakeholder requests to features. Evidence is scatte
 5. Exclude unsupported and external-action requirements.
 6. Produce a PRD, traceability rows, and a low-fidelity screen flow.
 7. Preserve human ownership and zero execution.
+8. Validate dated synthetic feedback against stable requirement and evidence IDs.
+9. Aggregate whether feedback supports, challenges, or does not affect each requirement.
+10. Propose a requirement version review without changing the requirement or claiming approval.
 
 ## Acceptance criteria
 
@@ -34,6 +37,10 @@ Small teams often jump from stakeholder requests to features. Evidence is scatte
 - external-action requirements and dependent screens are excluded;
 - output contains an explicit human approval gate and no execution claim;
 - tests and examples run offline without a paid API.
+- feedback cannot reference unknown requirements or evidence, or be dated after the analysis date;
+- every change recommendation cites feedback and evidence IDs;
+- a challenged requirement may receive a proposed next version, but the current PRD remains unchanged;
+- every change decision stays pending for a named human owner and reports `requirement_change_executed: false`.
 
 ## Out of scope
 
@@ -43,6 +50,6 @@ Small teams often jump from stakeholder requests to features. Evidence is scatte
 - high-fidelity visual design and usability validation;
 - API, database, authentication, deployment, or production integrations.
 
-## v0.1 success evidence
+## v0.2 success evidence
 
-Success means the synthetic example is reproducible, unsupported scope is visibly excluded, and every included requirement can be traced to evidence and acceptance criteria. It does not mean the sample product has been validated or shipped.
+Success means the synthetic example is reproducible, unsupported scope is visibly excluded, every included requirement can be traced to evidence and acceptance criteria, and later feedback produces an auditable non-executing version decision. It does not mean the sample product has been validated, approved, or shipped.

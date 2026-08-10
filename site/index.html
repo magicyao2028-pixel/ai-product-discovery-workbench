@@ -5,11 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AI Product Discovery Workbench</title>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    .decisions{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .decisions article{padding:24px;background:white;border:1px solid var(--line);border-radius:18px}
+    .decisions .review{border-left:7px solid var(--orange)}
+    .decisions article>span{color:var(--green);font-size:.78rem;font-weight:800;letter-spacing:.04em}
+    .decisions h3{margin:.55rem 0}.decisions p,.decisions small{color:var(--muted)}
+    @media(max-width:850px){.decisions{grid-template-columns:1fr}}
+  </style>
 </head>
 <body>
   <main>
     <header>
-      <p class="eyebrow">Evidence before features · Offline v0.1</p>
+      <p class="eyebrow">Evidence before features · Offline v0.2</p>
       <h1>AI Product Discovery Workbench</h1>
       <p class="lead">A traceable path from synthetic discovery evidence to opportunity choice, requirements, acceptance criteria, and a low-fidelity product flow.</p>
       <div class="notice"><strong>Portfolio disclosure:</strong> every interview, workflow observation, product detail, and result shown here is synthetic.</div>
@@ -28,7 +36,7 @@
           <div><span class="tag warn">Excluded</span><span class="score">2.40</span></div>
           <h3>Publish campaigns automatically</h3>
           <p>Only one stakeholder request; confidence below threshold.</p>
-          <small>No external action enters the v0.1 PRD.</small>
+          <small>No external action enters the v0.2 PRD.</small>
         </article>
       </div>
     </section>
@@ -47,7 +55,28 @@
     </section>
 
     <section>
-      <div class="section-head"><p>03</p><h2>Low-fidelity product flow</h2></div>
+      <div class="section-head"><p>03</p><h2>Feedback-to-version decision</h2></div>
+      <div class="decisions">
+        <article class="review">
+          <span>DEC-REQ-001-1.0</span>
+          <h3>REQ-001 · v1.0 → proposed v1.1</h3>
+          <p><b>1 supports</b> · <b>1 challenges</b> · 0 no effect</p>
+          <p>FB-002 asks whether an incomplete brief can be saved before validation. Recommendation: review revision.</p>
+          <small>Pending human approval · requirement change executed: no</small>
+        </article>
+        <article>
+          <span>DEC-REQ-002-1.0</span>
+          <h3>REQ-002 · retain v1.0</h3>
+          <p><b>1 supports</b> · 0 challenges · 0 no effect</p>
+          <p>FB-003 supports a named approval owner and explicit acceptance criteria.</p>
+          <small>Pending human approval · requirement change executed: no</small>
+        </article>
+      </div>
+      <p class="caption">Recommendations cite stable feedback and evidence IDs. They never rewrite the current PRD automatically.</p>
+    </section>
+
+    <section>
+      <div class="section-head"><p>04</p><h2>Low-fidelity product flow</h2></div>
       <div class="wireframes">
         <article>
           <span>SCREEN-01</span><h3>Campaign intake</h3>
@@ -71,7 +100,7 @@
       <div><span>Human approval</span><strong>Required</strong></div>
       <div><span>External actions</span><strong>0 executed</strong></div>
       <div><span>Production release</span><strong>0 executed</strong></div>
-      <div><span>Paid APIs</span><strong>None</strong></div>
+      <div><span>Requirement changes</span><strong>0 executed</strong></div>
     </section>
 
     <footer>

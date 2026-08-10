@@ -2,8 +2,8 @@
 
 ## Current state
 
-- Release: v0.1.0
-- Maintenance rounds completed: 0/10
+- Release: v0.2.0
+- Maintenance rounds completed: 1/10
 - Runtime: offline Python 3.10+, no runtime dependencies
 - Data: synthetic only
 - Model calls: none
@@ -21,13 +21,13 @@ python -m product_discovery.cli data/sample_discovery.json \
 
 ## Next authorized maintenance round
 
-M1: record dated feedback against stable requirement IDs, calculate whether feedback supports, challenges, or does not affect a requirement, and emit a human-readable change decision log. Do not add an LLM, database, or integration in M1.
+M2: add structured synthetic interview-note normalization and claim review. Preserve original note excerpts, label observation versus interpretation, block unsupported claims, and keep every normalized statement traceable to its source note. Do not add an LLM, database, or external integration in M2.
 
-## Completion gate for M1
+## Completion gate for M2
 
-- feedback references validate deterministically;
-- change decisions cite requirement and evidence IDs;
-- unsupported automatic requirement changes are blocked;
-- examples and the static site show the version trail;
+- raw synthetic note IDs and excerpts remain visible;
+- normalized observations and interpretations are clearly separated;
+- unsupported claims are blocked or flagged for human review;
+- generated evidence records cite their source note IDs;
 - old and new tests pass;
-- maintenance count advances to 1/10 only after publication is verified.
+- maintenance count advances to 2/10 only after publication is verified.

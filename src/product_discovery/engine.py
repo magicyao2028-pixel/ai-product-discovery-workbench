@@ -20,6 +20,8 @@ class DiscoveryWorkbench:
             for item in packet.requirements
         ]
         included = [item for item in requirement_reviews if item["status"] == "included"]
+        included_ids = {item["requirement_id"] for item in included}
+        change_decision_log = self._change_decision_log(packet, included_ids)
         selected = next(
             (item for item in packet.opportunities if item.opportunity_id == selected_id), None
         )
@@ -37,18 +39,24 @@ class DiscoveryWorkbench:
             },
             "prd": self._build_prd(packet, selected, included),
             "requirement_review": requirement_reviews,
+            "feedback_review": self._feedback_review(packet),
+            "requirement_change_decision_log": change_decision_log,
             "traceability_matrix": self._traceability(included, evidence_by_id),
-            "low_fidelity_prototype": self._prototype(packet, {item["requirement_id"] for item in included}),
+            "low_fidelity_prototype": self._prototype(packet, included_ids),
             "governance": {
                 "decision_owner": packet.decision_owner,
                 "human_approval_required": True,
                 "external_action_executed": False,
                 "production_release_executed": False,
+                "requirement_change_executed": False,
+                "change_approval_status": "pending_human_approval",
             },
             "trace": [
                 {"step": "validate_discovery_packet", "status": "completed"},
                 {"step": "rank_opportunities", "status": "completed"},
                 {"step": "gate_requirements", "status": "completed"},
+                {"step": "classify_feedback", "status": "completed"},
+                {"step": "compile_change_decision_log", "status": "completed"},
                 {"step": "compile_prd", "status": "completed" if selected and included else "blocked"},
                 {"step": "map_low_fidelity_flow", "status": "completed"},
                 {"step": "request_human_approval", "status": "required"},
@@ -58,6 +66,7 @@ class DiscoveryWorkbench:
                 "Scores are prioritization aids, not validated market demand or commercial outcomes.",
                 "The low-fidelity flow communicates structure and behavior, not final visual design.",
                 "No LLM call, production deployment or external business action is implemented.",
+                "Feedback classifications are declared human inputs; recommendations do not mutate requirements.",
             ],
         }
 
@@ -103,6 +112,7 @@ class DiscoveryWorkbench:
             reasons.append("external_action_out_of_scope")
         return {
             "requirement_id": requirement.requirement_id,
+            "version": requirement.version,
             "title": requirement.title,
             "opportunity_id": requirement.opportunity_id,
             "status": "included" if not reasons else "excluded",
@@ -113,6 +123,75 @@ class DiscoveryWorkbench:
             "evidence_types": sorted({evidence_by_id[item].evidence_type for item in requirement.evidence_ids}),
             "external_action": requirement.external_action,
         }
+
+    @staticmethod
+    def _feedback_review(packet: DiscoveryPacket) -> list[dict[str, Any]]:
+        return [
+            {
+                "feedback_id": item.feedback_id,
+                "requirement_id": item.requirement_id,
+                "observed_on": item.observed_on,
+                "effect": item.effect,
+                "summary": item.summary,
+                "evidence_ids": list(item.evidence_ids),
+                "synthetic": item.synthetic,
+            }
+            for item in sorted(packet.feedback, key=lambda row: (row.observed_on, row.feedback_id))
+        ]
+
+    @staticmethod
+    def _change_decision_log(
+        packet: DiscoveryPacket, included_requirement_ids: set[str]
+    ) -> list[dict[str, Any]]:
+        rows = []
+        for requirement in packet.requirements:
+            feedback = sorted(
+                (item for item in packet.feedback if item.requirement_id == requirement.requirement_id),
+                key=lambda item: (item.observed_on, item.feedback_id),
+            )
+            counts = {
+                effect: sum(item.effect == effect for item in feedback)
+                for effect in ("supports", "challenges", "no_effect")
+            }
+            if requirement.requirement_id not in included_requirement_ids:
+                recommendation = "no_change_excluded_requirement"
+                rationale = "The requirement is outside the current evidence-approved PRD."
+            elif counts["challenges"]:
+                recommendation = "review_revision"
+                rationale = "At least one dated feedback item challenges the current requirement."
+            elif counts["supports"]:
+                recommendation = "retain"
+                rationale = "Dated feedback supports the requirement and none challenges it."
+            elif counts["no_effect"]:
+                recommendation = "no_change"
+                rationale = "Recorded feedback does not affect the requirement."
+            else:
+                recommendation = "no_change_insufficient_feedback"
+                rationale = "No dated feedback is linked to the requirement."
+            proposed_version = (
+                DiscoveryWorkbench._next_minor(requirement.version)
+                if recommendation == "review_revision"
+                else requirement.version
+            )
+            rows.append({
+                "decision_id": f"DEC-{requirement.requirement_id}-{requirement.version}",
+                "requirement_id": requirement.requirement_id,
+                "current_version": requirement.version,
+                "proposed_version": proposed_version,
+                "recommendation": recommendation,
+                "rationale": rationale,
+                "feedback_counts": counts,
+                "feedback_ids": [item.feedback_id for item in feedback],
+                "evidence_ids": sorted({source for item in feedback for source in item.evidence_ids}),
+                "approval_status": "pending_human_approval",
+                "requirement_change_executed": False,
+            })
+        return rows
+
+    @staticmethod
+    def _next_minor(version: str) -> str:
+        major, minor = (int(part) for part in version.split("."))
+        return f"{major}.{minor + 1}"
 
     @staticmethod
     def _build_prd(

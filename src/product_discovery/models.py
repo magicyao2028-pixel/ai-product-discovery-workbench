@@ -8,6 +8,7 @@ from typing import Any
 
 
 EVIDENCE_TYPES = {"interview", "workflow_audit", "support_log", "stakeholder_request"}
+FEEDBACK_EFFECTS = {"supports", "challenges", "no_effect"}
 
 
 @dataclass(frozen=True)
@@ -68,6 +69,7 @@ class Opportunity:
 @dataclass(frozen=True)
 class Requirement:
     requirement_id: str
+    version: str
     opportunity_id: str
     title: str
     user_story: str
@@ -77,8 +79,9 @@ class Requirement:
 
     @classmethod
     def from_mapping(cls, value: dict[str, Any]) -> "Requirement":
-        return cls(
+        item = cls(
             requirement_id=_required(value, "requirement_id"),
+            version=_required(value, "version"),
             opportunity_id=_required(value, "opportunity_id"),
             title=_required(value, "title"),
             user_story=_required(value, "user_story"),
@@ -86,6 +89,39 @@ class Requirement:
             evidence_ids=_strings(value.get("evidence_ids"), "evidence_ids"),
             external_action=value.get("external_action") is True,
         )
+        parts = item.version.split(".")
+        if len(parts) != 2 or not all(part.isdigit() for part in parts):
+            raise ValueError("requirement version must use MAJOR.MINOR")
+        return item
+
+
+@dataclass(frozen=True)
+class Feedback:
+    feedback_id: str
+    requirement_id: str
+    observed_on: str
+    effect: str
+    summary: str
+    evidence_ids: tuple[str, ...]
+    synthetic: bool
+
+    @classmethod
+    def from_mapping(cls, value: dict[str, Any]) -> "Feedback":
+        item = cls(
+            feedback_id=_required(value, "feedback_id"),
+            requirement_id=_required(value, "requirement_id"),
+            observed_on=_required(value, "observed_on"),
+            effect=_required(value, "effect"),
+            summary=_required(value, "summary"),
+            evidence_ids=_strings(value.get("evidence_ids"), "evidence_ids"),
+            synthetic=value.get("synthetic") is True,
+        )
+        _iso_date(item.observed_on, "observed_on")
+        if item.effect not in FEEDBACK_EFFECTS:
+            raise ValueError(f"effect must be one of: {', '.join(sorted(FEEDBACK_EFFECTS))}")
+        if not item.synthetic:
+            raise ValueError("public portfolio feedback must be explicitly synthetic")
+        return item
 
 
 @dataclass(frozen=True)
@@ -121,6 +157,7 @@ class DiscoveryPacket:
     evidence: tuple[Evidence, ...]
     opportunities: tuple[Opportunity, ...]
     requirements: tuple[Requirement, ...]
+    feedback: tuple[Feedback, ...]
     prototype_screens: tuple[PrototypeScreen, ...]
 
     @classmethod
@@ -136,6 +173,7 @@ class DiscoveryPacket:
             evidence=_objects(value.get("evidence"), "evidence", Evidence.from_mapping),
             opportunities=_objects(value.get("opportunities"), "opportunities", Opportunity.from_mapping),
             requirements=_objects(value.get("requirements"), "requirements", Requirement.from_mapping),
+            feedback=_objects(value.get("feedback"), "feedback", Feedback.from_mapping),
             prototype_screens=_objects(
                 value.get("prototype_screens"), "prototype_screens", PrototypeScreen.from_mapping
             ),
@@ -193,18 +231,26 @@ def _validate_relationships(item: DiscoveryPacket) -> None:
     evidence_ids = [entry.evidence_id for entry in item.evidence]
     opportunity_ids = [entry.opportunity_id for entry in item.opportunities]
     requirement_ids = [entry.requirement_id for entry in item.requirements]
+    feedback_ids = [entry.feedback_id for entry in item.feedback]
     screen_ids = [entry.screen_id for entry in item.prototype_screens]
     _unique(evidence_ids, "evidence_id")
     _unique(opportunity_ids, "opportunity_id")
     _unique(requirement_ids, "requirement_id")
+    _unique(feedback_ids, "feedback_id")
     _unique(screen_ids, "screen_id")
     if any(entry.observed_on > item.analysis_date for entry in item.evidence):
         raise ValueError("evidence observed_on must not be after analysis_date")
+    if any(entry.observed_on > item.analysis_date for entry in item.feedback):
+        raise ValueError("feedback observed_on must not be after analysis_date")
     if any(set(entry.evidence_ids) - set(evidence_ids) for entry in item.opportunities):
         raise ValueError("every opportunity evidence_id must reference declared evidence")
     if any(entry.opportunity_id not in opportunity_ids for entry in item.requirements):
         raise ValueError("every requirement must reference a declared opportunity")
     if any(set(entry.evidence_ids) - set(evidence_ids) for entry in item.requirements):
         raise ValueError("every requirement evidence_id must reference declared evidence")
+    if any(entry.requirement_id not in requirement_ids for entry in item.feedback):
+        raise ValueError("every feedback requirement_id must reference a declared requirement")
+    if any(set(entry.evidence_ids) - set(evidence_ids) for entry in item.feedback):
+        raise ValueError("every feedback evidence_id must reference declared evidence")
     if any(set(screen.requirement_ids) - set(requirement_ids) for screen in item.prototype_screens):
         raise ValueError("every prototype requirement_id must reference a declared requirement")

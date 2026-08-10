@@ -1,6 +1,6 @@
 # AI Product Discovery Workbench
 
-An offline, evidence-traceable product workflow that turns a structured discovery packet into opportunity rankings, requirement gates, a PRD, a traceability matrix, and a low-fidelity screen flow.
+An offline, evidence-traceable product workflow that turns a structured discovery packet into opportunity rankings, requirement gates, a PRD, a traceability matrix, a low-fidelity screen flow, and a governed feedback decision log.
 
 **中文介绍：** 面向传统企业 AI 转型和中小团队产品探索的离线原型。它把访谈、流程审查、支持记录等模拟证据连接到机会排序、需求、验收标准和低保真页面流程，所有产品决策仍需人工确认。
 
@@ -10,7 +10,7 @@ AI product work is not only prompt writing. Teams need to show why a problem mat
 
 The business scenario is an internal AI-application exploration for Changsha Shiju Trading Co., Ltd. All evidence, interviews, workflow observations, product details, and outputs are synthetic.
 
-## What v0.1 demonstrates
+## What v0.2 demonstrates
 
 - typed discovery evidence with dates and source categories;
 - transparent impact-confidence-effort opportunity ranking;
@@ -20,6 +20,10 @@ The business scenario is an internal AI-application exploration for Changsha Shi
 - an evidence-to-requirement traceability matrix;
 - a low-fidelity screen flow with unsupported screens removed;
 - deterministic JSON and Markdown output, tests, and a static demo.
+- dated feedback linked to stable requirement and evidence IDs;
+- transparent support, challenge, and no-effect counts for each requirement;
+- version recommendations that remain pending until a human approves them;
+- a hard guarantee that the workflow does not automatically change a requirement.
 
 ## Quick start
 
@@ -43,6 +47,8 @@ Synthetic discovery packet
   -> include or exclude requirements
   -> compile PRD and traceability matrix
   -> map low-fidelity screen flow
+  -> aggregate dated feedback by stable requirement ID
+  -> emit a non-executing version decision log
   -> request human approval
   -> no production release or external action
 ```
@@ -56,13 +62,14 @@ Synthetic discovery packet
 - `docs/ARCHITECTURE.md`: components, data flow, and boundaries
 - `docs/SCORING_AND_GATES.md`: prioritization and exclusion logic
 - `docs/PROTOTYPE_FIDELITY.md`: low-fidelity versus high-fidelity prototypes
+- `docs/FEEDBACK_DECISIONS.md`: feedback classification, versioning, and approval rules
 - `docs/PRODUCT_TOOL_HANDOFF.md`: how artifacts map to PRD, Axure, Visio, and mind-map tools
 - `docs/MAINTENANCE_PLAN.md`: ten planned substantive iterations
 - `site/`: static public demonstration
 
 ## Honest boundaries
 
-This is a portfolio prototype, not completed product discovery for a real customer. It does not conduct interviews, infer needs with an LLM, validate market demand, produce a high-fidelity design, deploy software, or execute an external business action. Scores organize declared assumptions; they do not prove business value.
+This is a portfolio prototype, not completed product discovery for a real customer. It does not conduct interviews, infer needs with an LLM, validate market demand, produce a high-fidelity design, deploy software, execute an external business action, or apply requirement changes automatically. Scores and feedback classifications organize declared assumptions; they do not prove business value.
 
 ## License
 
