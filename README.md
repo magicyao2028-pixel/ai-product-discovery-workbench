@@ -10,7 +10,7 @@ AI product work is not only prompt writing. Teams need to show why a problem mat
 
 The business scenario is an internal AI-application exploration for Changsha Shiju Trading Co., Ltd. All evidence, interviews, workflow observations, product details, and outputs are synthetic.
 
-## What v0.2 demonstrates
+## What v0.3 demonstrates
 
 - typed discovery evidence with dates and source categories;
 - transparent impact-confidence-effort opportunity ranking;
@@ -24,6 +24,10 @@ The business scenario is an internal AI-application exploration for Changsha Shi
 - transparent support, challenge, and no-effect counts for each requirement;
 - version recommendations that remain pending until a human approves them;
 - a hard guarantee that the workflow does not automatically change a requirement.
+- structured synthetic interview notes with consent, stable note IDs, and preserved excerpts;
+- explicit separation of observations from interpretations;
+- lexical and numeric support checks that block unsupported claims;
+- provenance-rich proposed evidence that never mutates the current evidence register or PRD.
 
 ## Quick start
 
@@ -42,6 +46,7 @@ The package requires Python 3.10 or later and has no runtime dependencies.
 ```text
 Synthetic discovery packet
   -> validate evidence and relationships
+  -> preserve interview excerpts and review normalized claims
   -> rank opportunities
   -> select an evidence-eligible problem
   -> include or exclude requirements
@@ -63,13 +68,14 @@ Synthetic discovery packet
 - `docs/SCORING_AND_GATES.md`: prioritization and exclusion logic
 - `docs/PROTOTYPE_FIDELITY.md`: low-fidelity versus high-fidelity prototypes
 - `docs/FEEDBACK_DECISIONS.md`: feedback classification, versioning, and approval rules
+- `docs/INTERVIEW_CLAIM_REVIEW.md`: note lineage, support checks, and evidence-promotion boundaries
 - `docs/PRODUCT_TOOL_HANDOFF.md`: how artifacts map to PRD, Axure, Visio, and mind-map tools
 - `docs/MAINTENANCE_PLAN.md`: ten planned substantive iterations
 - `site/`: static public demonstration
 
 ## Honest boundaries
 
-This is a portfolio prototype, not completed product discovery for a real customer. It does not conduct interviews, infer needs with an LLM, validate market demand, produce a high-fidelity design, deploy software, execute an external business action, or apply requirement changes automatically. Scores and feedback classifications organize declared assumptions; they do not prove business value.
+This is a portfolio prototype, not completed product discovery for a real customer. It does not conduct or transcribe interviews, infer needs with an LLM, validate market demand, produce a high-fidelity design, deploy software, execute an external business action, merge proposed interview evidence automatically, or apply requirement changes automatically. Scores and classifications organize declared synthetic inputs; they do not prove business value.
 
 ## License
 

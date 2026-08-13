@@ -222,6 +222,191 @@
       "synthetic": true
     }
   ],
+  "interview_claim_review": {
+    "raw_notes": [
+      {
+        "note_id": "NOTE-001",
+        "observed_on": "2026-08-06",
+        "participant_role": "Synthetic Marketing Coordinator",
+        "synthetic": true,
+        "consent_for_analysis": true,
+        "excerpts": [
+          {
+            "excerpt_id": "EX-001",
+            "text": "Three of five synthetic coordinators said they request audience details after the brief reaches production."
+          },
+          {
+            "excerpt_id": "EX-002",
+            "text": "Two coordinators described saving incomplete briefs outside the current tool."
+          }
+        ]
+      },
+      {
+        "note_id": "NOTE-002",
+        "observed_on": "2026-08-07",
+        "participant_role": "Synthetic Workflow Reviewer",
+        "synthetic": true,
+        "consent_for_analysis": true,
+        "excerpts": [
+          {
+            "excerpt_id": "EX-003",
+            "text": "The reviewer observed that approval ownership was absent in four of ten synthetic sample briefs."
+          }
+        ]
+      }
+    ],
+    "normalized_observations": [
+      {
+        "claim_id": "CLM-001",
+        "claim_type": "observation",
+        "normalized_statement": "Three of five coordinators requested audience details after briefs reached production.",
+        "source_note_id": "NOTE-001",
+        "source_excerpt_ids": [
+          "EX-001"
+        ],
+        "source_excerpts": [
+          "Three of five synthetic coordinators said they request audience details after the brief reaches production."
+        ],
+        "declared_review_status": "approved",
+        "reviewer_rationale": "The normalized observation preserves the source count and workflow stage.",
+        "support_check": {
+          "status": "traceable",
+          "lexical_overlap_ratio": 0.7,
+          "overlap_tokens": [
+            "after",
+            "audience",
+            "coordinators",
+            "details",
+            "five",
+            "production",
+            "three"
+          ],
+          "unsupported_numbers": []
+        },
+        "effective_status": "approved_observation",
+        "eligible_for_proposed_evidence": true
+      },
+      {
+        "claim_id": "CLM-003",
+        "claim_type": "observation",
+        "normalized_statement": "Approval ownership was absent in seven of ten sample briefs.",
+        "source_note_id": "NOTE-002",
+        "source_excerpt_ids": [
+          "EX-003"
+        ],
+        "source_excerpts": [
+          "The reviewer observed that approval ownership was absent in four of ten synthetic sample briefs."
+        ],
+        "declared_review_status": "approved",
+        "reviewer_rationale": "Deliberate synthetic mismatch used to demonstrate the numeric support gate.",
+        "support_check": {
+          "status": "unsupported_numeric_claim",
+          "lexical_overlap_ratio": 0.86,
+          "overlap_tokens": [
+            "absent",
+            "approval",
+            "briefs",
+            "ownership",
+            "sample",
+            "ten"
+          ],
+          "unsupported_numbers": [
+            "7"
+          ]
+        },
+        "effective_status": "blocked_unsupported_claim",
+        "eligible_for_proposed_evidence": false
+      },
+      {
+        "claim_id": "CLM-004",
+        "claim_type": "observation",
+        "normalized_statement": "Two coordinators saved incomplete briefs outside the current tool.",
+        "source_note_id": "NOTE-001",
+        "source_excerpt_ids": [
+          "EX-002"
+        ],
+        "source_excerpts": [
+          "Two coordinators described saving incomplete briefs outside the current tool."
+        ],
+        "declared_review_status": "blocked",
+        "reviewer_rationale": "The reviewer requests a clearer definition of incomplete before evidence intake.",
+        "support_check": {
+          "status": "traceable",
+          "lexical_overlap_ratio": 0.88,
+          "overlap_tokens": [
+            "briefs",
+            "coordinators",
+            "current",
+            "incomplete",
+            "outside",
+            "tool",
+            "two"
+          ],
+          "unsupported_numbers": []
+        },
+        "effective_status": "blocked_by_reviewer",
+        "eligible_for_proposed_evidence": false
+      }
+    ],
+    "normalized_interpretations": [
+      {
+        "claim_id": "CLM-002",
+        "claim_type": "interpretation",
+        "normalized_statement": "Draft saving would eliminate all clarification loops.",
+        "source_note_id": "NOTE-001",
+        "source_excerpt_ids": [
+          "EX-002"
+        ],
+        "source_excerpts": [
+          "Two coordinators described saving incomplete briefs outside the current tool."
+        ],
+        "declared_review_status": "pending_human_review",
+        "reviewer_rationale": "",
+        "support_check": {
+          "status": "insufficient_excerpt_support",
+          "lexical_overlap_ratio": 0.14,
+          "overlap_tokens": [
+            "saving"
+          ],
+          "unsupported_numbers": []
+        },
+        "effective_status": "interpretation_requires_human_review",
+        "eligible_for_proposed_evidence": false
+      }
+    ],
+    "proposed_evidence_records": [
+      {
+        "evidence_id": "INT-EV-CLM-001",
+        "evidence_type": "interview",
+        "observed_on": "2026-08-06",
+        "summary": "Three of five coordinators requested audience details after briefs reached production.",
+        "reliability": "indicative",
+        "synthetic": true,
+        "provenance": {
+          "source_note_id": "NOTE-001",
+          "source_excerpt_ids": [
+            "EX-001"
+          ],
+          "source_claim_id": "CLM-001"
+        },
+        "register_status": "proposed_not_merged"
+      }
+    ],
+    "summary": {
+      "notes": 2,
+      "claims": 4,
+      "observations": 3,
+      "interpretations": 1,
+      "proposed_evidence_records": 1,
+      "blocked_or_pending": 3
+    },
+    "governance": {
+      "human_review_required": true,
+      "existing_evidence_register_mutated": false,
+      "prd_or_requirement_mutated": false,
+      "synthetic_public_data": true
+    }
+  },
   "requirement_change_decision_log": [
     {
       "decision_id": "DEC-REQ-001-1.0",
@@ -379,7 +564,8 @@
     "external_action_executed": false,
     "production_release_executed": false,
     "requirement_change_executed": false,
-    "change_approval_status": "pending_human_approval"
+    "change_approval_status": "pending_human_approval",
+    "interview_evidence_register_mutated": false
   },
   "trace": [
     {
@@ -397,6 +583,14 @@
     {
       "step": "classify_feedback",
       "status": "completed"
+    },
+    {
+      "step": "normalize_interview_notes",
+      "status": "completed"
+    },
+    {
+      "step": "review_interview_claims",
+      "status": "proposed_evidence_not_merged"
     },
     {
       "step": "compile_change_decision_log",
@@ -420,6 +614,8 @@
     "Scores are prioritization aids, not validated market demand or commercial outcomes.",
     "The low-fidelity flow communicates structure and behavior, not final visual design.",
     "No LLM call, production deployment or external business action is implemented.",
-    "Feedback classifications are declared human inputs; recommendations do not mutate requirements."
+    "Feedback classifications are declared human inputs; recommendations do not mutate requirements.",
+    "Interview claim normalization uses lexical and numeric checks, not semantic understanding.",
+    "Approved interview observations create proposed evidence only and do not alter the current PRD."
   ]
 }

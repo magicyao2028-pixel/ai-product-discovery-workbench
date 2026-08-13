@@ -42,4 +42,4 @@ Each included evidence-requirement pair becomes one row containing:
 - requirement ID;
 - acceptance criteria.
 
-This is a minimal traceability model. It does not yet track requirement versions or later user feedback; that remains a maintenance round.
+This is a minimal traceability model. Requirement feedback and proposed interview evidence are separate non-mutating review artifacts; neither changes the approved traceability matrix automatically.

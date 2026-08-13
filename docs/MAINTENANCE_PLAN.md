@@ -5,7 +5,7 @@ v0.1 is deliberately limited. Ten substantive rounds remain available for visibl
 | Round | Planned increment | Status |
 | --- | --- | --- |
 | M1 | Add feedback-to-requirement change history and decision logging | Complete in v0.2.0 |
-| M2 | Add structured interview-note normalization and claim review | Planned |
+| M2 | Add structured interview-note normalization and claim review | Complete in v0.3.0 |
 | M3 | Add prioritization sensitivity and alternative-scenario comparison | Planned |
 | M4 | Add configurable discovery and PRD templates | Planned |
 | M5 | Add an optional grounded model adapter with deterministic fallback | Planned |
@@ -15,6 +15,6 @@ v0.1 is deliberately limited. Ten substantive rounds remain available for visibl
 | M9 | Add observability, concurrency controls, and security evaluation | Planned |
 | M10 | Prepare a controlled synthetic pilot and evaluation report | Planned |
 
-**Current maintenance count: 1/10.**
+**Current maintenance count: 2/10.**
 
 Each round must add a user-visible capability or reliability control, include focused tests, update the sample and handoff, and preserve honest evidence boundaries.

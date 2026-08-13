@@ -11,6 +11,7 @@ Discovery JSON
   -> requirement inclusion/exclusion
   -> PRD and traceability matrix
   -> low-fidelity screen filter
+  -> interview excerpt preservation and claim support checks
   -> dated feedback aggregation
   -> pending requirement change decision log
   -> JSON + Markdown artifacts
@@ -22,13 +23,14 @@ Discovery JSON
 | Component | Responsibility |
 | --- | --- |
 | `models.py` | Parse typed artifacts and validate dates, IDs, ranges, and relationships |
+| `interview_review.py` | Separate observations and interpretations, check excerpt support, and create proposed evidence lineage |
 | `engine.py` | Rank opportunities, gate requirements, compile PRD, trace evidence, filter screens, and create non-executing feedback decisions |
 | `report.py` | Render a human-readable decision report with citations and exclusions |
 | `cli.py` | Provide a reproducible local entry point and save artifacts |
 
 ## Product and Agent boundary
 
-The repository demonstrates an AI-product delivery workflow but v0.1 is not an autonomous Agent. The trace is workflow state, not model reasoning. A future grounded model adapter must preserve deterministic gates and may draft text only from approved evidence.
+The repository demonstrates an AI-product delivery workflow but v0.3 is not an autonomous Agent. The trace is workflow state, not model reasoning. A future grounded model adapter must preserve deterministic gates and may draft text only from approved evidence.
 
 ## Data and action boundary
 
@@ -40,6 +42,9 @@ The repository demonstrates an AI-product delivery workflow but v0.1 is not an a
 - feedback must cite declared requirement and evidence IDs and cannot be future-dated;
 - a recommendation can propose the next minor version, but `requirement_change_executed` remains `false`;
 - the current PRD is compiled before feedback recommendations and is never mutated by them.
+- interview notes require synthetic disclosure and consent, and raw excerpts remain visible;
+- interpretations and unsupported observations cannot produce proposed evidence;
+- proposed interview evidence remains separate from the current discovery evidence and PRD.
 
 ## Production gaps
 

@@ -189,6 +189,80 @@ class DiscoveryWorkbenchTests(unittest.TestCase):
         self.assertIn("Requirement change executed: no", markdown)
         self.assertIn("synthetic portfolio examples", markdown)
 
+    def test_interview_review_preserves_raw_note_excerpts(self):
+        result = DiscoveryWorkbench().build(load_packet(SAMPLE))
+        note = result["interview_claim_review"]["raw_notes"][0]
+        self.assertEqual(note["note_id"], "NOTE-001")
+        self.assertEqual(
+            note["excerpts"][0]["text"],
+            "Three of five synthetic coordinators said they request audience details after the brief reaches production.",
+        )
+
+    def test_interview_observations_and_interpretations_are_separate(self):
+        review = DiscoveryWorkbench().build(load_packet(SAMPLE))["interview_claim_review"]
+        self.assertEqual(review["summary"]["observations"], 3)
+        self.assertEqual(review["summary"]["interpretations"], 1)
+        self.assertTrue(all(item["claim_type"] == "observation" for item in review["normalized_observations"]))
+        self.assertTrue(all(item["claim_type"] == "interpretation" for item in review["normalized_interpretations"]))
+
+    def test_unsupported_numeric_claim_is_blocked_even_if_declared_approved(self):
+        review = DiscoveryWorkbench().build(load_packet(SAMPLE))["interview_claim_review"]
+        claim = next(item for item in review["normalized_observations"] if item["claim_id"] == "CLM-003")
+        self.assertEqual(claim["declared_review_status"], "approved")
+        self.assertEqual(claim["support_check"]["status"], "unsupported_numeric_claim")
+        self.assertEqual(claim["support_check"]["unsupported_numbers"], ["7"])
+        self.assertEqual(claim["effective_status"], "blocked_unsupported_claim")
+        self.assertFalse(claim["eligible_for_proposed_evidence"])
+
+    def test_grounded_approved_observation_creates_provenance_record(self):
+        review = DiscoveryWorkbench().build(load_packet(SAMPLE))["interview_claim_review"]
+        self.assertEqual(review["summary"]["proposed_evidence_records"], 1)
+        evidence = review["proposed_evidence_records"][0]
+        self.assertEqual(evidence["provenance"]["source_note_id"], "NOTE-001")
+        self.assertEqual(evidence["provenance"]["source_excerpt_ids"], ["EX-001"])
+        self.assertEqual(evidence["register_status"], "proposed_not_merged")
+
+    def test_interview_evidence_does_not_mutate_current_prd(self):
+        result = DiscoveryWorkbench().build(load_packet(SAMPLE))
+        self.assertEqual(result["discovery"]["evidence_count"], 4)
+        self.assertEqual(len(result["prd"]["requirements"]), 2)
+        self.assertFalse(result["governance"]["interview_evidence_register_mutated"])
+        self.assertFalse(result["interview_claim_review"]["governance"]["prd_or_requirement_mutated"])
+
+    def test_interpretation_cannot_be_promoted_when_declared_approved(self):
+        payload = sample_payload()
+        claim = next(item for item in payload["interview_claims"] if item["claim_id"] == "CLM-002")
+        claim.update({"review_status": "approved", "reviewer_rationale": "Boundary test."})
+        review = DiscoveryWorkbench().build(DiscoveryPacket.from_mapping(payload))["interview_claim_review"]
+        item = review["normalized_interpretations"][0]
+        self.assertEqual(item["effective_status"], "interpretation_requires_human_review")
+        self.assertFalse(item["eligible_for_proposed_evidence"])
+
+    def test_rejects_interview_claim_excerpt_from_another_note(self):
+        payload = sample_payload()
+        payload["interview_claims"][0]["source_excerpt_ids"] = ["EX-003"]
+        with self.assertRaisesRegex(ValueError, "belong to its source note"):
+            DiscoveryPacket.from_mapping(payload)
+
+    def test_rejects_interview_note_without_consent(self):
+        payload = sample_payload()
+        payload["interview_notes"][0]["consent_for_analysis"] = False
+        with self.assertRaisesRegex(ValueError, "consent_for_analysis"):
+            DiscoveryPacket.from_mapping(payload)
+
+    def test_rejects_future_interview_note(self):
+        payload = sample_payload()
+        payload["interview_notes"][0]["observed_on"] = "2026-08-11"
+        with self.assertRaisesRegex(ValueError, "interview note observed_on"):
+            DiscoveryPacket.from_mapping(payload)
+
+    def test_markdown_contains_interview_claim_lineage(self):
+        markdown = render_markdown(DiscoveryWorkbench().build(load_packet(SAMPLE)))
+        self.assertIn("## Interview claim review", markdown)
+        self.assertIn("CLM-001", markdown)
+        self.assertIn("NOTE-001", markdown)
+        self.assertIn("existing evidence register mutated: no", markdown)
+
 
 if __name__ == "__main__":
     unittest.main()

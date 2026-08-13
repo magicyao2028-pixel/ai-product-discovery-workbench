@@ -34,6 +34,14 @@
 - **DEC-REQ-002-1.0**: REQ-002 v1.0 -> v1.0; recommendation `retain`; [FB-003] [E-003]; approval pending; change executed: no.
 - **DEC-REQ-003-1.0**: REQ-003 v1.0 -> v1.0; recommendation `no_change_excluded_requirement`; [FB-004] [E-004]; approval pending; change executed: no.
 
+## Interview claim review
+
+- **CLM-001 - observation**: Three of five coordinators requested audience details after briefs reached production. Status `approved_observation`; note [NOTE-001] [EX-001].
+- **CLM-003 - observation**: Approval ownership was absent in seven of ten sample briefs. Status `blocked_unsupported_claim`; note [NOTE-002] [EX-003].
+- **CLM-004 - observation**: Two coordinators saved incomplete briefs outside the current tool. Status `blocked_by_reviewer`; note [NOTE-001] [EX-002].
+- **CLM-002 - interpretation**: Draft saving would eliminate all clarification loops. Status `interpretation_requires_human_review`; note [NOTE-001] [EX-002].
+- Proposed evidence records: 1; existing evidence register mutated: no.
+
 ## Governance
 
 - Decision owner: Product Manager
@@ -41,6 +49,7 @@
 - External action executed: no
 - Production release executed: no
 - Requirement change executed: no
+- Interview evidence register mutated: no
 - Change approval status: pending human approval
 
 _All research evidence, product details and outputs are synthetic portfolio examples._

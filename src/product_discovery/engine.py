@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Any
 
 from .models import DiscoveryPacket, Opportunity, Requirement
+from .interview_review import build_interview_claim_review
 
 
 class DiscoveryWorkbench:
@@ -22,6 +23,7 @@ class DiscoveryWorkbench:
         included = [item for item in requirement_reviews if item["status"] == "included"]
         included_ids = {item["requirement_id"] for item in included}
         change_decision_log = self._change_decision_log(packet, included_ids)
+        interview_claim_review = build_interview_claim_review(packet)
         selected = next(
             (item for item in packet.opportunities if item.opportunity_id == selected_id), None
         )
@@ -40,6 +42,7 @@ class DiscoveryWorkbench:
             "prd": self._build_prd(packet, selected, included),
             "requirement_review": requirement_reviews,
             "feedback_review": self._feedback_review(packet),
+            "interview_claim_review": interview_claim_review,
             "requirement_change_decision_log": change_decision_log,
             "traceability_matrix": self._traceability(included, evidence_by_id),
             "low_fidelity_prototype": self._prototype(packet, included_ids),
@@ -50,12 +53,18 @@ class DiscoveryWorkbench:
                 "production_release_executed": False,
                 "requirement_change_executed": False,
                 "change_approval_status": "pending_human_approval",
+                "interview_evidence_register_mutated": False,
             },
             "trace": [
                 {"step": "validate_discovery_packet", "status": "completed"},
                 {"step": "rank_opportunities", "status": "completed"},
                 {"step": "gate_requirements", "status": "completed"},
                 {"step": "classify_feedback", "status": "completed"},
+                {"step": "normalize_interview_notes", "status": "completed"},
+                {
+                    "step": "review_interview_claims",
+                    "status": "proposed_evidence_not_merged",
+                },
                 {"step": "compile_change_decision_log", "status": "completed"},
                 {"step": "compile_prd", "status": "completed" if selected and included else "blocked"},
                 {"step": "map_low_fidelity_flow", "status": "completed"},
@@ -67,6 +76,8 @@ class DiscoveryWorkbench:
                 "The low-fidelity flow communicates structure and behavior, not final visual design.",
                 "No LLM call, production deployment or external business action is implemented.",
                 "Feedback classifications are declared human inputs; recommendations do not mutate requirements.",
+                "Interview claim normalization uses lexical and numeric checks, not semantic understanding.",
+                "Approved interview observations create proposed evidence only and do not alter the current PRD.",
             ],
         }
 

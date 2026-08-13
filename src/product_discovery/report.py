@@ -61,6 +61,18 @@ def render_markdown(result: dict[str, Any]) -> str:
             f"recommendation `{item['recommendation']}`; {feedback} {evidence}; "
             "approval pending; change executed: no."
         )
+    interview = result["interview_claim_review"]
+    lines.extend(["", "## Interview claim review", ""])
+    for item in interview["normalized_observations"] + interview["normalized_interpretations"]:
+        excerpts = " ".join(f"[{source}]" for source in item["source_excerpt_ids"])
+        lines.append(
+            f"- **{item['claim_id']} - {item['claim_type']}**: {item['normalized_statement']} "
+            f"Status `{item['effective_status']}`; note [{item['source_note_id']}] {excerpts}."
+        )
+    lines.append(
+        f"- Proposed evidence records: {interview['summary']['proposed_evidence_records']}; "
+        "existing evidence register mutated: no."
+    )
     lines.extend([
         "",
         "## Governance",
@@ -70,6 +82,7 @@ def render_markdown(result: dict[str, Any]) -> str:
         "- External action executed: no",
         "- Production release executed: no",
         "- Requirement change executed: no",
+        "- Interview evidence register mutated: no",
         "- Change approval status: pending human approval",
         "",
         "_All research evidence, product details and outputs are synthetic portfolio examples._",

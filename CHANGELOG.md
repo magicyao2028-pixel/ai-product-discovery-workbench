@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.0 - 2026-08-13
+
+- Added consented synthetic interview notes with stable note and excerpt lineage.
+- Added normalized observation and interpretation review as separate output collections.
+- Added lexical-overlap and numeric-support checks that block unsupported observation claims.
+- Added provenance-rich proposed evidence records without mutating current discovery evidence or the PRD.
+- Expanded the offline suite from 23 to 33 tests and updated the report and public demo.
+
 ## 0.2.0 - 2026-08-10
 
 - Added dated synthetic feedback linked to stable, versioned requirement IDs and declared evidence.

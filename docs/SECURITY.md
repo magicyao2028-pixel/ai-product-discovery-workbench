@@ -6,6 +6,9 @@
 - Every public evidence record must explicitly be synthetic.
 - No customer identifier, interview recording, confidential document, API token, or production credential is required.
 - No external action or production release is implemented.
+- Synthetic interview notes require explicit consent before normalization.
+- Proposed evidence preserves note/excerpt provenance and is never merged automatically.
+- Numeric mismatches and weak excerpt support block observation promotion.
 
 ## Safe-use rules
 

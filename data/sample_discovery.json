@@ -141,6 +141,76 @@
       "synthetic": true
     }
   ],
+  "interview_notes": [
+    {
+      "note_id": "NOTE-001",
+      "observed_on": "2026-08-06",
+      "participant_role": "Synthetic Marketing Coordinator",
+      "synthetic": true,
+      "consent_for_analysis": true,
+      "excerpts": [
+        {
+          "excerpt_id": "EX-001",
+          "text": "Three of five synthetic coordinators said they request audience details after the brief reaches production."
+        },
+        {
+          "excerpt_id": "EX-002",
+          "text": "Two coordinators described saving incomplete briefs outside the current tool."
+        }
+      ]
+    },
+    {
+      "note_id": "NOTE-002",
+      "observed_on": "2026-08-07",
+      "participant_role": "Synthetic Workflow Reviewer",
+      "synthetic": true,
+      "consent_for_analysis": true,
+      "excerpts": [
+        {
+          "excerpt_id": "EX-003",
+          "text": "The reviewer observed that approval ownership was absent in four of ten synthetic sample briefs."
+        }
+      ]
+    }
+  ],
+  "interview_claims": [
+    {
+      "claim_id": "CLM-001",
+      "note_id": "NOTE-001",
+      "source_excerpt_ids": ["EX-001"],
+      "claim_type": "observation",
+      "normalized_statement": "Three of five coordinators requested audience details after briefs reached production.",
+      "review_status": "approved",
+      "reviewer_rationale": "The normalized observation preserves the source count and workflow stage."
+    },
+    {
+      "claim_id": "CLM-002",
+      "note_id": "NOTE-001",
+      "source_excerpt_ids": ["EX-002"],
+      "claim_type": "interpretation",
+      "normalized_statement": "Draft saving would eliminate all clarification loops.",
+      "review_status": "pending_human_review",
+      "reviewer_rationale": ""
+    },
+    {
+      "claim_id": "CLM-003",
+      "note_id": "NOTE-002",
+      "source_excerpt_ids": ["EX-003"],
+      "claim_type": "observation",
+      "normalized_statement": "Approval ownership was absent in seven of ten sample briefs.",
+      "review_status": "approved",
+      "reviewer_rationale": "Deliberate synthetic mismatch used to demonstrate the numeric support gate."
+    },
+    {
+      "claim_id": "CLM-004",
+      "note_id": "NOTE-001",
+      "source_excerpt_ids": ["EX-002"],
+      "claim_type": "observation",
+      "normalized_statement": "Two coordinators saved incomplete briefs outside the current tool.",
+      "review_status": "blocked",
+      "reviewer_rationale": "The reviewer requests a clearer definition of incomplete before evidence intake."
+    }
+  ],
   "prototype_screens": [
     {
       "screen_id": "SCREEN-01",
