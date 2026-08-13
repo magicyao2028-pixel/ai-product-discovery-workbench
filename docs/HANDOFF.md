@@ -31,7 +31,7 @@ M3: add prioritization sensitivity and alternative-scenario comparison. Preserve
 - interpretations remain outside evidence promotion;
 - one grounded approved observation generates a proposed record citing note and excerpt IDs;
 - proposed records do not mutate current evidence, opportunity scores, requirements, or the PRD;
-- 33 offline tests pass.
+- 35 offline tests pass, including exact raw-text preservation and number-unit drift regression cases.
 
 ## Completion gate for M3
 

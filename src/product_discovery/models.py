@@ -135,7 +135,7 @@ class InterviewExcerpt:
     def from_mapping(cls, value: dict[str, Any]) -> "InterviewExcerpt":
         return cls(
             excerpt_id=_required(value, "excerpt_id"),
-            text=" ".join(_required(value, "text").split()),
+            text=_required_raw(value, "text"),
         )
 
 
@@ -279,6 +279,13 @@ def load_packet(path: Path) -> DiscoveryPacket:
 def _required(value: dict[str, Any], field: str) -> str:
     result = str(value.get(field, "")).strip()
     if not result:
+        raise ValueError(f"{field} must not be blank")
+    return result
+
+
+def _required_raw(value: dict[str, Any], field: str) -> str:
+    result = str(value.get(field, ""))
+    if not result.strip():
         raise ValueError(f"{field} must not be blank")
     return result
 

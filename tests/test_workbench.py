@@ -198,6 +198,15 @@ class DiscoveryWorkbenchTests(unittest.TestCase):
             "Three of five synthetic coordinators said they request audience details after the brief reaches production.",
         )
 
+    def test_interview_excerpt_preserves_spacing_and_newlines_exactly(self):
+        payload = sample_payload()
+        raw = "  exact   spacing\nkept  "
+        payload["interview_notes"][0]["excerpts"][0]["text"] = raw
+        packet = DiscoveryPacket.from_mapping(payload)
+        self.assertEqual(packet.interview_notes[0].excerpts[0].text, raw)
+        review = DiscoveryWorkbench().build(packet)["interview_claim_review"]
+        self.assertEqual(review["raw_notes"][0]["excerpts"][0]["text"], raw)
+
     def test_interview_observations_and_interpretations_are_separate(self):
         review = DiscoveryWorkbench().build(load_packet(SAMPLE))["interview_claim_review"]
         self.assertEqual(review["summary"]["observations"], 3)
@@ -213,6 +222,25 @@ class DiscoveryWorkbenchTests(unittest.TestCase):
         self.assertEqual(claim["support_check"]["unsupported_numbers"], ["7"])
         self.assertEqual(claim["effective_status"], "blocked_unsupported_claim")
         self.assertFalse(claim["eligible_for_proposed_evidence"])
+
+    def test_same_number_with_different_unit_is_blocked(self):
+        payload = sample_payload()
+        payload["interview_notes"][0]["excerpts"][0]["text"] = (
+            "Three analysts spend 10 minutes reviewing each synthetic brief."
+        )
+        claim = next(item for item in payload["interview_claims"] if item["claim_id"] == "CLM-001")
+        claim["normalized_statement"] = "Three analysts spend 10 days reviewing each synthetic brief."
+        result = DiscoveryWorkbench().build(DiscoveryPacket.from_mapping(payload))
+        item = next(
+            row for row in result["interview_claim_review"]["normalized_observations"]
+            if row["claim_id"] == "CLM-001"
+        )
+        self.assertEqual(item["support_check"]["status"], "unsupported_numeric_unit_claim")
+        self.assertEqual(
+            item["support_check"]["unsupported_number_units"],
+            [{"number": "10", "unit": "day"}],
+        )
+        self.assertEqual(item["effective_status"], "blocked_unsupported_claim")
 
     def test_grounded_approved_observation_creates_provenance_record(self):
         review = DiscoveryWorkbench().build(load_packet(SAMPLE))["interview_claim_review"]

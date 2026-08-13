@@ -12,6 +12,13 @@ NUMBER_WORDS = {
     "zero": "0", "one": "1", "two": "2", "three": "3", "four": "4", "five": "5",
     "six": "6", "seven": "7", "eight": "8", "nine": "9", "ten": "10",
 }
+UNIT_ALIASES = {
+    "minute": "minute", "minutes": "minute", "min": "minute", "mins": "minute",
+    "hour": "hour", "hours": "hour", "hr": "hour", "hrs": "hour",
+    "day": "day", "days": "day", "week": "week", "weeks": "week",
+    "month": "month", "months": "month", "percent": "percent", "percentage": "percent",
+    "usd": "usd", "dollar": "usd", "dollars": "usd", "cny": "cny", "yuan": "cny",
+}
 STOPWORDS = {
     "a", "an", "and", "are", "as", "at", "be", "before", "by", "for", "from", "in",
     "is", "it", "of", "on", "or", "that", "the", "their", "this", "to", "was", "were",
@@ -108,12 +115,17 @@ def _support_check(statement: str, source_text: str) -> dict[str, Any]:
     claim_numbers = _numbers(statement)
     source_numbers = _numbers(source_text)
     unsupported_numbers = sorted(claim_numbers - source_numbers)
+    claim_number_units = _number_unit_pairs(statement)
+    source_number_units = _number_unit_pairs(source_text)
+    unsupported_number_units = sorted(claim_number_units - source_number_units)
     claim_tokens = _meaningful_tokens(statement)
     source_tokens = _meaningful_tokens(source_text)
     overlap = claim_tokens & source_tokens
     overlap_ratio = round(len(overlap) / max(len(claim_tokens), 1), 2)
     if unsupported_numbers:
         status = "unsupported_numeric_claim"
+    elif unsupported_number_units:
+        status = "unsupported_numeric_unit_claim"
     elif overlap_ratio < 0.3:
         status = "insufficient_excerpt_support"
     else:
@@ -123,6 +135,9 @@ def _support_check(statement: str, source_text: str) -> dict[str, Any]:
         "lexical_overlap_ratio": overlap_ratio,
         "overlap_tokens": sorted(overlap),
         "unsupported_numbers": unsupported_numbers,
+        "unsupported_number_units": [
+            {"number": number, "unit": unit} for number, unit in unsupported_number_units
+        ],
     }
 
 
@@ -133,3 +148,14 @@ def _meaningful_tokens(value: str) -> set[str]:
 def _numbers(value: str) -> set[str]:
     tokens = TOKEN_PATTERN.findall(value.casefold())
     return set(NUMBER_PATTERN.findall(value)) | {NUMBER_WORDS[token] for token in tokens if token in NUMBER_WORDS}
+
+
+def _number_unit_pairs(value: str) -> set[tuple[str, str]]:
+    tokens = TOKEN_PATTERN.findall(value.casefold().replace("%", " percent"))
+    pairs: set[tuple[str, str]] = set()
+    for index, token in enumerate(tokens[:-1]):
+        number = NUMBER_WORDS.get(token, token if NUMBER_PATTERN.fullmatch(token) else None)
+        unit = UNIT_ALIASES.get(tokens[index + 1])
+        if number is not None and unit is not None:
+            pairs.add((number, unit))
+    return pairs
