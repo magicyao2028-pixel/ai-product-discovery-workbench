@@ -26,6 +26,22 @@
         "exclusion_reasons": []
       },
       {
+        "opportunity_id": "OPP-003",
+        "title": "Add a governed incomplete-brief draft",
+        "score": 19.5,
+        "formula": "impact * confidence * 10 / effort",
+        "evidence_ids": [
+          "E-001",
+          "E-002"
+        ],
+        "evidence_types": [
+          "interview",
+          "workflow_audit"
+        ],
+        "eligible": true,
+        "exclusion_reasons": []
+      },
+      {
         "opportunity_id": "OPP-002",
         "title": "Publish campaigns automatically",
         "score": 2.4,
@@ -45,6 +61,183 @@
       }
     ],
     "selected_opportunity_id": "OPP-001"
+  },
+  "prioritization_sensitivity": {
+    "status": "comparison_ready",
+    "scenario_count": 3,
+    "winner_changes_across_scenarios": true,
+    "selected_opportunity_ids": [
+      "OPP-001",
+      "OPP-001",
+      "OPP-003"
+    ],
+    "scenarios": [
+      {
+        "scenario_id": "baseline",
+        "label": "Baseline ICE policy",
+        "formula": "impact^a * confidence^b * 10 / effort^c",
+        "exponents": {
+          "impact_exponent": 1.0,
+          "confidence_exponent": 1.0,
+          "effort_exponent": 1.0
+        },
+        "selected_opportunity_id": "OPP-001",
+        "ranking": [
+          {
+            "opportunity_id": "OPP-001",
+            "title": "Standardize campaign intake before production",
+            "score": 20.0,
+            "eligible": true,
+            "exclusion_reasons": [],
+            "evidence_ids": [
+              "E-001",
+              "E-002",
+              "E-003"
+            ],
+            "rank": 1
+          },
+          {
+            "opportunity_id": "OPP-003",
+            "title": "Add a governed incomplete-brief draft",
+            "score": 19.5,
+            "eligible": true,
+            "exclusion_reasons": [],
+            "evidence_ids": [
+              "E-001",
+              "E-002"
+            ],
+            "rank": 2
+          },
+          {
+            "opportunity_id": "OPP-002",
+            "title": "Publish campaigns automatically",
+            "score": 2.4,
+            "eligible": false,
+            "exclusion_reasons": [
+              "fewer_than_two_evidence_items",
+              "single_evidence_type",
+              "confidence_below_threshold"
+            ],
+            "evidence_ids": [
+              "E-004"
+            ],
+            "rank": 3
+          }
+        ]
+      },
+      {
+        "scenario_id": "confidence-first",
+        "label": "Confidence-first review",
+        "formula": "impact^a * confidence^b * 10 / effort^c",
+        "exponents": {
+          "impact_exponent": 1.0,
+          "confidence_exponent": 2.0,
+          "effort_exponent": 1.0
+        },
+        "selected_opportunity_id": "OPP-001",
+        "ranking": [
+          {
+            "opportunity_id": "OPP-001",
+            "title": "Standardize campaign intake before production",
+            "score": 16.0,
+            "eligible": true,
+            "exclusion_reasons": [],
+            "evidence_ids": [
+              "E-001",
+              "E-002",
+              "E-003"
+            ],
+            "rank": 1
+          },
+          {
+            "opportunity_id": "OPP-003",
+            "title": "Add a governed incomplete-brief draft",
+            "score": 12.68,
+            "eligible": true,
+            "exclusion_reasons": [],
+            "evidence_ids": [
+              "E-001",
+              "E-002"
+            ],
+            "rank": 2
+          },
+          {
+            "opportunity_id": "OPP-002",
+            "title": "Publish campaigns automatically",
+            "score": 0.72,
+            "eligible": false,
+            "exclusion_reasons": [
+              "fewer_than_two_evidence_items",
+              "single_evidence_type",
+              "confidence_below_threshold"
+            ],
+            "evidence_ids": [
+              "E-004"
+            ],
+            "rank": 3
+          }
+        ]
+      },
+      {
+        "scenario_id": "speed-first",
+        "label": "Effort-sensitive review",
+        "formula": "impact^a * confidence^b * 10 / effort^c",
+        "exponents": {
+          "impact_exponent": 1.0,
+          "confidence_exponent": 1.0,
+          "effort_exponent": 2.0
+        },
+        "selected_opportunity_id": "OPP-003",
+        "ranking": [
+          {
+            "opportunity_id": "OPP-003",
+            "title": "Add a governed incomplete-brief draft",
+            "score": 19.5,
+            "eligible": true,
+            "exclusion_reasons": [],
+            "evidence_ids": [
+              "E-001",
+              "E-002"
+            ],
+            "rank": 1
+          },
+          {
+            "opportunity_id": "OPP-001",
+            "title": "Standardize campaign intake before production",
+            "score": 10.0,
+            "eligible": true,
+            "exclusion_reasons": [],
+            "evidence_ids": [
+              "E-001",
+              "E-002",
+              "E-003"
+            ],
+            "rank": 2
+          },
+          {
+            "opportunity_id": "OPP-002",
+            "title": "Publish campaigns automatically",
+            "score": 0.48,
+            "eligible": false,
+            "exclusion_reasons": [
+              "fewer_than_two_evidence_items",
+              "single_evidence_type",
+              "confidence_below_threshold"
+            ],
+            "evidence_ids": [
+              "E-004"
+            ],
+            "rank": 3
+          }
+        ]
+      }
+    ],
+    "governance": {
+      "eligibility_gates_unchanged": true,
+      "existing_evidence_register_mutated": false,
+      "current_prd_mutated": false,
+      "human_decision_required": true
+    }
   },
   "prd": {
     "title": "AI Campaign Brief Assistant",
@@ -581,6 +774,10 @@
       "status": "completed"
     },
     {
+      "step": "compare_priority_scenarios",
+      "status": "current_prd_not_mutated"
+    },
+    {
       "step": "gate_requirements",
       "status": "completed"
     },
@@ -616,6 +813,7 @@
   "limitations": [
     "All discovery evidence and product details are synthetic.",
     "Scores are prioritization aids, not validated market demand or commercial outcomes.",
+    "Scenario weights are declared assumptions; rank changes do not validate an opportunity.",
     "The low-fidelity flow communicates structure and behavior, not final visual design.",
     "No LLM call, production deployment or external business action is implemented.",
     "Feedback classifications are declared human inputs; recommendations do not mutate requirements.",

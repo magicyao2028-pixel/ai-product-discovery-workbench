@@ -21,6 +21,20 @@ def render_markdown(result: dict[str, Any]) -> str:
             f"- **{item['opportunity_id']} - {item['title']}**: {item['score']:.2f} "
             f"({eligibility}) {citations}"
         )
+    sensitivity = result["prioritization_sensitivity"]
+    lines.extend(["", "## Prioritization sensitivity", ""])
+    for scenario in sensitivity["scenarios"]:
+        ranking = " > ".join(
+            f"{item['opportunity_id']} ({item['score']:.2f})" for item in scenario["ranking"]
+        )
+        lines.append(
+            f"- **{scenario['scenario_id']}**: selected {scenario['selected_opportunity_id']}; "
+            f"ranking {ranking}."
+        )
+    lines.append(
+        f"- Winner changes across scenarios: {'yes' if sensitivity['winner_changes_across_scenarios'] else 'no'}; "
+        "current PRD mutated: no."
+    )
     if result["prd"]:
         lines.extend([
             "",

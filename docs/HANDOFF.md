@@ -2,8 +2,8 @@
 
 ## Current state
 
-- Release: v0.3.0
-- Maintenance rounds completed: 2/10
+- Release: v0.4.0
+- Maintenance rounds completed: 3/10
 - Runtime: offline Python 3.10+, no runtime dependencies
 - Data: synthetic only
 - Model calls: none
@@ -15,15 +15,16 @@
 python -m pip install -e .
 python -m unittest discover -s tests -v
 python -m product_discovery.cli data/sample_discovery.json \
+  --scenario-config data/sample_priority_scenarios.json \
   --json-output examples/discovery_review.json \
   --markdown-output examples/discovery_review.md
 ```
 
 ## Next authorized maintenance round
 
-M3: add prioritization sensitivity and alternative-scenario comparison. Preserve interview lineage, unsupported-claim blocking, existing evidence gates, and the non-executing PRD boundary. Do not add an LLM, database, or external integration in M3.
+M4: add configurable discovery and PRD templates. Preserve scenario transparency, interview lineage, unsupported-claim blocking, existing evidence gates, and the non-executing PRD boundary.
 
-## M2 evidence
+## M3 evidence
 
 - raw synthetic note IDs and excerpts remain visible;
 - normalized observations and interpretations are clearly separated;
@@ -31,12 +32,13 @@ M3: add prioritization sensitivity and alternative-scenario comparison. Preserve
 - interpretations remain outside evidence promotion;
 - one grounded approved observation generates a proposed record citing note and excerpt IDs;
 - proposed records do not mutate current evidence, opportunity scores, requirements, or the PRD;
-- 35 offline tests pass, including exact raw-text preservation and number-unit drift regression cases.
+- 41 offline tests pass, including scenario validation, exact raw-text preservation and number-unit drift regression cases.
+- named baseline, confidence-first, and effort-sensitive scenarios use validated explicit exponents;
+- the synthetic alternative winner is visible while evidence eligibility remains unchanged;
+- sensitivity output states that the current PRD and evidence register were not mutated.
 
-## Completion gate for M3
+## Completion gate for M4
 
-- baseline and alternative scoring scenarios are explicit and deterministic;
-- rank sensitivity is visible without claiming market validation;
+- templates remain traceable to the same evidence and requirement IDs;
 - current PRD and requirements remain unchanged until human approval;
-- old and new tests pass;
-- maintenance count advances to 3/10 only after publication is verified.
+- old and new tests pass and maintenance advances only after publication is verified.

@@ -1,0 +1,23 @@
+[
+  {
+    "scenario_id": "baseline",
+    "label": "Baseline ICE policy",
+    "impact_exponent": 1,
+    "confidence_exponent": 1,
+    "effort_exponent": 1
+  },
+  {
+    "scenario_id": "confidence-first",
+    "label": "Confidence-first review",
+    "impact_exponent": 1,
+    "confidence_exponent": 2,
+    "effort_exponent": 1
+  },
+  {
+    "scenario_id": "speed-first",
+    "label": "Effort-sensitive review",
+    "impact_exponent": 1,
+    "confidence_exponent": 1,
+    "effort_exponent": 2
+  }
+]

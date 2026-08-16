@@ -1,12 +1,21 @@
 import json
+import tempfile
 import unittest
 from pathlib import Path
 
-from product_discovery import DiscoveryPacket, DiscoveryWorkbench, load_packet, render_markdown
+from product_discovery import (
+    DiscoveryPacket,
+    DiscoveryWorkbench,
+    PriorityScenario,
+    load_packet,
+    load_priority_scenarios,
+    render_markdown,
+)
 
 
 ROOT = Path(__file__).parents[1]
 SAMPLE = ROOT / "data" / "sample_discovery.json"
+SCENARIOS = ROOT / "data" / "sample_priority_scenarios.json"
 
 
 def sample_payload() -> dict:
@@ -26,6 +35,55 @@ class DiscoveryWorkbenchTests(unittest.TestCase):
         self.assertEqual(ranking[0]["opportunity_id"], "OPP-001")
         self.assertEqual(ranking[0]["score"], 20.0)
         self.assertEqual(ranking[0]["formula"], "impact * confidence * 10 / effort")
+
+    def test_sensitivity_exposes_an_alternative_winner(self):
+        result = DiscoveryWorkbench().build(load_packet(SAMPLE), load_priority_scenarios(SCENARIOS))
+        sensitivity = result["prioritization_sensitivity"]
+        self.assertTrue(sensitivity["winner_changes_across_scenarios"])
+        self.assertEqual(
+            sensitivity["selected_opportunity_ids"],
+            ["OPP-001", "OPP-001", "OPP-003"],
+        )
+
+    def test_sensitivity_does_not_mutate_current_prd_or_evidence(self):
+        result = DiscoveryWorkbench().build(load_packet(SAMPLE), load_priority_scenarios(SCENARIOS))
+        self.assertEqual(result["discovery"]["selected_opportunity_id"], "OPP-001")
+        self.assertEqual(result["prd"]["problem_statement"], sample_payload()["opportunities"][0]["problem_statement"])
+        self.assertFalse(result["prioritization_sensitivity"]["governance"]["current_prd_mutated"])
+        self.assertFalse(
+            result["prioritization_sensitivity"]["governance"]["existing_evidence_register_mutated"]
+        )
+
+    def test_ineligible_opportunity_stays_ineligible_in_every_scenario(self):
+        sensitivity = DiscoveryWorkbench().build(load_packet(SAMPLE))["prioritization_sensitivity"]
+        for scenario in sensitivity["scenarios"]:
+            item = next(row for row in scenario["ranking"] if row["opportunity_id"] == "OPP-002")
+            self.assertFalse(item["eligible"])
+            self.assertNotEqual(scenario["selected_opportunity_id"], "OPP-002")
+
+    def test_priority_scenario_rejects_non_finite_or_extreme_exponents(self):
+        with self.assertRaisesRegex(ValueError, "finite and between"):
+            PriorityScenario.from_mapping({
+                "scenario_id": "bad",
+                "label": "Bad scenario",
+                "impact_exponent": 1,
+                "confidence_exponent": "NaN",
+                "effort_exponent": 1,
+            })
+
+    def test_priority_scenario_file_requires_unique_ids(self):
+        payload = json.loads(SCENARIOS.read_text(encoding="utf-8"))
+        payload[1]["scenario_id"] = payload[0]["scenario_id"]
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "duplicate.json"
+            path.write_text(json.dumps(payload), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "unique"):
+                load_priority_scenarios(path)
+
+    def test_comparison_requires_at_least_two_scenarios(self):
+        one = PriorityScenario("only", "Only scenario", 1, 1, 1)
+        with self.assertRaisesRegex(ValueError, "At least two"):
+            DiscoveryWorkbench().build(load_packet(SAMPLE), (one,))
 
     def test_single_source_opportunity_is_ineligible(self):
         result = DiscoveryWorkbench().build(load_packet(SAMPLE))
@@ -188,6 +246,8 @@ class DiscoveryWorkbenchTests(unittest.TestCase):
         self.assertIn("[FB-002]", markdown)
         self.assertIn("Requirement change executed: no", markdown)
         self.assertIn("synthetic portfolio examples", markdown)
+        self.assertIn("## Prioritization sensitivity", markdown)
+        self.assertIn("current PRD mutated: no", markdown)
 
     def test_interview_review_preserves_raw_note_excerpts(self):
         result = DiscoveryWorkbench().build(load_packet(SAMPLE))

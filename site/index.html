@@ -17,7 +17,7 @@
 <body>
   <main>
     <header>
-      <p class="eyebrow">Evidence before features · Offline v0.3</p>
+      <p class="eyebrow">Evidence before features · Offline v0.4</p>
       <h1>AI Product Discovery Workbench</h1>
       <p class="lead">A traceable path from synthetic discovery evidence to opportunity choice, requirements, acceptance criteria, and a low-fidelity product flow.</p>
       <div class="notice"><strong>Portfolio disclosure:</strong> every interview, workflow observation, product detail, and result shown here is synthetic.</div>
@@ -36,13 +36,32 @@
           <div><span class="tag warn">Excluded</span><span class="score">2.40</span></div>
           <h3>Publish campaigns automatically</h3>
           <p>Only one stakeholder request; confidence below threshold.</p>
-          <small>No external action enters the v0.3 PRD.</small>
+          <small>No external action enters the v0.4 PRD.</small>
         </article>
       </div>
     </section>
 
     <section>
-      <div class="section-head"><p>02</p><h2>Evidence-to-requirement trace</h2></div>
+      <div class="section-head"><p>02</p><h2>Prioritization sensitivity</h2></div>
+      <div class="decisions">
+        <article>
+          <span>BASELINE + CONFIDENCE-FIRST</span>
+          <h3>OPP-001 remains selected</h3>
+          <p>The existing ICE policy scores OPP-001 at 20.00 versus OPP-003 at 19.50. Increasing the confidence exponent keeps OPP-001 first.</p>
+          <small>Same evidence and eligibility gates · PRD mutated: no</small>
+        </article>
+        <article class="review">
+          <span>EFFORT-SENSITIVE ALTERNATIVE</span>
+          <h3>OPP-003 becomes the review candidate</h3>
+          <p>Increasing the effort exponent moves the lower-effort governed draft opportunity above OPP-001.</p>
+          <small>Rank sensitivity only · not market validation · current PRD mutated: no</small>
+        </article>
+      </div>
+      <p class="caption">Alternative winners expose dependence on declared assumptions. They do not rewrite evidence, requirements, or the current PRD.</p>
+    </section>
+
+    <section>
+      <div class="section-head"><p>03</p><h2>Evidence-to-requirement trace</h2></div>
       <div class="trace">
         <div class="node evidence"><b>E-001 · Interview</b><span>Missing audience and channel create clarification loops.</span></div>
         <div class="arrow">→</div>
@@ -55,7 +74,7 @@
     </section>
 
     <section>
-      <div class="section-head"><p>03</p><h2>Feedback-to-version decision</h2></div>
+      <div class="section-head"><p>04</p><h2>Feedback-to-version decision</h2></div>
       <div class="decisions">
         <article class="review">
           <span>DEC-REQ-001-1.0</span>
@@ -76,7 +95,7 @@
     </section>
 
     <section>
-      <div class="section-head"><p>04</p><h2>Interview claim review</h2></div>
+      <div class="section-head"><p>05</p><h2>Interview claim review</h2></div>
       <div class="decisions">
         <article>
           <span>CLM-001 · APPROVED OBSERVATION</span>
@@ -95,7 +114,7 @@
     </section>
 
     <section>
-      <div class="section-head"><p>05</p><h2>Low-fidelity product flow</h2></div>
+      <div class="section-head"><p>06</p><h2>Low-fidelity product flow</h2></div>
       <div class="wireframes">
         <article>
           <span>SCREEN-01</span><h3>Campaign intake</h3>

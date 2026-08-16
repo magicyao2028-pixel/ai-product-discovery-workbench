@@ -14,7 +14,7 @@ AI Product Discovery Workbench helps a product owner turn a structured evidence 
 
 Small teams often jump from stakeholder requests to features. Evidence is scattered, prioritization assumptions stay implicit, unsupported requirements survive into delivery, and low-fidelity prototypes are mistaken for finished designs.
 
-## v0.3 scope
+## v0.4 scope
 
 1. Validate synthetic dated discovery evidence.
 2. Rank declared opportunities with a visible formula.
@@ -30,6 +30,8 @@ Small teams often jump from stakeholder requests to features. Evidence is scatte
 12. Separate normalized observations from interpretations.
 13. Block claims whose numbers or wording are not supported by cited excerpts.
 14. Generate proposed, provenance-rich interview evidence without merging it into the current evidence register.
+15. Compare named prioritization scenarios while keeping evidence and eligibility gates fixed.
+16. Report winner and rank changes without mutating the current PRD, requirements, or evidence register.
 
 ## Acceptance criteria
 
@@ -48,6 +50,8 @@ Small teams often jump from stakeholder requests to features. Evidence is scatte
 - every proposed interview evidence record cites one source note and its excerpts;
 - interpretations and unsupported observations never become proposed evidence;
 - interview processing reports `existing_evidence_register_mutated: false` and does not alter the current PRD.
+- priority scenarios validate bounded exponents, expose formulas and preserve the baseline score;
+- alternative winners remain review artifacts and cannot rewrite the current PRD.
 
 ## Out of scope
 
@@ -57,6 +61,6 @@ Small teams often jump from stakeholder requests to features. Evidence is scatte
 - high-fidelity visual design and usability validation;
 - API, database, authentication, deployment, or production integrations.
 
-## v0.3 success evidence
+## v0.4 success evidence
 
-Success means the synthetic example is reproducible, unsupported scope and interview claims are visibly excluded, every included requirement remains traceable, and later feedback or proposed interview evidence cannot mutate the current PRD automatically. It does not mean the sample product has been validated, approved, or shipped.
+Success means the synthetic example is reproducible, unsupported scope and interview claims are visibly excluded, every included requirement remains traceable, and later feedback, proposed interview evidence, or alternative priority scenarios cannot mutate the current PRD automatically. It does not mean the sample product has been validated, approved, or shipped.

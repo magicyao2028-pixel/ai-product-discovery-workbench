@@ -7,6 +7,7 @@ from pathlib import Path
 from .engine import DiscoveryWorkbench
 from .models import load_packet
 from .report import render_markdown
+from .sensitivity import load_priority_scenarios
 
 
 def parse_args() -> argparse.Namespace:
@@ -14,12 +15,18 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("packet", type=Path, help="Discovery packet JSON")
     parser.add_argument("--json-output", type=Path, default=Path("output/discovery_review.json"))
     parser.add_argument("--markdown-output", type=Path, default=Path("output/discovery_review.md"))
+    parser.add_argument("--scenario-config", type=Path, help="Optional priority-scenario JSON")
     return parser.parse_args()
 
 
 def main() -> None:
     args = parse_args()
-    result = DiscoveryWorkbench().build(load_packet(args.packet))
+    scenarios = load_priority_scenarios(args.scenario_config) if args.scenario_config else None
+    result = (
+        DiscoveryWorkbench().build(load_packet(args.packet), scenarios)
+        if scenarios is not None
+        else DiscoveryWorkbench().build(load_packet(args.packet))
+    )
     args.json_output.parent.mkdir(parents=True, exist_ok=True)
     args.markdown_output.parent.mkdir(parents=True, exist_ok=True)
     args.json_output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

@@ -4,16 +4,22 @@ from typing import Any
 
 from .models import DiscoveryPacket, Opportunity, Requirement
 from .interview_review import build_interview_claim_review
+from .sensitivity import DEFAULT_SCENARIOS, PriorityScenario, compare_priority_scenarios
 
 
 class DiscoveryWorkbench:
     """Compiles synthetic discovery evidence into a reviewable PRD package."""
 
-    def build(self, packet: DiscoveryPacket) -> dict[str, Any]:
+    def build(
+        self,
+        packet: DiscoveryPacket,
+        priority_scenarios: tuple[PriorityScenario, ...] = DEFAULT_SCENARIOS,
+    ) -> dict[str, Any]:
         evidence_by_id = {item.evidence_id: item for item in packet.evidence}
         opportunity_by_id = {item.opportunity_id: item for item in packet.opportunities}
         ranked = [self._score_opportunity(item, evidence_by_id) for item in packet.opportunities]
         ranked.sort(key=lambda item: (-item["score"], item["opportunity_id"]))
+        sensitivity = compare_priority_scenarios(packet.opportunities, ranked, priority_scenarios)
         eligible = [item for item in ranked if item["eligible"]]
         selected_id = eligible[0]["opportunity_id"] if eligible else None
         requirement_reviews = [
@@ -39,6 +45,7 @@ class DiscoveryWorkbench:
                 "opportunity_ranking": ranked,
                 "selected_opportunity_id": selected_id,
             },
+            "prioritization_sensitivity": sensitivity,
             "prd": self._build_prd(packet, selected, included),
             "requirement_review": requirement_reviews,
             "feedback_review": self._feedback_review(packet),
@@ -58,6 +65,7 @@ class DiscoveryWorkbench:
             "trace": [
                 {"step": "validate_discovery_packet", "status": "completed"},
                 {"step": "rank_opportunities", "status": "completed"},
+                {"step": "compare_priority_scenarios", "status": "current_prd_not_mutated"},
                 {"step": "gate_requirements", "status": "completed"},
                 {"step": "classify_feedback", "status": "completed"},
                 {"step": "normalize_interview_notes", "status": "completed"},
@@ -73,6 +81,7 @@ class DiscoveryWorkbench:
             "limitations": [
                 "All discovery evidence and product details are synthetic.",
                 "Scores are prioritization aids, not validated market demand or commercial outcomes.",
+                "Scenario weights are declared assumptions; rank changes do not validate an opportunity.",
                 "The low-fidelity flow communicates structure and behavior, not final visual design.",
                 "No LLM call, production deployment or external business action is implemented.",
                 "Feedback classifications are declared human inputs; recommendations do not mutate requirements.",

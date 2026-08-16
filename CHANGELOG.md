@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.0 - 2026-08-16
+
+- Added validated, named prioritization scenarios with explicit score exponents.
+- Preserved the existing ICE-style baseline while comparing confidence-first and effort-sensitive alternatives.
+- Added an eligible alternative opportunity so rank sensitivity is visible in a deterministic synthetic case.
+- Kept evidence-diversity and confidence gates fixed across scenarios.
+- Recorded that alternative winners do not mutate evidence, requirements, the current PRD, or proposed interview evidence.
+
 ## 0.3.0 - 2026-08-13
 
 - Added consented synthetic interview notes with stable note and excerpt lineage.

@@ -8,6 +8,7 @@ The workbench is a local decision-support compiler. A human prepares a synthetic
 Discovery JSON
   -> schema and reference validation
   -> opportunity scoring and evidence gates
+  -> alternative priority-scenario comparison
   -> requirement inclusion/exclusion
   -> PRD and traceability matrix
   -> low-fidelity screen filter
@@ -24,13 +25,14 @@ Discovery JSON
 | --- | --- |
 | `models.py` | Parse typed artifacts and validate dates, IDs, ranges, and relationships |
 | `interview_review.py` | Separate observations and interpretations, check excerpt support, and create proposed evidence lineage |
+| `sensitivity.py` | Validate named score scenarios, preserve eligibility, and expose rank or winner changes |
 | `engine.py` | Rank opportunities, gate requirements, compile PRD, trace evidence, filter screens, and create non-executing feedback decisions |
 | `report.py` | Render a human-readable decision report with citations and exclusions |
 | `cli.py` | Provide a reproducible local entry point and save artifacts |
 
 ## Product and Agent boundary
 
-The repository demonstrates an AI-product delivery workflow but v0.3 is not an autonomous Agent. The trace is workflow state, not model reasoning. A future grounded model adapter must preserve deterministic gates and may draft text only from approved evidence.
+The repository demonstrates an AI-product delivery workflow but v0.4 is not an autonomous Agent. The trace is workflow state, not model reasoning. A future grounded model adapter must preserve deterministic gates and may draft text only from approved evidence.
 
 ## Data and action boundary
 
@@ -45,6 +47,7 @@ The repository demonstrates an AI-product delivery workflow but v0.3 is not an a
 - interview notes require synthetic disclosure and consent, and raw excerpts remain visible;
 - interpretations and unsupported observations cannot produce proposed evidence;
 - proposed interview evidence remains separate from the current discovery evidence and PRD.
+- priority scenarios change only declared score exponents; they do not change evidence, eligibility, requirements, or the current PRD.
 
 ## Production gaps
 

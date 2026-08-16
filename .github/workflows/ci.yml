@@ -20,7 +20,7 @@ jobs:
       - name: Run tests
         run: python -m unittest discover -s tests -v
       - name: Rebuild discovery review
-        run: discovery-workbench data/sample_discovery.json
+        run: discovery-workbench data/sample_discovery.json --scenario-config data/sample_priority_scenarios.json
 
   validate-static-site:
     runs-on: ubuntu-latest

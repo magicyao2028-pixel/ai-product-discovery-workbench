@@ -63,6 +63,16 @@
       "impact": 4,
       "confidence": 0.3,
       "effort": 5
+    },
+    {
+      "opportunity_id": "OPP-003",
+      "title": "Add a governed incomplete-brief draft",
+      "problem_statement": "Coordinators need a bounded way to preserve incomplete work without bypassing final validation.",
+      "user_segment": "Small-business marketing coordinators",
+      "evidence_ids": ["E-001", "E-002"],
+      "impact": 3,
+      "confidence": 0.65,
+      "effort": 1
     }
   ],
   "requirements": [

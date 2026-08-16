@@ -7,7 +7,15 @@
 ## Opportunity ranking
 
 - **OPP-001 - Standardize campaign intake before production**: 20.00 (eligible) [E-001] [E-002] [E-003]
+- **OPP-003 - Add a governed incomplete-brief draft**: 19.50 (eligible) [E-001] [E-002]
 - **OPP-002 - Publish campaigns automatically**: 2.40 (excluded) [E-004]
+
+## Prioritization sensitivity
+
+- **baseline**: selected OPP-001; ranking OPP-001 (20.00) > OPP-003 (19.50) > OPP-002 (2.40).
+- **confidence-first**: selected OPP-001; ranking OPP-001 (16.00) > OPP-003 (12.68) > OPP-002 (0.72).
+- **speed-first**: selected OPP-003; ranking OPP-003 (19.50) > OPP-001 (10.00) > OPP-002 (0.48).
+- Winner changes across scenarios: yes; current PRD mutated: no.
 
 ## PRD
 

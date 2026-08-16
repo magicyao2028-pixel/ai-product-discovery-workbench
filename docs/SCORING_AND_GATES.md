@@ -12,6 +12,8 @@ score = impact * confidence * 10 / effort
 
 The formula is intentionally simple and visible. It supports comparison inside one synthetic packet; it is not a market forecast or financial model.
 
+v0.4 also runs declared sensitivity scenarios using `impact^a * confidence^b * 10 / effort^c`. The baseline exponents are all 1 and therefore preserve this score exactly. Alternative exponents expose how ranking assumptions affect the result; they never change evidence or eligibility.
+
 ## Opportunity eligibility
 
 An opportunity is eligible only when it has:
@@ -21,6 +23,8 @@ An opportunity is eligible only when it has:
 - confidence of at least 0.5.
 
 The highest-scoring eligible opportunity becomes the proposed focus. When none is eligible, PRD compilation is blocked.
+
+Scenario comparison reuses these eligibility decisions. A high alternative score cannot make a single-source or low-confidence opportunity eligible.
 
 ## Requirement gate
 
