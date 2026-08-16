@@ -17,7 +17,7 @@ Synthetic consented note
 - An `observation` may produce proposed evidence only when it is declared approved and its cited excerpts pass support checks.
 - An `interpretation` remains a review item even when its input is mistakenly marked approved.
 - A number absent from the cited excerpts produces `unsupported_numeric_claim`.
-- A supported number paired with a different time, percentage, or currency unit produces `unsupported_numeric_unit_claim`.
+- A supported number paired with a different time, percentage, or currency unit produces `unsupported_numeric_unit_claim`, including when up to two descriptive tokens appear between the number and unit.
 - Lexical overlap below the explicit 0.30 threshold produces `insufficient_excerpt_support`.
 - A reviewer-blocked or pending observation remains outside proposed evidence.
 

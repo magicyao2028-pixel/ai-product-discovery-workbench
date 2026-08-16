@@ -7,6 +7,7 @@
 - Added an eligible alternative opportunity so rank sensitivity is visible in a deterministic synthetic case.
 - Kept evidence-diversity and confidence gates fixed across scenarios.
 - Recorded that alternative winners do not mutate evidence, requirements, the current PRD, or proposed interview evidence.
+- Hardened number-unit support so intervening modifiers cannot hide a time-unit drift.
 
 ## 0.3.0 - 2026-08-13
 

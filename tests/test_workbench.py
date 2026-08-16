@@ -302,6 +302,25 @@ class DiscoveryWorkbenchTests(unittest.TestCase):
         )
         self.assertEqual(item["effective_status"], "blocked_unsupported_claim")
 
+    def test_number_unit_drift_with_intervening_modifier_is_blocked(self):
+        payload = sample_payload()
+        payload["interview_notes"][0]["excerpts"][0]["text"] = (
+            "Three analysts spend 10 minutes reviewing each synthetic brief."
+        )
+        claim = next(item for item in payload["interview_claims"] if item["claim_id"] == "CLM-001")
+        claim["normalized_statement"] = "Three analysts spend 10 working days reviewing each synthetic brief."
+        result = DiscoveryWorkbench().build(DiscoveryPacket.from_mapping(payload))
+        item = next(
+            row for row in result["interview_claim_review"]["normalized_observations"]
+            if row["claim_id"] == "CLM-001"
+        )
+        self.assertEqual(item["support_check"]["status"], "unsupported_numeric_unit_claim")
+        self.assertEqual(
+            item["support_check"]["unsupported_number_units"],
+            [{"number": "10", "unit": "day"}],
+        )
+        self.assertFalse(item["eligible_for_proposed_evidence"])
+
     def test_grounded_approved_observation_creates_provenance_record(self):
         review = DiscoveryWorkbench().build(load_packet(SAMPLE))["interview_claim_review"]
         self.assertEqual(review["summary"]["proposed_evidence_records"], 1)

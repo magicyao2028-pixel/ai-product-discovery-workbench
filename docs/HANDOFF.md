@@ -32,7 +32,7 @@ M4: add configurable discovery and PRD templates. Preserve scenario transparency
 - interpretations remain outside evidence promotion;
 - one grounded approved observation generates a proposed record citing note and excerpt IDs;
 - proposed records do not mutate current evidence, opportunity scores, requirements, or the PRD;
-- 41 offline tests pass, including scenario validation, exact raw-text preservation and number-unit drift regression cases.
+- 42 offline tests pass, including scenario validation, exact raw-text preservation and number-unit drift regression cases with intervening modifiers.
 - named baseline, confidence-first, and effort-sensitive scenarios use validated explicit exponents;
 - the synthetic alternative winner is visible while evidence eligibility remains unchanged;
 - sensitivity output states that the current PRD and evidence register were not mutated.

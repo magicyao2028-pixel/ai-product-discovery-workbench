@@ -153,9 +153,15 @@ def _numbers(value: str) -> set[str]:
 def _number_unit_pairs(value: str) -> set[tuple[str, str]]:
     tokens = TOKEN_PATTERN.findall(value.casefold().replace("%", " percent"))
     pairs: set[tuple[str, str]] = set()
-    for index, token in enumerate(tokens[:-1]):
+    for index, token in enumerate(tokens):
         number = NUMBER_WORDS.get(token, token if NUMBER_PATTERN.fullmatch(token) else None)
-        unit = UNIT_ALIASES.get(tokens[index + 1])
-        if number is not None and unit is not None:
-            pairs.add((number, unit))
+        if number is None:
+            continue
+        for candidate in tokens[index + 1:index + 4]:
+            if NUMBER_WORDS.get(candidate) is not None or NUMBER_PATTERN.fullmatch(candidate):
+                break
+            unit = UNIT_ALIASES.get(candidate)
+            if unit is not None:
+                pairs.add((number, unit))
+                break
     return pairs
