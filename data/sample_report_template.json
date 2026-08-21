@@ -1,0 +1,11 @@
+{
+  "template_id": "smb-discovery-review-v1",
+  "version": "1.0",
+  "sections": [
+    {"section_key": "decision_summary", "title": "Decision and selected problem"},
+    {"section_key": "evidence_review", "title": "Evidence and interview lineage"},
+    {"section_key": "requirement_review", "title": "Included and excluded requirements"},
+    {"section_key": "prototype_flow", "title": "Low-fidelity review flow"},
+    {"section_key": "governance", "title": "Human approval and execution boundary"}
+  ]
+}

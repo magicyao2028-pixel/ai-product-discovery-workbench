@@ -806,6 +806,10 @@
       "status": "completed"
     },
     {
+      "step": "apply_report_template",
+      "status": "layout_only_prd_not_mutated"
+    },
+    {
       "step": "request_human_approval",
       "status": "required"
     }
@@ -818,6 +822,76 @@
     "No LLM call, production deployment or external business action is implemented.",
     "Feedback classifications are declared human inputs; recommendations do not mutate requirements.",
     "Interview claim normalization uses lexical and numeric checks, not semantic understanding.",
-    "Approved interview observations create proposed evidence only and do not alter the current PRD."
-  ]
+    "Approved interview observations create proposed evidence only and do not alter the current PRD.",
+    "Template profiles change section order and titles only; they do not edit evidence, requirements or the PRD."
+  ],
+  "report_template": {
+    "template_id": "smb-discovery-review-v1",
+    "template_version": "1.0",
+    "sections": [
+      {
+        "section_key": "decision_summary",
+        "title": "Decision and selected problem",
+        "content": {
+          "status": "ready_for_human_review",
+          "selected_opportunity_id": "OPP-001"
+        }
+      },
+      {
+        "section_key": "evidence_review",
+        "title": "Evidence and interview lineage",
+        "content": {
+          "evidence_ids": [
+            "E-001",
+            "E-002",
+            "E-003",
+            "E-004"
+          ],
+          "proposed_interview_evidence": 1
+        }
+      },
+      {
+        "section_key": "requirement_review",
+        "title": "Included and excluded requirements",
+        "content": {
+          "included_requirement_ids": [
+            "REQ-001",
+            "REQ-002"
+          ],
+          "excluded_requirement_ids": [
+            "REQ-003"
+          ]
+        }
+      },
+      {
+        "section_key": "prototype_flow",
+        "title": "Low-fidelity review flow",
+        "content": {
+          "included_screen_ids": [
+            "SCREEN-01",
+            "SCREEN-02"
+          ],
+          "excluded_screen_ids": [
+            "SCREEN-03"
+          ]
+        }
+      },
+      {
+        "section_key": "governance",
+        "title": "Human approval and execution boundary",
+        "content": {
+          "decision_owner": "Product Manager",
+          "human_approval_required": true,
+          "external_action_executed": false,
+          "requirement_change_executed": false
+        }
+      }
+    ],
+    "governance": {
+      "source_evidence_mutated": false,
+      "current_prd_mutated": false,
+      "requirements_mutated": false,
+      "template_selects_layout_only": true
+    }
+  }
 }

@@ -10,7 +10,7 @@ AI product work is not only prompt writing. Teams need to show why a problem mat
 
 The business scenario is an internal AI-application exploration for Changsha Shiju Trading Co., Ltd. All evidence, interviews, workflow observations, product details, and outputs are synthetic.
 
-## What v0.4 demonstrates
+## What v0.5 demonstrates
 
 - typed discovery evidence with dates and source categories;
 - transparent impact-confidence-effort opportunity ranking;
@@ -30,6 +30,11 @@ The business scenario is an internal AI-application exploration for Changsha Shi
 - explicit separation of observations from interpretations;
 - lexical and numeric support checks that block unsupported claims;
 - provenance-rich proposed evidence that never mutates the current evidence register or PRD.
+- configurable report order and titles with five mandatory review sections;
+- fail-closed template validation that cannot hide governance;
+- deterministic replay of accepted synthetic feedback while pending feedback stays excluded;
+- a seven-claim evidence index, 20-minute offline trial, and explicit limitation record;
+- exact-version external component screening with no copied code or added dependency.
 
 ## Quick start
 
@@ -38,8 +43,11 @@ python -m pip install -e .
 python -m unittest discover -s tests -v
 python -m product_discovery.cli data/sample_discovery.json \
   --scenario-config data/sample_priority_scenarios.json \
+  --template-config data/sample_report_template.json \
   --json-output examples/discovery_review.json \
   --markdown-output examples/discovery_review.md
+python -m product_discovery.template_feedback_cli
+python -m product_discovery.trial_cli
 ```
 
 The package requires Python 3.10 or later and has no runtime dependencies.
@@ -75,12 +83,16 @@ Synthetic discovery packet
 - `docs/FEEDBACK_DECISIONS.md`: feedback classification, versioning, and approval rules
 - `docs/INTERVIEW_CLAIM_REVIEW.md`: note lineage, support checks, and evidence-promotion boundaries
 - `docs/PRODUCT_TOOL_HANDOFF.md`: how artifacts map to PRD, Axure, Visio, and mind-map tools
+- `docs/TEMPLATE_GOVERNANCE.md`: layout-only template and feedback boundaries
+- `docs/EXTERNAL_INTAKE.md`: exact external component screening decisions
+- `docs/TRIAL_GUIDE.md`: bounded clean trial, failure path, and recovery
+- `evidence/evidence_index.json`: seven claim-to-artifact evidence links
 - `docs/MAINTENANCE_PLAN.md`: ten planned substantive iterations
 - `site/`: static public demonstration
 
 ## Honest boundaries
 
-This is a portfolio prototype, not completed product discovery for a real customer. It does not conduct or transcribe interviews, infer needs with an LLM, validate market demand, produce a high-fidelity design, deploy software, execute an external business action, merge proposed interview evidence automatically, apply requirement changes automatically, or optimize priority weights from real outcomes. Scores, scenarios, and classifications organize declared synthetic inputs; they do not prove business value.
+This is a portfolio prototype, not completed product discovery for a real customer. It does not conduct or transcribe interviews, infer needs with an LLM, validate market demand, produce a high-fidelity design, deploy software, execute an external business action, merge proposed interview evidence automatically, apply requirement changes automatically, or optimize priority weights from real outcomes. Scores, scenarios, templates, feedback, and classifications organize declared synthetic inputs; they do not prove business value, customer adoption, or production readiness.
 
 ## License
 

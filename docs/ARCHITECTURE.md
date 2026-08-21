@@ -15,6 +15,8 @@ Discovery JSON
   -> interview excerpt preservation and claim support checks
   -> dated feedback aggregation
   -> pending requirement change decision log
+  -> validated layout-only report template
+  -> template-feedback regression replay
   -> JSON + Markdown artifacts
   -> human product decision
 ```
@@ -29,10 +31,13 @@ Discovery JSON
 | `engine.py` | Rank opportunities, gate requirements, compile PRD, trace evidence, filter screens, and create non-executing feedback decisions |
 | `report.py` | Render a human-readable decision report with citations and exclusions |
 | `cli.py` | Provide a reproducible local entry point and save artifacts |
+| `templates.py` | Validate mandatory report sections and compile layout-only summaries |
+| `template_feedback.py` | Validate feedback dispositions and replay accepted local regressions |
+| `trial.py` | Verify the runnable path, failure path, evidence links, and zero external action |
 
 ## Product and Agent boundary
 
-The repository demonstrates an AI-product delivery workflow but v0.4 is not an autonomous Agent. The trace is workflow state, not model reasoning. A future grounded model adapter must preserve deterministic gates and may draft text only from approved evidence.
+The repository demonstrates an AI-product delivery workflow but v0.5 is not an autonomous Agent. The trace is workflow state, not model reasoning. A future grounded model adapter must preserve deterministic gates and may draft text only from approved evidence.
 
 ## Data and action boundary
 
@@ -48,6 +53,9 @@ The repository demonstrates an AI-product delivery workflow but v0.4 is not an a
 - interpretations and unsupported observations cannot produce proposed evidence;
 - proposed interview evidence remains separate from the current discovery evidence and PRD.
 - priority scenarios change only declared score exponents; they do not change evidence, eligibility, requirements, or the current PRD.
+- report profiles change only section order and titles and cannot omit governance;
+- feedback replay operates on local fixtures and does not edit a template automatically;
+- evidence-index paths must be relative, inside the repository, and present.
 
 ## Production gaps
 

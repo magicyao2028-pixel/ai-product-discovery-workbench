@@ -87,6 +87,14 @@ def render_markdown(result: dict[str, Any]) -> str:
         f"- Proposed evidence records: {interview['summary']['proposed_evidence_records']}; "
         "existing evidence register mutated: no."
     )
+    template = result["report_template"]
+    lines.extend(["", "## Report template", ""])
+    lines.append(
+        f"- Template: `{template['template_id']}` v{template['template_version']}; "
+        "layout only; current PRD mutated: no."
+    )
+    for section in template["sections"]:
+        lines.append(f"- `{section['section_key']}`: {section['title']}")
     lines.extend([
         "",
         "## Governance",
@@ -97,6 +105,7 @@ def render_markdown(result: dict[str, Any]) -> str:
         "- Production release executed: no",
         "- Requirement change executed: no",
         "- Interview evidence register mutated: no",
+        "- Template changed evidence, requirements or PRD: no",
         "- Change approval status: pending human approval",
         "",
         "_All research evidence, product details and outputs are synthetic portfolio examples._",

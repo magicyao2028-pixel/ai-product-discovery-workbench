@@ -14,7 +14,7 @@ AI Product Discovery Workbench helps a product owner turn a structured evidence 
 
 Small teams often jump from stakeholder requests to features. Evidence is scattered, prioritization assumptions stay implicit, unsupported requirements survive into delivery, and low-fidelity prototypes are mistaken for finished designs.
 
-## v0.4 scope
+## v0.5 scope
 
 1. Validate synthetic dated discovery evidence.
 2. Rank declared opportunities with a visible formula.
@@ -32,6 +32,10 @@ Small teams often jump from stakeholder requests to features. Evidence is scatte
 14. Generate proposed, provenance-rich interview evidence without merging it into the current evidence register.
 15. Compare named prioritization scenarios while keeping evidence and eligibility gates fixed.
 16. Report winner and rank changes without mutating the current PRD, requirements, or evidence register.
+17. Apply a validated report profile that changes section order and titles only.
+18. Require decision, evidence, requirement, prototype, and governance sections exactly once.
+19. Replay accepted structured template feedback against a deterministic failure fixture.
+20. Publish a seven-claim evidence index and a bounded offline trial report.
 
 ## Acceptance criteria
 
@@ -52,6 +56,11 @@ Small teams often jump from stakeholder requests to features. Evidence is scatte
 - interview processing reports `existing_evidence_register_mutated: false` and does not alter the current PRD.
 - priority scenarios validate bounded exponents, expose formulas and preserve the baseline score;
 - alternative winners remain review artifacts and cannot rewrite the current PRD.
+- missing, duplicate, unknown, blank, or malformed template sections fail closed;
+- templates report that evidence, requirements, and the current PRD were not mutated;
+- pending feedback is excluded from regression evidence and synthetic feedback is not called adoption;
+- boolean and non-finite opportunity scores are rejected before scoring;
+- trial evidence paths are relative, remain inside the repository, and exist.
 
 ## Out of scope
 
@@ -61,6 +70,6 @@ Small teams often jump from stakeholder requests to features. Evidence is scatte
 - high-fidelity visual design and usability validation;
 - API, database, authentication, deployment, or production integrations.
 
-## v0.4 success evidence
+## v0.5 success evidence
 
-Success means the synthetic example is reproducible, unsupported scope and interview claims are visibly excluded, every included requirement remains traceable, and later feedback, proposed interview evidence, or alternative priority scenarios cannot mutate the current PRD automatically. It does not mean the sample product has been validated, approved, or shipped.
+Success means the synthetic example and template-feedback replay are reproducible, unsupported scope and interview claims are visibly excluded, every included requirement remains traceable, and later feedback, proposed interview evidence, alternative priority scenarios, or layout templates cannot mutate the current PRD automatically. It does not mean the sample product has been validated, adopted, approved, or shipped.

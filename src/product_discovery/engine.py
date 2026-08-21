@@ -5,6 +5,7 @@ from typing import Any
 from .models import DiscoveryPacket, Opportunity, Requirement
 from .interview_review import build_interview_claim_review
 from .sensitivity import DEFAULT_SCENARIOS, PriorityScenario, compare_priority_scenarios
+from .templates import DEFAULT_TEMPLATE, TemplateProfile, compile_template_package
 
 
 class DiscoveryWorkbench:
@@ -14,6 +15,7 @@ class DiscoveryWorkbench:
         self,
         packet: DiscoveryPacket,
         priority_scenarios: tuple[PriorityScenario, ...] = DEFAULT_SCENARIOS,
+        template_profile: TemplateProfile = DEFAULT_TEMPLATE,
     ) -> dict[str, Any]:
         evidence_by_id = {item.evidence_id: item for item in packet.evidence}
         opportunity_by_id = {item.opportunity_id: item for item in packet.opportunities}
@@ -34,7 +36,7 @@ class DiscoveryWorkbench:
             (item for item in packet.opportunities if item.opportunity_id == selected_id), None
         )
         status = "ready_for_human_review" if selected and included else "blocked_insufficient_evidence"
-        return {
+        result = {
             "project_id": packet.project_id,
             "project_name": packet.project_name,
             "analysis_date": packet.analysis_date,
@@ -76,6 +78,7 @@ class DiscoveryWorkbench:
                 {"step": "compile_change_decision_log", "status": "completed"},
                 {"step": "compile_prd", "status": "completed" if selected and included else "blocked"},
                 {"step": "map_low_fidelity_flow", "status": "completed"},
+                {"step": "apply_report_template", "status": "layout_only_prd_not_mutated"},
                 {"step": "request_human_approval", "status": "required"},
             ],
             "limitations": [
@@ -87,8 +90,11 @@ class DiscoveryWorkbench:
                 "Feedback classifications are declared human inputs; recommendations do not mutate requirements.",
                 "Interview claim normalization uses lexical and numeric checks, not semantic understanding.",
                 "Approved interview observations create proposed evidence only and do not alter the current PRD.",
+                "Template profiles change section order and titles only; they do not edit evidence, requirements or the PRD.",
             ],
         }
+        result["report_template"] = compile_template_package(result, template_profile)
+        return result
 
     @staticmethod
     def _score_opportunity(opportunity: Opportunity, evidence_by_id: dict[str, Any]) -> dict[str, Any]:

@@ -1,0 +1,42 @@
+{
+  "evidence_index_version": "0.5",
+  "repository": "ai-product-discovery-workbench",
+  "source_data": "synthetic",
+  "claims": [
+    {
+      "claim_id": "EVID-BUSINESS-001",
+      "claim": "The workflow helps a product manager turn discovery evidence into a reviewable product decision package.",
+      "evidence_paths": ["README.md", "docs/PRD.md"]
+    },
+    {
+      "claim_id": "EVID-CAPABILITY-002",
+      "claim": "Configurable templates change reviewed report structure without mutating evidence, requirements or the PRD.",
+      "evidence_paths": ["src/product_discovery/templates.py", "data/sample_report_template.json"]
+    },
+    {
+      "claim_id": "EVID-CORRECTNESS-003",
+      "claim": "The core workflow, template boundaries, feedback replay and trial are covered by automated tests.",
+      "evidence_paths": ["tests/test_workbench.py", "tests/test_trial_readiness.py"]
+    },
+    {
+      "claim_id": "EVID-EXAMPLE-004",
+      "claim": "A reviewer can reproduce both the successful discovery package and the blocked unsafe-template path.",
+      "evidence_paths": ["examples/discovery_review.json", "data/invalid_template_missing_governance.json", "reports/trial_report.json"]
+    },
+    {
+      "claim_id": "EVID-INTAKE-005",
+      "claim": "External template components were screened with exact version, commit and license evidence before dependency selection.",
+      "evidence_paths": ["docs/EXTERNAL_INTAKE.md"]
+    },
+    {
+      "claim_id": "EVID-FEEDBACK-006",
+      "claim": "Accepted synthetic template feedback is reproduced as a deterministic regression while pending feedback stays excluded.",
+      "evidence_paths": ["data/sample_template_feedback.json", "src/product_discovery/template_feedback.py", "reports/template_feedback_report.json"]
+    },
+    {
+      "claim_id": "EVID-LIMITS-007",
+      "claim": "The repository discloses synthetic inputs, no-model execution, human approval and production gaps.",
+      "evidence_paths": ["README.md", "docs/SECURITY.md", "docs/TRIAL_GUIDE.md"]
+    }
+  ]
+}

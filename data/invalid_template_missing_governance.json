@@ -1,0 +1,10 @@
+{
+  "template_id": "unsafe-missing-governance",
+  "version": "1.0",
+  "sections": [
+    {"section_key": "decision_summary", "title": "Decision summary"},
+    {"section_key": "evidence_review", "title": "Evidence review"},
+    {"section_key": "requirement_review", "title": "Requirement review"},
+    {"section_key": "prototype_flow", "title": "Prototype flow"}
+  ]
+}

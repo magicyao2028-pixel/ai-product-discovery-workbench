@@ -9,6 +9,9 @@
 - Synthetic interview notes require explicit consent before normalization.
 - Proposed evidence preserves note/excerpt provenance and is never merged automatically.
 - Numeric mismatches and weak excerpt support block observation promotion.
+- Boolean, NaN, and infinite opportunity scores are rejected before ranking.
+- Templates cannot remove governance or mutate evidence, requirements, or the current PRD.
+- Template feedback executes only local validation fixtures and never an external action.
 
 ## Safe-use rules
 

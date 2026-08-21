@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.5.0 - 2026-08-21
+
+- Added validated report profiles with configurable section order and titles.
+- Required decision, evidence, requirement, prototype, and governance sections exactly once.
+- Kept templates from mutating source evidence, requirements, or the current PRD.
+- Added structured synthetic template feedback with deterministic replay and explicit pending exclusion.
+- Added a seven-claim evidence index and an offline trial-readiness report.
+- Screened three external template components by exact release, commit, and license; adopted none and copied no code.
+- Rejected boolean, NaN, and infinite opportunity scores before ranking.
+
 ## 0.4.0 - 2026-08-16
 
 - Added validated, named prioritization scenarios with explicit score exponents.

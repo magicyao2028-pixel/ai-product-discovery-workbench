@@ -2,8 +2,8 @@
 
 ## Current state
 
-- Release: v0.4.0
-- Maintenance rounds completed: 3/10
+- Release: v0.5.0
+- Maintenance rounds completed: 4/10
 - Runtime: offline Python 3.10+, no runtime dependencies
 - Data: synthetic only
 - Model calls: none
@@ -16,13 +16,16 @@ python -m pip install -e .
 python -m unittest discover -s tests -v
 python -m product_discovery.cli data/sample_discovery.json \
   --scenario-config data/sample_priority_scenarios.json \
+  --template-config data/sample_report_template.json \
   --json-output examples/discovery_review.json \
   --markdown-output examples/discovery_review.md
+python -m product_discovery.template_feedback_cli
+python -m product_discovery.trial_cli
 ```
 
-## Next authorized maintenance round
+## Next planned maintenance round
 
-M4: add configurable discovery and PRD templates. Preserve scenario transparency, interview lineage, unsupported-claim blocking, existing evidence gates, and the non-executing PRD boundary.
+M5: add an optional grounded model adapter with deterministic fallback. It is not authorized by this handoff and must preserve every deterministic gate.
 
 ## M3 evidence
 
@@ -37,8 +40,12 @@ M4: add configurable discovery and PRD templates. Preserve scenario transparency
 - the synthetic alternative winner is visible while evidence eligibility remains unchanged;
 - sensitivity output states that the current PRD and evidence register were not mutated.
 
-## Completion gate for M4
+## M4 evidence
 
-- templates remain traceable to the same evidence and requirement IDs;
-- current PRD and requirements remain unchanged until human approval;
-- old and new tests pass and maintenance advances only after publication is verified.
+- configurable section order and titles remain traceable to the same evidence and requirement IDs;
+- missing governance, duplicate, unknown, and malformed template sections fail closed;
+- current evidence, PRD, requirements, and approval ownership remain unchanged;
+- accepted synthetic feedback replays as a regression while pending feedback is excluded;
+- the evidence index links seven claims to runnable code, tests, examples, intake, feedback, and limitations;
+- external component screening records exact versions, commits, licenses, and the no-copy decision;
+- boolean and non-finite opportunity scores are rejected before ranking.

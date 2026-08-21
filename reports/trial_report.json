@@ -1,0 +1,43 @@
+{
+  "trial_version": "0.5",
+  "source_data": "synthetic",
+  "overall_passed": true,
+  "core_passed": true,
+  "checks": {
+    "core_review_ready": true,
+    "expected_opportunity_selected": true,
+    "all_template_sections_present": true,
+    "template_does_not_mutate_prd": true,
+    "missing_governance_template_blocked": true,
+    "accepted_feedback_replayed": true,
+    "pending_feedback_excluded": true,
+    "evidence_index_has_seven_claims": true,
+    "evidence_paths_exist": true,
+    "no_external_action": true
+  },
+  "observed": {
+    "selected_opportunity_id": "OPP-001",
+    "included_requirement_ids": [
+      "REQ-001",
+      "REQ-002"
+    ],
+    "template_id": "smb-discovery-review-v1",
+    "template_sections": [
+      "decision_summary",
+      "evidence_review",
+      "requirement_review",
+      "prototype_flow",
+      "governance"
+    ],
+    "failure_code": "missing_required_template_section",
+    "feedback_passed": 1,
+    "feedback_excluded": 1,
+    "evidence_claims": 7,
+    "external_actions": 0
+  },
+  "limitations": [
+    "All discovery, feedback and trial inputs are synthetic.",
+    "Template validation proves structural governance, not product-market demand or design quality.",
+    "The trial performs no model call, external write, deployment or requirement approval."
+  ]
+}

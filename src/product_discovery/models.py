@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import math
 from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
@@ -57,14 +58,10 @@ class Opportunity:
             problem_statement=_required(value, "problem_statement"),
             user_segment=_required(value, "user_segment"),
             evidence_ids=_strings(value.get("evidence_ids"), "evidence_ids"),
-            impact=int(value.get("impact", 0)),
-            confidence=float(value.get("confidence", 0)),
-            effort=int(value.get("effort", 0)),
+            impact=_bounded_integer(value.get("impact"), "impact", 1, 5),
+            confidence=_bounded_number(value.get("confidence"), "confidence", 0, 1),
+            effort=_bounded_integer(value.get("effort"), "effort", 1, 5),
         )
-        if not 1 <= item.impact <= 5 or not 1 <= item.effort <= 5:
-            raise ValueError("impact and effort must be between 1 and 5")
-        if not 0 <= item.confidence <= 1:
-            raise ValueError("confidence must be between 0 and 1")
         return item
 
 
@@ -303,6 +300,21 @@ def _objects(value: Any, field: str, factory: Any) -> tuple[Any, ...]:
     if not isinstance(value, list) or not value or not all(isinstance(entry, dict) for entry in value):
         raise ValueError(f"{field} must be a non-empty list of objects")
     return tuple(factory(entry) for entry in value)
+
+
+def _bounded_number(value: Any, field: str, minimum: float, maximum: float) -> float:
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        raise ValueError(f"{field} must be a finite number between {minimum} and {maximum}")
+    result = float(value)
+    if not math.isfinite(result) or not minimum <= result <= maximum:
+        raise ValueError(f"{field} must be a finite number between {minimum} and {maximum}")
+    return result
+
+
+def _bounded_integer(value: Any, field: str, minimum: int, maximum: int) -> int:
+    if isinstance(value, bool) or not isinstance(value, int) or not minimum <= value <= maximum:
+        raise ValueError(f"{field} must be an integer between {minimum} and {maximum}")
+    return value
 
 
 def _iso_date(value: str, field: str) -> None:

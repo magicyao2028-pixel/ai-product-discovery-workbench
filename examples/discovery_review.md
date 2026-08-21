@@ -50,6 +50,15 @@
 - **CLM-002 - interpretation**: Draft saving would eliminate all clarification loops. Status `interpretation_requires_human_review`; note [NOTE-001] [EX-002].
 - Proposed evidence records: 1; existing evidence register mutated: no.
 
+## Report template
+
+- Template: `smb-discovery-review-v1` v1.0; layout only; current PRD mutated: no.
+- `decision_summary`: Decision and selected problem
+- `evidence_review`: Evidence and interview lineage
+- `requirement_review`: Included and excluded requirements
+- `prototype_flow`: Low-fidelity review flow
+- `governance`: Human approval and execution boundary
+
 ## Governance
 
 - Decision owner: Product Manager
@@ -58,6 +67,7 @@
 - Production release executed: no
 - Requirement change executed: no
 - Interview evidence register mutated: no
+- Template changed evidence, requirements or PRD: no
 - Change approval status: pending human approval
 
 _All research evidence, product details and outputs are synthetic portfolio examples._

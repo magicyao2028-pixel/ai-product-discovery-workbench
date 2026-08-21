@@ -1,0 +1,38 @@
+{
+  "replay_version": "0.5",
+  "batch_id": "SYNTH-TEMPLATE-FEEDBACK-001",
+  "source_data": "synthetic",
+  "summary": {
+    "total_feedback": 2,
+    "replayed": 1,
+    "passed": 1,
+    "failed": 0,
+    "excluded": 1
+  },
+  "replayed": [
+    {
+      "feedback_id": "TFB-GOVERNANCE-001",
+      "source_type": "synthetic",
+      "classification": "safety",
+      "expected_error_code": "missing_required_template_section",
+      "actual_error_code": "missing_required_template_section",
+      "resolution": "Require all five evidence and governance sections before a template can render.",
+      "passed": true,
+      "external_action_executed": false,
+      "prd_or_requirement_mutated": false
+    }
+  ],
+  "excluded": [
+    {
+      "feedback_id": "TFB-CUSTOM-BRANDING-002",
+      "disposition": "pending",
+      "reason": "Only accepted_for_regression records enter deterministic replay."
+    }
+  ],
+  "governance": {
+    "feedback_changes_template_automatically": false,
+    "external_action_executed": false,
+    "prd_or_requirement_mutated": false,
+    "synthetic_feedback_is_adoption_evidence": false
+  }
+}
