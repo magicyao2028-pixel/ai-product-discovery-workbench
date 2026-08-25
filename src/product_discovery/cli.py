@@ -18,6 +18,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--markdown-output", type=Path, default=Path("output/discovery_review.md"))
     parser.add_argument("--scenario-config", type=Path, help="Optional priority-scenario JSON")
     parser.add_argument("--template-config", type=Path, help="Optional report-template JSON")
+    parser.add_argument("--grounded-mode", choices=("fallback", "local_extractive"), default="fallback")
     return parser.parse_args()
 
 
@@ -30,6 +31,7 @@ def main() -> None:
         build_kwargs["template_profile"] = template
     if scenarios is not None:
         build_kwargs["priority_scenarios"] = scenarios
+    build_kwargs["grounded_mode"] = args.grounded_mode
     result = DiscoveryWorkbench().build(load_packet(args.packet), **build_kwargs)
     args.json_output.parent.mkdir(parents=True, exist_ok=True)
     args.markdown_output.parent.mkdir(parents=True, exist_ok=True)

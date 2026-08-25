@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.0 - 2026-08-25
+
+- Added optional `fallback` and `local_extractive` grounded-summary modes with citations constrained to the packet evidence register.
+- Kept the deterministic fallback as default; both modes are dependency-free, make no remote model call and preserve human approval and zero external actions.
+- Added mode regression tests, an eight-claim evidence index and trial checks for citation scope and no-model execution.
+
 ## 0.5.0 - 2026-08-21
 
 - Added validated report profiles with configurable section order and titles.

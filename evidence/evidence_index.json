@@ -37,6 +37,11 @@
       "claim_id": "EVID-LIMITS-007",
       "claim": "The repository discloses synthetic inputs, no-model execution, human approval and production gaps.",
       "evidence_paths": ["README.md", "docs/SECURITY.md", "docs/TRIAL_GUIDE.md"]
+    },
+    {
+      "claim_id": "EVID-GROUNDED-008",
+      "claim": "Optional local grounded modes produce cited summaries with a deterministic fallback and never execute a remote model call or external action.",
+      "evidence_paths": ["src/product_discovery/grounded.py", "tests/test_workbench.py", "reports/trial_report.json"]
     }
   ]
 }

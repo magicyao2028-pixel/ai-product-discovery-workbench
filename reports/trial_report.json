@@ -1,5 +1,5 @@
 {
-  "trial_version": "0.5",
+  "trial_version": "0.6",
   "source_data": "synthetic",
   "overall_passed": true,
   "core_passed": true,
@@ -11,8 +11,10 @@
     "missing_governance_template_blocked": true,
     "accepted_feedback_replayed": true,
     "pending_feedback_excluded": true,
-    "evidence_index_has_seven_claims": true,
+    "evidence_index_has_eight_claims": true,
     "evidence_paths_exist": true,
+    "fallback_grounded_response_cited": true,
+    "local_extractive_grounded_response_cited": true,
     "no_external_action": true
   },
   "observed": {
@@ -32,7 +34,7 @@
     "failure_code": "missing_required_template_section",
     "feedback_passed": 1,
     "feedback_excluded": 1,
-    "evidence_claims": 7,
+    "evidence_claims": 8,
     "external_actions": 0
   },
   "limitations": [

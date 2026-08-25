@@ -10,7 +10,7 @@ AI product work is not only prompt writing. Teams need to show why a problem mat
 
 The business scenario is an internal AI-application exploration for Changsha Shiju Trading Co., Ltd. All evidence, interviews, workflow observations, product details, and outputs are synthetic.
 
-## What v0.5 demonstrates
+## What v0.6 demonstrates
 
 - typed discovery evidence with dates and source categories;
 - transparent impact-confidence-effort opportunity ranking;
@@ -35,6 +35,7 @@ The business scenario is an internal AI-application exploration for Changsha Shi
 - deterministic replay of accepted synthetic feedback while pending feedback stays excluded;
 - a seven-claim evidence index, 20-minute offline trial, and explicit limitation record;
 - exact-version external component screening with no copied code or added dependency.
+- optional local grounded summaries with a deterministic fallback and cited evidence scope;
 
 ## Quick start
 
@@ -51,6 +52,8 @@ python -m product_discovery.trial_cli
 ```
 
 The package requires Python 3.10 or later and has no runtime dependencies.
+
+The optional `--grounded-mode local_extractive` path is a local extractive adapter, not a remote LLM. `fallback` remains the deterministic default. Both modes cite only the packet evidence register, make no external call, and remain subject to human approval.
 
 ## Workflow
 
@@ -92,7 +95,7 @@ Synthetic discovery packet
 
 ## Honest boundaries
 
-This is a portfolio prototype, not completed product discovery for a real customer. It does not conduct or transcribe interviews, infer needs with an LLM, validate market demand, produce a high-fidelity design, deploy software, execute an external business action, merge proposed interview evidence automatically, apply requirement changes automatically, or optimize priority weights from real outcomes. Scores, scenarios, templates, feedback, and classifications organize declared synthetic inputs; they do not prove business value, customer adoption, or production readiness.
+This is a portfolio prototype, not completed product discovery for a real customer. It does not conduct or transcribe interviews, infer needs with a remote LLM, validate market demand, produce a high-fidelity design, deploy software, execute an external business action, merge proposed interview evidence automatically, apply requirement changes automatically, or optimize priority weights from real outcomes. Grounded modes are local extractive summaries, not semantic understanding. Scores, scenarios, templates, feedback, and classifications organize declared synthetic inputs; they do not prove business value, customer adoption, or production readiness.
 
 ## License
 

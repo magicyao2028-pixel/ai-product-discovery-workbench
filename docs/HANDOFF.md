@@ -2,8 +2,8 @@
 
 ## Current state
 
-- Release: v0.5.0
-- Maintenance rounds completed: 4/10
+- Release: v0.6.0
+- Maintenance rounds completed: 5/10
 - Runtime: offline Python 3.10+, no runtime dependencies
 - Data: synthetic only
 - Model calls: none
@@ -25,7 +25,7 @@ python -m product_discovery.trial_cli
 
 ## Next planned maintenance round
 
-M5: add an optional grounded model adapter with deterministic fallback. It is not authorized by this handoff and must preserve every deterministic gate.
+M6: improve grounded-summary reviewability or add a bounded output comparison. Do not introduce a remote model, dependency or evidence mutation without a separate contract.
 
 ## M3 evidence
 
@@ -49,3 +49,9 @@ M5: add an optional grounded model adapter with deterministic fallback. It is no
 - the evidence index links seven claims to runnable code, tests, examples, intake, feedback, and limitations;
 - external component screening records exact versions, commits, licenses, and the no-copy decision;
 - boolean and non-finite opportunity scores are rejected before ranking.
+
+## M5 evidence
+
+- optional `fallback` and `local_extractive` grounded modes produce cited summaries from the packet evidence register;
+- both modes are dependency-free, make no model call, do not mutate the PRD or evidence and retain human approval;
+- the eight-claim evidence index and trial verify citation scope, mode behavior and zero external actions.

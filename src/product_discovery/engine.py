@@ -6,6 +6,7 @@ from .models import DiscoveryPacket, Opportunity, Requirement
 from .interview_review import build_interview_claim_review
 from .sensitivity import DEFAULT_SCENARIOS, PriorityScenario, compare_priority_scenarios
 from .templates import DEFAULT_TEMPLATE, TemplateProfile, compile_template_package
+from .grounded import build_grounded_summary
 
 
 class DiscoveryWorkbench:
@@ -16,6 +17,7 @@ class DiscoveryWorkbench:
         packet: DiscoveryPacket,
         priority_scenarios: tuple[PriorityScenario, ...] = DEFAULT_SCENARIOS,
         template_profile: TemplateProfile = DEFAULT_TEMPLATE,
+        grounded_mode: str = "fallback",
     ) -> dict[str, Any]:
         evidence_by_id = {item.evidence_id: item for item in packet.evidence}
         opportunity_by_id = {item.opportunity_id: item for item in packet.opportunities}
@@ -44,6 +46,16 @@ class DiscoveryWorkbench:
             "discovery": {
                 "business_context": packet.business_context,
                 "evidence_count": len(packet.evidence),
+                "evidence_register": [
+                    {
+                        "evidence_id": item.evidence_id,
+                        "evidence_type": item.evidence_type,
+                        "observed_on": item.observed_on,
+                        "summary": item.summary,
+                        "synthetic": item.synthetic,
+                    }
+                    for item in packet.evidence
+                ],
                 "opportunity_ranking": ranked,
                 "selected_opportunity_id": selected_id,
             },
@@ -91,8 +103,10 @@ class DiscoveryWorkbench:
                 "Interview claim normalization uses lexical and numeric checks, not semantic understanding.",
                 "Approved interview observations create proposed evidence only and do not alter the current PRD.",
                 "Template profiles change section order and titles only; they do not edit evidence, requirements or the PRD.",
+                "Grounded modes are local extractive summaries with deterministic fallback, not semantic model output.",
             ],
         }
+        result["grounded_response"] = build_grounded_summary(result, grounded_mode)
         result["report_template"] = compile_template_package(result, template_profile)
         return result
 

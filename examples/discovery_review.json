@@ -6,6 +6,36 @@
   "discovery": {
     "business_context": "A synthetic small retail marketing team wants to reduce campaign rework before content production starts.",
     "evidence_count": 4,
+    "evidence_register": [
+      {
+        "evidence_id": "E-001",
+        "evidence_type": "interview",
+        "observed_on": "2026-07-18",
+        "summary": "Synthetic marketing coordinators report repeated clarification when audience and channel are missing.",
+        "synthetic": true
+      },
+      {
+        "evidence_id": "E-002",
+        "evidence_type": "workflow_audit",
+        "observed_on": "2026-07-22",
+        "summary": "A synthetic workflow review marks audience, approval owner and success metric as the most frequent missing fields.",
+        "synthetic": true
+      },
+      {
+        "evidence_id": "E-003",
+        "evidence_type": "support_log",
+        "observed_on": "2026-07-29",
+        "summary": "Synthetic support notes show handoff delays when acceptance criteria are not recorded.",
+        "synthetic": true
+      },
+      {
+        "evidence_id": "E-004",
+        "evidence_type": "stakeholder_request",
+        "observed_on": "2026-08-02",
+        "summary": "A synthetic stakeholder asks for one-click automatic campaign publishing.",
+        "synthetic": true
+      }
+    ],
     "opportunity_ranking": [
       {
         "opportunity_id": "OPP-001",
@@ -823,8 +853,28 @@
     "Feedback classifications are declared human inputs; recommendations do not mutate requirements.",
     "Interview claim normalization uses lexical and numeric checks, not semantic understanding.",
     "Approved interview observations create proposed evidence only and do not alter the current PRD.",
-    "Template profiles change section order and titles only; they do not edit evidence, requirements or the PRD."
+    "Template profiles change section order and titles only; they do not edit evidence, requirements or the PRD.",
+    "Grounded modes are local extractive summaries with deterministic fallback, not semantic model output."
   ],
+  "grounded_response": {
+    "mode": "local_extractive",
+    "adapter": "local-extractive",
+    "text": "Standardize campaign intake before production:  Supporting evidence: Synthetic marketing coordinators report repeated clarification when audience and channel are missing. A synthetic workflow review marks audience, approval owner and success metric as the most frequent missing fields. Synthetic support notes show handoff delays when acceptance criteria are not recorded.",
+    "citation_ids": [
+      "E-001",
+      "E-002",
+      "E-003"
+    ],
+    "requirement_ids": [
+      "REQ-001",
+      "REQ-002"
+    ],
+    "grounded": true,
+    "model_call_executed": false,
+    "external_action_executed": false,
+    "human_approval_required": true,
+    "boundary": "This is a cited local summary of synthetic evidence, not semantic model output or a production recommendation."
+  },
   "report_template": {
     "template_id": "smb-discovery-review-v1",
     "template_version": "1.0",

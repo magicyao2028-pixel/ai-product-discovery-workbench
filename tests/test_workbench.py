@@ -29,6 +29,20 @@ class DiscoveryWorkbenchTests(unittest.TestCase):
         self.assertEqual(result["discovery"]["selected_opportunity_id"], "OPP-001")
         self.assertEqual(len(result["prd"]["requirements"]), 2)
 
+    def test_grounded_modes_cite_only_packet_evidence_without_model_calls(self):
+        fallback = DiscoveryWorkbench().build(load_packet(SAMPLE), grounded_mode="fallback")
+        local = DiscoveryWorkbench().build(load_packet(SAMPLE), grounded_mode="local_extractive")
+        declared = {item["evidence_id"] for item in fallback["discovery"]["evidence_register"]}
+        self.assertTrue(fallback["grounded_response"]["grounded"])
+        self.assertTrue(local["grounded_response"]["grounded"])
+        self.assertEqual(local["grounded_response"]["mode"], "local_extractive")
+        self.assertTrue(set(local["grounded_response"]["citation_ids"]).issubset(declared))
+        self.assertFalse(local["grounded_response"]["model_call_executed"])
+
+    def test_grounded_mode_rejects_unknown_adapter(self):
+        with self.assertRaisesRegex(ValueError, "grounded_mode"):
+            DiscoveryWorkbench().build(load_packet(SAMPLE), grounded_mode="remote")
+
     def test_scores_opportunities_deterministically(self):
         result = DiscoveryWorkbench().build(load_packet(SAMPLE))
         ranking = result["discovery"]["opportunity_ranking"]

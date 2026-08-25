@@ -17,6 +17,12 @@ def run_trial(root: Path) -> dict[str, Any]:
         priority_scenarios=load_priority_scenarios(root / "data" / "sample_priority_scenarios.json"),
         template_profile=load_template_profile(root / "data" / "sample_report_template.json"),
     )
+    local_result = DiscoveryWorkbench().build(
+        load_packet(root / "data" / "sample_discovery.json"),
+        priority_scenarios=load_priority_scenarios(root / "data" / "sample_priority_scenarios.json"),
+        template_profile=load_template_profile(root / "data" / "sample_report_template.json"),
+        grounded_mode="local_extractive",
+    )
     feedback = replay_template_feedback(root / "data" / "sample_template_feedback.json")
     failure_code = None
     try:
@@ -40,13 +46,21 @@ def run_trial(root: Path) -> dict[str, Any]:
         "accepted_feedback_replayed": feedback["summary"]["replayed"] == 1
         and feedback["summary"]["passed"] == 1,
         "pending_feedback_excluded": feedback["summary"]["excluded"] == 1,
-        "evidence_index_has_seven_claims": len(evidence_index.get("claims", [])) == 7,
+        "evidence_index_has_eight_claims": len(evidence_index.get("claims", [])) == 8,
         "evidence_paths_exist": evidence_paths_valid,
+        "fallback_grounded_response_cited": result["grounded_response"]["grounded"]
+        and result["grounded_response"]["model_call_executed"] is False
+        and set(result["grounded_response"]["citation_ids"]).issubset(
+            {item["evidence_id"] for item in result["discovery"]["evidence_register"]}
+        ),
+        "local_extractive_grounded_response_cited": local_result["grounded_response"]["grounded"]
+        and local_result["grounded_response"]["mode"] == "local_extractive"
+        and local_result["grounded_response"]["model_call_executed"] is False,
         "no_external_action": result["governance"]["external_action_executed"] is False
         and feedback["governance"]["external_action_executed"] is False,
     }
     return {
-        "trial_version": "0.5",
+        "trial_version": "0.6",
         "source_data": "synthetic",
         "overall_passed": all(checks.values()),
         "core_passed": all(checks[key] for key in (
