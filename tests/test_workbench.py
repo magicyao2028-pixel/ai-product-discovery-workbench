@@ -10,6 +10,7 @@ from product_discovery import (
     load_packet,
     load_priority_scenarios,
     render_markdown,
+    analyze_request,
 )
 
 
@@ -23,6 +24,23 @@ def sample_payload() -> dict:
 
 
 class DiscoveryWorkbenchTests(unittest.TestCase):
+    def test_service_contract_returns_review_and_stable_retry_receipt(self):
+        payload = {"packet": sample_payload(), "grounded_mode": "fallback"}
+        first = analyze_request(payload)
+        retry = analyze_request({**payload, "schema_version": "1.0"})
+        self.assertEqual(first["schema_version"], "1.0")
+        self.assertEqual(first["status"], "ok")
+        self.assertEqual(first["review"]["status"], "ready_for_human_review")
+        self.assertEqual(first["request_receipt"], retry["request_receipt"])
+        self.assertTrue(first["request_receipt"]["retry_safe"])
+        self.assertFalse(first["governance"]["persistence_executed"])
+
+    def test_service_contract_rejects_unknown_schema_and_grounded_mode(self):
+        with self.assertRaisesRegex(ValueError, "unsupported schema_version"):
+            analyze_request({"schema_version": "2.0", "packet": sample_payload()})
+        with self.assertRaisesRegex(ValueError, "grounded_mode"):
+            analyze_request({"packet": sample_payload(), "grounded_mode": "remote"})
+
     def test_builds_reviewable_prd_package(self):
         result = DiscoveryWorkbench().build(load_packet(SAMPLE))
         self.assertEqual(result["status"], "ready_for_human_review")

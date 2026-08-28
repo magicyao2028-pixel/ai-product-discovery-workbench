@@ -42,6 +42,11 @@
       "claim_id": "EVID-GROUNDED-008",
       "claim": "Optional local grounded modes produce cited summaries with a deterministic fallback and never execute a remote model call or external action.",
       "evidence_paths": ["src/product_discovery/grounded.py", "tests/test_workbench.py", "reports/trial_report.json"]
+    },
+    {
+      "claim_id": "EVID-SERVICE-009",
+      "claim": "The offline service contract validates schema and grounded mode, emits a deterministic retry receipt and performs no persistence or external action.",
+      "evidence_paths": ["src/product_discovery/service_contract.py", "tests/test_workbench.py", "reports/trial_report.json"]
     }
   ]
 }

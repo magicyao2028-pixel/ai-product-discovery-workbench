@@ -4,7 +4,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from product_discovery import DiscoveryPacket, DiscoveryWorkbench, load_packet, load_priority_scenarios
+from product_discovery import DiscoveryPacket, DiscoveryWorkbench, analyze_request, load_packet, load_priority_scenarios
 from product_discovery.template_feedback import load_template_feedback, replay_template_feedback
 from product_discovery.templates import TemplateProfile, TemplateValidationError, load_template_profile
 from product_discovery.trial import run_trial, write_trial_report
@@ -85,8 +85,11 @@ class TrialReadinessTests(unittest.TestCase):
         report = run_trial(ROOT)
         self.assertTrue(report["overall_passed"])
         self.assertTrue(report["core_passed"])
-        self.assertEqual(report["observed"]["evidence_claims"], 8)
+        self.assertEqual(report["observed"]["evidence_claims"], 9)
         self.assertEqual(report["observed"]["external_actions"], 0)
+        service = analyze_request({"packet": json.loads(SAMPLE.read_text(encoding="utf-8"))})
+        self.assertEqual(service["request_receipt"], analyze_request({"packet": json.loads(SAMPLE.read_text(encoding="utf-8")), "schema_version": "1.0"})["request_receipt"])
+        self.assertFalse(service["request_receipt"]["persistence_executed"])
 
     def test_trial_report_is_deterministic(self):
         report = run_trial(ROOT)

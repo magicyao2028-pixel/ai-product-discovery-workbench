@@ -9,6 +9,7 @@ from .models import load_packet
 from .sensitivity import load_priority_scenarios
 from .template_feedback import replay_template_feedback
 from .templates import TemplateValidationError, load_template_profile
+from .service_contract import analyze_request
 
 
 def run_trial(root: Path) -> dict[str, Any]:
@@ -30,6 +31,10 @@ def run_trial(root: Path) -> dict[str, Any]:
     except TemplateValidationError as exc:
         failure_code = exc.code
     evidence_index = json.loads((root / "evidence" / "evidence_index.json").read_text(encoding="utf-8"))
+    packet_payload = json.loads((root / "data" / "sample_discovery.json").read_text(encoding="utf-8"))
+    service_first = analyze_request({"packet": packet_payload, "grounded_mode": "fallback"})
+    service_retry = analyze_request({"schema_version": "1.0", "packet": packet_payload, "grounded_mode": "fallback"})
+    service_receipt_stable = service_first["request_receipt"] == service_retry["request_receipt"]
     evidence_paths_valid = _evidence_paths_exist(root, evidence_index)
     template_keys = [item["section_key"] for item in result["report_template"]["sections"]]
     checks = {
@@ -46,7 +51,7 @@ def run_trial(root: Path) -> dict[str, Any]:
         "accepted_feedback_replayed": feedback["summary"]["replayed"] == 1
         and feedback["summary"]["passed"] == 1,
         "pending_feedback_excluded": feedback["summary"]["excluded"] == 1,
-        "evidence_index_has_eight_claims": len(evidence_index.get("claims", [])) == 8,
+        "evidence_index_has_nine_claims": len(evidence_index.get("claims", [])) == 9,
         "evidence_paths_exist": evidence_paths_valid,
         "fallback_grounded_response_cited": result["grounded_response"]["grounded"]
         and result["grounded_response"]["model_call_executed"] is False
@@ -58,6 +63,10 @@ def run_trial(root: Path) -> dict[str, Any]:
         and local_result["grounded_response"]["model_call_executed"] is False,
         "no_external_action": result["governance"]["external_action_executed"] is False
         and feedback["governance"]["external_action_executed"] is False,
+        "service_receipt_stable_without_writes": service_receipt_stable
+        and service_first["governance"]["persistence_executed"] is False
+        and service_first["request_receipt"]["deduplication_executed"] is False
+        and service_first["governance"]["external_action_executed"] is False,
     }
     return {
         "trial_version": "0.6",
@@ -82,6 +91,7 @@ def run_trial(root: Path) -> dict[str, Any]:
             "feedback_excluded": feedback["summary"]["excluded"],
             "evidence_claims": len(evidence_index.get("claims", [])),
             "external_actions": 0,
+            "service_request_fingerprint": service_first["request_receipt"]["request_fingerprint"],
         },
         "limitations": [
             "All discovery, feedback and trial inputs are synthetic.",

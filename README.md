@@ -10,7 +10,7 @@ AI product work is not only prompt writing. Teams need to show why a problem mat
 
 The business scenario is an internal AI-application exploration for Changsha Shiju Trading Co., Ltd. All evidence, interviews, workflow observations, product details, and outputs are synthetic.
 
-## What v0.6 demonstrates
+## What v0.7 demonstrates
 
 - typed discovery evidence with dates and source categories;
 - transparent impact-confidence-effort opportunity ranking;
@@ -36,6 +36,7 @@ The business scenario is an internal AI-application exploration for Changsha Shi
 - a seven-claim evidence index, 20-minute offline trial, and explicit limitation record;
 - exact-version external component screening with no copied code or added dependency.
 - optional local grounded summaries with a deterministic fallback and cited evidence scope;
+- a versioned offline service contract with schema validation and deterministic retry receipts;
 
 ## Quick start
 
@@ -53,7 +54,7 @@ python -m product_discovery.trial_cli
 
 The package requires Python 3.10 or later and has no runtime dependencies.
 
-The optional `--grounded-mode local_extractive` path is a local extractive adapter, not a remote LLM. `fallback` remains the deterministic default. Both modes cite only the packet evidence register, make no external call, and remain subject to human approval.
+The optional `--grounded-mode local_extractive` path is a local extractive adapter, not a remote LLM. `fallback` remains the deterministic default. Both modes cite only the packet evidence register, make no external call, and remain subject to human approval. The service contract returns a retry receipt over the validated packet and grounded mode; it does not persist requests or perform distributed deduplication.
 
 ## Workflow
 

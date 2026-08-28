@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.0 - 2026-08-28
+
+- Added a versioned offline service contract for discovery packets and grounded-mode validation.
+- Added deterministic retry receipts while excluding persistence and distributed deduplication claims.
+- Added trial and regression coverage for schema boundaries, stable receipts and no external actions.
+
 ## 0.6.0 - 2026-08-25
 
 - Added optional `fallback` and `local_extractive` grounded-summary modes with citations constrained to the packet evidence register.
