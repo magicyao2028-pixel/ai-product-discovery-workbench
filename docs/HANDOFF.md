@@ -2,8 +2,8 @@
 
 ## Current state
 
-- Release: v0.6.0
-- Maintenance rounds completed: 5/10
+- Release: v0.7.0
+- Maintenance rounds completed: 6/10
 - Runtime: offline Python 3.10+, no runtime dependencies
 - Data: synthetic only
 - Model calls: none
@@ -25,7 +25,7 @@ python -m product_discovery.trial_cli
 
 ## Next planned maintenance round
 
-M6: improve grounded-summary reviewability or add a bounded output comparison. Do not introduce a remote model, dependency or evidence mutation without a separate contract.
+M7: add a bounded output comparison or reviewer queue. Do not introduce a remote model, dependency or evidence mutation without a separate contract.
 
 ## M3 evidence
 
@@ -55,3 +55,10 @@ M6: improve grounded-summary reviewability or add a bounded output comparison. D
 - optional `fallback` and `local_extractive` grounded modes produce cited summaries from the packet evidence register;
 - both modes are dependency-free, make no model call, do not mutate the PRD or evidence and retain human approval;
 - the eight-claim evidence index and trial verify citation scope, mode behavior and zero external actions.
+
+## M6 evidence
+
+- the versioned offline service contract validates schema, packet shape and grounded mode before analysis;
+- deterministic request receipts are stable across retries for the same canonical payload and mode;
+- the service returns review/governance output without persistence, external writes or automatic approval;
+- the nine-claim evidence index and trial verify the receipt, mode behavior and zero external actions.

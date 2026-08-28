@@ -69,7 +69,7 @@ def run_trial(root: Path) -> dict[str, Any]:
         and service_first["governance"]["external_action_executed"] is False,
     }
     return {
-        "trial_version": "0.6",
+        "trial_version": "0.7",
         "source_data": "synthetic",
         "overall_passed": all(checks.values()),
         "core_passed": all(checks[key] for key in (
