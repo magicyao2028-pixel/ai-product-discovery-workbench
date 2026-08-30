@@ -1,5 +1,5 @@
 {
-  "trial_version": "0.7",
+  "trial_version": "0.8",
   "source_data": "synthetic",
   "overall_passed": true,
   "core_passed": true,
@@ -11,11 +11,12 @@
     "missing_governance_template_blocked": true,
     "accepted_feedback_replayed": true,
     "pending_feedback_excluded": true,
-    "evidence_index_has_nine_claims": true,
+    "evidence_index_has_ten_claims": true,
     "evidence_paths_exist": true,
     "fallback_grounded_response_cited": true,
     "local_extractive_grounded_response_cited": true,
     "no_external_action": true,
+    "service_output_comparison_is_review_only": true,
     "service_receipt_stable_without_writes": true
   },
   "observed": {
@@ -35,9 +36,10 @@
     "failure_code": "missing_required_template_section",
     "feedback_passed": 1,
     "feedback_excluded": 1,
-    "evidence_claims": 9,
+    "evidence_claims": 10,
     "external_actions": 0,
-    "service_request_fingerprint": "sha256:430af5e723a99ae7a6e17b9f95e4956cb07f4cfd96c5c3f0b56bc310e1200e32"
+    "service_request_fingerprint": "sha256:430af5e723a99ae7a6e17b9f95e4956cb07f4cfd96c5c3f0b56bc310e1200e32",
+    "service_comparison_differences": 0
   },
   "limitations": [
     "All discovery, feedback and trial inputs are synthetic.",

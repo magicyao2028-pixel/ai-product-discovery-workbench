@@ -81,11 +81,11 @@ class TrialReadinessTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "classification"):
                 load_template_feedback(path)
 
-    def test_trial_passes_with_eight_claims_and_zero_external_actions(self):
+    def test_trial_passes_with_ten_claims_and_zero_external_actions(self):
         report = run_trial(ROOT)
         self.assertTrue(report["overall_passed"])
         self.assertTrue(report["core_passed"])
-        self.assertEqual(report["observed"]["evidence_claims"], 9)
+        self.assertEqual(report["observed"]["evidence_claims"], 10)
         self.assertEqual(report["observed"]["external_actions"], 0)
         service = analyze_request({"packet": json.loads(SAMPLE.read_text(encoding="utf-8"))})
         self.assertEqual(service["request_receipt"], analyze_request({"packet": json.loads(SAMPLE.read_text(encoding="utf-8")), "schema_version": "1.0"})["request_receipt"])

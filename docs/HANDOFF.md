@@ -2,8 +2,8 @@
 
 ## Current state
 
-- Release: v0.7.0
-- Maintenance rounds completed: 6/10
+- Release: v0.8.0
+- Maintenance rounds completed: 7/10
 - Runtime: offline Python 3.10+, no runtime dependencies
 - Data: synthetic only
 - Model calls: none
@@ -62,3 +62,9 @@ M7: add a bounded output comparison or reviewer queue. Do not introduce a remote
 - deterministic request receipts are stable across retries for the same canonical payload and mode;
 - the service returns review/governance output without persistence, external writes or automatic approval;
 - the nine-claim evidence index and trial verify the receipt, mode behavior and zero external actions.
+
+## M7 evidence
+
+- fallback and local-extractive service outputs can be compared deterministically on selected opportunity, requirements and citations;
+- comparison is review-only and does not approve a mode or mutate evidence, requirements or the PRD;
+- the ten-claim evidence index and trial verify zero external actions.

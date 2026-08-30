@@ -8,6 +8,7 @@ from .sensitivity import PriorityScenario, compare_priority_scenarios, load_prio
 from .templates import TemplateProfile, TemplateValidationError, load_template_profile
 from .grounded import build_grounded_summary
 from .service_contract import analyze_request, build_request_receipt
+from .service_comparison import compare_service_outputs
 
 __all__ = [
     "DiscoveryPacket", "DiscoveryWorkbench", "build_interview_claim_review", "load_packet",
@@ -16,4 +17,4 @@ __all__ = [
     "build_grounded_summary",
     "analyze_request", "build_request_receipt",
 ]
-__version__ = "0.7.0"
+__version__ = "0.8.0"

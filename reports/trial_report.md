@@ -14,11 +14,12 @@
 - PASS — `missing_governance_template_blocked`
 - PASS — `accepted_feedback_replayed`
 - PASS — `pending_feedback_excluded`
-- PASS — `evidence_index_has_nine_claims`
+- PASS — `evidence_index_has_ten_claims`
 - PASS — `evidence_paths_exist`
 - PASS — `fallback_grounded_response_cited`
 - PASS — `local_extractive_grounded_response_cited`
 - PASS — `no_external_action`
+- PASS — `service_output_comparison_is_review_only`
 - PASS — `service_receipt_stable_without_writes`
 
 ## Limitations

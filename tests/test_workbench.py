@@ -12,6 +12,7 @@ from product_discovery import (
     render_markdown,
     analyze_request,
 )
+from product_discovery.service_comparison import compare_service_outputs
 
 
 ROOT = Path(__file__).parents[1]
@@ -40,6 +41,16 @@ class DiscoveryWorkbenchTests(unittest.TestCase):
             analyze_request({"schema_version": "2.0", "packet": sample_payload()})
         with self.assertRaisesRegex(ValueError, "grounded_mode"):
             analyze_request({"packet": sample_payload(), "grounded_mode": "remote"})
+
+    def test_service_output_comparison_is_review_only(self):
+        payload = {"packet": sample_payload(), "grounded_mode": "fallback"}
+        baseline = analyze_request(payload)
+        candidate = analyze_request({**payload, "grounded_mode": "local_extractive"})
+        comparison = compare_service_outputs(baseline, candidate)
+        self.assertTrue(comparison["same_selected_opportunity"])
+        self.assertTrue(comparison["review_only"])
+        self.assertFalse(comparison["approval_applied"])
+        self.assertEqual(comparison["external_actions_executed"], 0)
 
     def test_builds_reviewable_prd_package(self):
         result = DiscoveryWorkbench().build(load_packet(SAMPLE))

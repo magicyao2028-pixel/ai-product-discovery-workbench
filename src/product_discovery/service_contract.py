@@ -26,6 +26,7 @@ def build_request_receipt(packet_payload: dict[str, Any], grounded_mode: str) ->
     ).encode("utf-8")
     return {
         "request_fingerprint": f"sha256:{hashlib.sha256(encoded).hexdigest()}",
+        "grounded_mode": grounded_mode,
         "idempotency_scope": "validated_packet_and_grounded_mode",
         "retry_safe": True,
         "persistence_executed": False,

@@ -54,7 +54,7 @@ python -m product_discovery.trial_cli
 
 The package requires Python 3.10 or later and has no runtime dependencies.
 
-The optional `--grounded-mode local_extractive` path is a local extractive adapter, not a remote LLM. `fallback` remains the deterministic default. Both modes cite only the packet evidence register, make no external call, and remain subject to human approval. The service contract returns a retry receipt over the validated packet and grounded mode; it does not persist requests or perform distributed deduplication.
+The optional `--grounded-mode local_extractive` path is a local extractive adapter, not a remote LLM. `fallback` remains the deterministic default. Both modes cite only the packet evidence register, make no external call, and remain subject to human approval. The service contract returns a retry receipt over the validated packet and grounded mode; it does not persist requests or perform distributed deduplication. A bounded comparison exposes differences between these outputs for human review without approving a mode or mutating the PRD.
 
 ## Workflow
 

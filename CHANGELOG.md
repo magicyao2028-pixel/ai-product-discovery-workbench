@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.8.0 - 2026-08-30
+
+- added bounded fallback/local-extractive output comparison for human review;
+- preserved no-approval, no-mutation and zero-external-action boundaries;
+- added deterministic trial and regression evidence.
+
 ## 0.7.0 - 2026-08-28
 
 - Added a versioned offline service contract for discovery packets and grounded-mode validation.
