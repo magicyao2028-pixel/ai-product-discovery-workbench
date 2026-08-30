@@ -25,7 +25,7 @@ python -m product_discovery.trial_cli
 
 ## Next planned maintenance round
 
-M7: add a bounded output comparison or reviewer queue. Do not introduce a remote model, dependency or evidence mutation without a separate contract.
+M8: add one bounded reviewer-evidence or contract improvement. Do not introduce a remote model, dependency or evidence mutation without a separate contract.
 
 ## M3 evidence
 
