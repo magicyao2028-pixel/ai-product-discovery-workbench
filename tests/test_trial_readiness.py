@@ -84,8 +84,10 @@ class TrialReadinessTests(unittest.TestCase):
     def test_trial_passes_with_ten_claims_and_zero_external_actions(self):
         report = run_trial(ROOT)
         self.assertTrue(report["overall_passed"])
+        self.assertEqual(report["observed"]["review_history_entries"], 3)
+        self.assertTrue(report["checks"]["review_history_is_chronological_and_non_executing"])
         self.assertTrue(report["core_passed"])
-        self.assertEqual(report["observed"]["evidence_claims"], 10)
+        self.assertEqual(report["observed"]["evidence_claims"], 11)
         self.assertEqual(report["observed"]["external_actions"], 0)
         service = analyze_request({"packet": json.loads(SAMPLE.read_text(encoding="utf-8"))})
         self.assertEqual(service["request_receipt"], analyze_request({"packet": json.loads(SAMPLE.read_text(encoding="utf-8")), "schema_version": "1.0"})["request_receipt"])

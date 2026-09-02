@@ -9,12 +9,13 @@ from .templates import TemplateProfile, TemplateValidationError, load_template_p
 from .grounded import build_grounded_summary
 from .service_contract import analyze_request, build_request_receipt
 from .service_comparison import compare_service_outputs
+from .review_history import summarize_review_history
 
 __all__ = [
     "DiscoveryPacket", "DiscoveryWorkbench", "build_interview_claim_review", "load_packet",
     "PriorityScenario", "compare_priority_scenarios", "load_priority_scenarios", "render_markdown",
     "TemplateProfile", "TemplateValidationError", "load_template_profile",
     "build_grounded_summary",
-    "analyze_request", "build_request_receipt",
+    "analyze_request", "build_request_receipt", "compare_service_outputs", "summarize_review_history",
 ]
-__version__ = "0.8.0"
+__version__ = "0.9.0"

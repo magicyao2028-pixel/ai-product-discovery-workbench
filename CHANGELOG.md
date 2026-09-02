@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.9.0 - 2026-09-02
+
+- added a chronological, fingerprint-linked synthetic review-history summary;
+- preserved advisory comparison, no approval and zero external-action boundaries;
+- added deterministic validation and trial evidence for reviewer decisions.
+
 ## 0.8.0 - 2026-08-30
 
 - added bounded fallback/local-extractive output comparison for human review;

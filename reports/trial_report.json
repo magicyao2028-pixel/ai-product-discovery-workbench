@@ -11,13 +11,14 @@
     "missing_governance_template_blocked": true,
     "accepted_feedback_replayed": true,
     "pending_feedback_excluded": true,
-    "evidence_index_has_ten_claims": true,
+    "evidence_index_has_eleven_claims": true,
     "evidence_paths_exist": true,
     "fallback_grounded_response_cited": true,
     "local_extractive_grounded_response_cited": true,
     "no_external_action": true,
     "service_output_comparison_is_review_only": true,
-    "service_receipt_stable_without_writes": true
+    "service_receipt_stable_without_writes": true,
+    "review_history_is_chronological_and_non_executing": true
   },
   "observed": {
     "selected_opportunity_id": "OPP-001",
@@ -36,10 +37,11 @@
     "failure_code": "missing_required_template_section",
     "feedback_passed": 1,
     "feedback_excluded": 1,
-    "evidence_claims": 10,
+    "evidence_claims": 11,
     "external_actions": 0,
     "service_request_fingerprint": "sha256:430af5e723a99ae7a6e17b9f95e4956cb07f4cfd96c5c3f0b56bc310e1200e32",
-    "service_comparison_differences": 0
+    "service_comparison_differences": 0,
+    "review_history_entries": 3
   },
   "limitations": [
     "All discovery, feedback and trial inputs are synthetic.",

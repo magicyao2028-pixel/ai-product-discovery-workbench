@@ -2,8 +2,8 @@
 
 ## Current state
 
-- Release: v0.8.0
-- Maintenance rounds completed: 7/10
+- Release: v0.9.0
+- Maintenance rounds completed: 8/10
 - Runtime: offline Python 3.10+, no runtime dependencies
 - Data: synthetic only
 - Model calls: none
@@ -25,7 +25,7 @@ python -m product_discovery.trial_cli
 
 ## Next planned maintenance round
 
-M8: add one bounded reviewer-evidence or contract improvement. Do not introduce a remote model, dependency or evidence mutation without a separate contract.
+M9: add one bounded reviewer-evidence or contract improvement. Do not introduce a remote model, dependency or evidence mutation without a separate contract.
 
 ## M3 evidence
 
@@ -68,3 +68,9 @@ M8: add one bounded reviewer-evidence or contract improvement. Do not introduce 
 - fallback and local-extractive service outputs can be compared deterministically on selected opportunity, requirements and citations;
 - comparison is review-only and does not approve a mode or mutate evidence, requirements or the PRD;
 - the ten-claim evidence index and trial verify zero external actions.
+
+## M8 evidence
+
+- synthetic reviewer decisions are summarized chronologically against a stable request fingerprint;
+- duplicate IDs, fingerprint drift, invalid decisions and out-of-order dates fail closed;
+- approval, evidence mutation, requirement mutation, PRD mutation and external actions remain absent.

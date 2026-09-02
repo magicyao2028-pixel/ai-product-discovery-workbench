@@ -52,6 +52,11 @@
       "claim_id": "EVID-COMPARE-010",
       "claim": "Fallback and local-extractive service outputs can be compared for human review without approval, mutation or external action.",
       "evidence_paths": ["src/product_discovery/service_comparison.py", "tests/test_workbench.py", "reports/trial_report.json"]
+    },
+    {
+      "claim_id": "EVID-REVIEW-HISTORY-011",
+      "claim": "Synthetic reviewer decisions are summarized chronologically against a stable request fingerprint without approving a mode or mutating discovery evidence.",
+      "evidence_paths": ["src/product_discovery/review_history.py", "data/sample_review_history.json", "tests/test_review_history.py", "reports/trial_report.json"]
     }
   ]
 }

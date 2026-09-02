@@ -1,0 +1,29 @@
+[
+  {
+    "review_id": "DISC-REV-001",
+    "request_fingerprint": "sha256:430af5e723a99ae7a6e17b9f95e4956cb07f4cfd96c5c3f0b56bc310e1200e32",
+    "reviewed_on": "2026-08-20",
+    "decision": "keep_baseline",
+    "reviewer_role": "Product Manager",
+    "note": "Synthetic reviewer kept the fallback baseline because both modes selected the same opportunity.",
+    "approval_applied": false
+  },
+  {
+    "review_id": "DISC-REV-002",
+    "request_fingerprint": "sha256:430af5e723a99ae7a6e17b9f95e4956cb07f4cfd96c5c3f0b56bc310e1200e32",
+    "reviewed_on": "2026-08-21",
+    "decision": "investigate_difference",
+    "reviewer_role": "Research Lead",
+    "note": "Synthetic reviewer would investigate any citation difference before changing the reviewed package.",
+    "approval_applied": false
+  },
+  {
+    "review_id": "DISC-REV-003",
+    "request_fingerprint": "sha256:430af5e723a99ae7a6e17b9f95e4956cb07f4cfd96c5c3f0b56bc310e1200e32",
+    "reviewed_on": "2026-08-22",
+    "decision": "reject_change",
+    "reviewer_role": "Governance Reviewer",
+    "note": "Synthetic reviewer rejected automatic mode switching because the comparison is advisory only.",
+    "approval_applied": false
+  }
+]

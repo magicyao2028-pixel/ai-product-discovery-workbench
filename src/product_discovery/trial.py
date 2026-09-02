@@ -11,6 +11,7 @@ from .template_feedback import replay_template_feedback
 from .templates import TemplateValidationError, load_template_profile
 from .service_contract import analyze_request
 from .service_comparison import compare_service_outputs
+from .review_history import summarize_review_history
 
 
 def run_trial(root: Path) -> dict[str, Any]:
@@ -36,6 +37,8 @@ def run_trial(root: Path) -> dict[str, Any]:
     service_first = analyze_request({"packet": packet_payload, "grounded_mode": "fallback"})
     service_retry = analyze_request({"schema_version": "1.0", "packet": packet_payload, "grounded_mode": "fallback"})
     service_comparison = compare_service_outputs(service_first, analyze_request({"packet": packet_payload, "grounded_mode": "local_extractive"}))
+    review_history_payload = json.loads((root / "data" / "sample_review_history.json").read_text(encoding="utf-8"))
+    review_history = summarize_review_history(service_comparison, service_first["request_receipt"]["request_fingerprint"], review_history_payload)
     service_receipt_stable = service_first["request_receipt"] == service_retry["request_receipt"]
     evidence_paths_valid = _evidence_paths_exist(root, evidence_index)
     template_keys = [item["section_key"] for item in result["report_template"]["sections"]]
@@ -53,7 +56,7 @@ def run_trial(root: Path) -> dict[str, Any]:
         "accepted_feedback_replayed": feedback["summary"]["replayed"] == 1
         and feedback["summary"]["passed"] == 1,
         "pending_feedback_excluded": feedback["summary"]["excluded"] == 1,
-        "evidence_index_has_ten_claims": len(evidence_index.get("claims", [])) == 10,
+        "evidence_index_has_eleven_claims": len(evidence_index.get("claims", [])) == 11,
         "evidence_paths_exist": evidence_paths_valid,
         "fallback_grounded_response_cited": result["grounded_response"]["grounded"]
         and result["grounded_response"]["model_call_executed"] is False
@@ -73,6 +76,9 @@ def run_trial(root: Path) -> dict[str, Any]:
         and service_first["governance"]["persistence_executed"] is False
         and service_first["request_receipt"]["deduplication_executed"] is False
         and service_first["governance"]["external_action_executed"] is False,
+        "review_history_is_chronological_and_non_executing": review_history["entry_count"] == 3
+        and review_history["approval_applied"] is False
+        and review_history["external_actions_executed"] == 0,
     }
     return {
         "trial_version": "0.8",
@@ -99,6 +105,7 @@ def run_trial(root: Path) -> dict[str, Any]:
             "external_actions": 0,
             "service_request_fingerprint": service_first["request_receipt"]["request_fingerprint"],
             "service_comparison_differences": service_comparison["difference_count"],
+            "review_history_entries": review_history["entry_count"],
         },
         "limitations": [
             "All discovery, feedback and trial inputs are synthetic.",
