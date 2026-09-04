@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.0 - 2026-09-04
+
+- added accepted-only synthetic reviewer-feedback replay against product review history;
+- excluded pending/rejected records and kept approval, evidence and requirement changes disabled;
+- added chronological/reference validation, regression tests and trial evidence.
+
 ## 0.9.0 - 2026-09-02
 
 - added a chronological, fingerprint-linked synthetic review-history summary;

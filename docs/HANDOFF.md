@@ -2,8 +2,8 @@
 
 ## Current state
 
-- Release: v0.9.0
-- Maintenance rounds completed: 8/10
+- Release: v1.0.0
+- Maintenance rounds completed: 9/10
 - Runtime: offline Python 3.10+, no runtime dependencies
 - Data: synthetic only
 - Model calls: none
@@ -25,7 +25,7 @@ python -m product_discovery.trial_cli
 
 ## Next planned maintenance round
 
-M9: add one bounded reviewer-evidence or contract improvement. Do not introduce a remote model, dependency or evidence mutation without a separate contract.
+M10: add one bounded replay-result reconciliation or stale-review visibility improvement. Do not introduce a remote model, dependency or evidence mutation without a separate contract.
 
 ## M3 evidence
 
@@ -74,3 +74,9 @@ M9: add one bounded reviewer-evidence or contract improvement. Do not introduce 
 - synthetic reviewer decisions are summarized chronologically against a stable request fingerprint;
 - duplicate IDs, fingerprint drift, invalid decisions and out-of-order dates fail closed;
 - approval, evidence mutation, requirement mutation, PRD mutation and external actions remain absent.
+
+## M9 evidence
+
+- accepted-only synthetic reviewer-feedback replay references current review IDs and excludes pending/rejected records;
+- chronological, duplicate-ID, reference and applied-change validation fail closed;
+- approval, evidence, requirement and PRD mutation remain disabled, with zero external actions.

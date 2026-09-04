@@ -1,0 +1,4 @@
+[
+  {"feedback_id": "DISC-FB-001", "review_id": "DISC-REV-001", "recorded_on": "2026-08-23", "classification": "usability", "status": "accepted", "summary": "Review history should retain the selected opportunity and the reviewer decision context.", "applied": false},
+  {"feedback_id": "DISC-FB-002", "review_id": "DISC-REV-002", "recorded_on": "2026-08-24", "classification": "requirement", "status": "pending", "summary": "Consider a future stale-review indicator without mutating the discovery packet.", "applied": false}
+]

@@ -57,6 +57,11 @@
       "claim_id": "EVID-REVIEW-HISTORY-011",
       "claim": "Synthetic reviewer decisions are summarized chronologically against a stable request fingerprint without approving a mode or mutating discovery evidence.",
       "evidence_paths": ["src/product_discovery/review_history.py", "data/sample_review_history.json", "tests/test_review_history.py", "reports/trial_report.json"]
+    },
+    {
+      "claim_id": "EVID-FEEDBACK-REPLAY-012",
+      "claim": "Accepted synthetic reviewer feedback replays against current product reviews while pending records remain excluded and approval or discovery state changes stay disabled.",
+      "evidence_paths": ["src/product_discovery/reviewer_feedback_replay.py", "data/reviewer_feedback.json", "tests/test_reviewer_feedback_replay.py", "reports/trial_report.json"]
     }
   ]
 }
