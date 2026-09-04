@@ -90,7 +90,7 @@ def run_trial(root: Path) -> dict[str, Any]:
         and reviewer_feedback_replay["external_actions_executed"] == 0,
     }
     return {
-        "trial_version": "0.8",
+        "trial_version": "1.0",
         "source_data": "synthetic",
         "overall_passed": all(checks.values()),
         "core_passed": all(checks[key] for key in (

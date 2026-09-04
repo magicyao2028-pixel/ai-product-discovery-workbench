@@ -14,7 +14,7 @@
 - PASS — `missing_governance_template_blocked`
 - PASS — `accepted_feedback_replayed`
 - PASS — `pending_feedback_excluded`
-- PASS — `evidence_index_has_eleven_claims`
+- PASS — `evidence_index_has_twelve_claims`
 - PASS — `evidence_paths_exist`
 - PASS — `fallback_grounded_response_cited`
 - PASS — `local_extractive_grounded_response_cited`
@@ -22,6 +22,7 @@
 - PASS — `service_output_comparison_is_review_only`
 - PASS — `service_receipt_stable_without_writes`
 - PASS — `review_history_is_chronological_and_non_executing`
+- PASS — `reviewer_feedback_replay_is_bounded`
 
 ## Limitations
 
