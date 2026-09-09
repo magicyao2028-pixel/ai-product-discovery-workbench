@@ -10,7 +10,7 @@ AI product work is not only prompt writing. Teams need to show why a problem mat
 
 The business scenario is an internal AI-application exploration for Changsha Shiju Trading Co., Ltd. All evidence, interviews, workflow observations, product details, and outputs are synthetic.
 
-## What v0.7 demonstrates
+## What the current prototype demonstrates
 
 - typed discovery evidence with dates and source categories;
 - transparent impact-confidence-effort opportunity ranking;
@@ -33,10 +33,12 @@ The business scenario is an internal AI-application exploration for Changsha Shi
 - configurable report order and titles with five mandatory review sections;
 - fail-closed template validation that cannot hide governance;
 - deterministic replay of accepted synthetic feedback while pending feedback stays excluded;
-- a seven-claim evidence index, 20-minute offline trial, and explicit limitation record;
+- a 13-claim evidence index, 20-minute offline trial, and explicit limitation record;
 - exact-version external component screening with no copied code or added dependency.
 - optional local grounded summaries with a deterministic fallback and cited evidence scope;
 - a versioned offline service contract with schema validation and deterministic retry receipts;
+- accepted-feedback reconciliation against the current request fingerprint and review decisions;
+- explicit stale visibility for unresolved investigation reviews without changing evidence, requirements or the PRD;
 
 ## Quick start
 
@@ -70,6 +72,7 @@ Synthetic discovery packet
   -> map low-fidelity screen flow
   -> aggregate dated feedback by stable requirement ID
   -> emit a non-executing version decision log
+  -> reconcile accepted feedback and surface stale investigation reviews
   -> request human approval
   -> no production release or external action
 ```
@@ -90,7 +93,7 @@ Synthetic discovery packet
 - `docs/TEMPLATE_GOVERNANCE.md`: layout-only template and feedback boundaries
 - `docs/EXTERNAL_INTAKE.md`: exact external component screening decisions
 - `docs/TRIAL_GUIDE.md`: bounded clean trial, failure path, and recovery
-- `evidence/evidence_index.json`: seven claim-to-artifact evidence links
+- `evidence/evidence_index.json`: 13 claim-to-artifact evidence links
 - `docs/MAINTENANCE_PLAN.md`: ten planned substantive iterations
 - `site/`: static public demonstration
 

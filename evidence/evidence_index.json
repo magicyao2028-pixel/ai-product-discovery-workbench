@@ -62,6 +62,11 @@
       "claim_id": "EVID-FEEDBACK-REPLAY-012",
       "claim": "Accepted synthetic reviewer feedback replays against current product reviews while pending records remain excluded and approval or discovery state changes stay disabled.",
       "evidence_paths": ["src/product_discovery/reviewer_feedback_replay.py", "data/reviewer_feedback.json", "tests/test_reviewer_feedback_replay.py", "reports/trial_report.json"]
+    },
+    {
+      "claim_id": "EVID-RECONCILIATION-013",
+      "claim": "Accepted feedback is reconciled to current product reviews and stale investigations are surfaced without approval or discovery-state mutation.",
+      "evidence_paths": ["src/product_discovery/review_reconciliation.py", "data/sample_review_history.json", "tests/test_review_reconciliation.py", "reports/trial_report.json"]
     }
   ]
 }

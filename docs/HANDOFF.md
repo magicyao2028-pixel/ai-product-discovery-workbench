@@ -3,7 +3,7 @@
 ## Current state
 
 - Release: v1.0.0
-- Maintenance rounds completed: 9/10
+- Maintenance rounds completed: 10/10
 - Runtime: offline Python 3.10+, no runtime dependencies
 - Data: synthetic only
 - Model calls: none
@@ -23,9 +23,9 @@ python -m product_discovery.template_feedback_cli
 python -m product_discovery.trial_cli
 ```
 
-## Next planned maintenance round
+## Maintenance status
 
-M10: add one bounded replay-result reconciliation or stale-review visibility improvement. Do not introduce a remote model, dependency or evidence mutation without a separate contract.
+The planned ten-round maintenance sequence is complete. Any later remote model, connector, persistence or live-research work requires a new evidence-backed contract and must preserve approval, evidence, requirement and PRD boundaries.
 
 ## M3 evidence
 
@@ -80,3 +80,10 @@ M10: add one bounded replay-result reconciliation or stale-review visibility imp
 - accepted-only synthetic reviewer-feedback replay references current review IDs and excludes pending/rejected records;
 - chronological, duplicate-ID, reference and applied-change validation fail closed;
 - approval, evidence, requirement and PRD mutation remain disabled, with zero external actions.
+
+## M10 evidence
+
+- accepted feedback is reconciled to the current request fingerprint, review ID, decision and reviewer role;
+- one stale synthetic `investigate_difference` review is surfaced at an explicit analysis date;
+- pending feedback remains excluded and approval, evidence, requirement and PRD mutation remain disabled;
+- 78 offline tests and the deterministic M10 trial pass with zero external actions.

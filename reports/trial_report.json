@@ -11,7 +11,7 @@
     "missing_governance_template_blocked": true,
     "accepted_feedback_replayed": true,
     "pending_feedback_excluded": true,
-    "evidence_index_has_twelve_claims": true,
+    "evidence_index_has_thirteen_claims": true,
     "evidence_paths_exist": true,
     "fallback_grounded_response_cited": true,
     "local_extractive_grounded_response_cited": true,
@@ -19,7 +19,8 @@
     "service_output_comparison_is_review_only": true,
     "service_receipt_stable_without_writes": true,
     "review_history_is_chronological_and_non_executing": true,
-    "reviewer_feedback_replay_is_bounded": true
+    "reviewer_feedback_replay_is_bounded": true,
+    "review_reconciliation_is_bounded": true
   },
   "observed": {
     "selected_opportunity_id": "OPP-001",
@@ -38,13 +39,46 @@
     "failure_code": "missing_required_template_section",
     "feedback_passed": 1,
     "feedback_excluded": 1,
-    "evidence_claims": 12,
+    "evidence_claims": 13,
     "external_actions": 0,
     "service_request_fingerprint": "sha256:430af5e723a99ae7a6e17b9f95e4956cb07f4cfd96c5c3f0b56bc310e1200e32",
     "service_comparison_differences": 0,
     "review_history_entries": 3,
     "reviewer_feedback_replayed": 1,
-    "reviewer_feedback_excluded": 1
+    "reviewer_feedback_excluded": 1,
+    "review_feedback_reconciled": 1,
+    "stale_reviews_surfaced": 1
+  },
+  "review_reconciliation": {
+    "schema_version": "1.0",
+    "request_fingerprint": "sha256:430af5e723a99ae7a6e17b9f95e4956cb07f4cfd96c5c3f0b56bc310e1200e32",
+    "as_of_date": "2026-09-09",
+    "stale_after_days": 14,
+    "reconciled_count": 1,
+    "stale_review_count": 1,
+    "reconciled_feedback": [
+      {
+        "feedback_id": "DISC-FB-001",
+        "review_id": "DISC-REV-001",
+        "decision": "keep_baseline",
+        "reviewer_role": "Product Manager",
+        "closure_state": "closed"
+      }
+    ],
+    "stale_reviews": [
+      {
+        "review_id": "DISC-REV-002",
+        "decision": "investigate_difference",
+        "reviewer_role": "Research Lead",
+        "age_days": 19
+      }
+    ],
+    "approval_applied": false,
+    "evidence_mutated": false,
+    "requirements_mutated": false,
+    "prd_mutated": false,
+    "external_actions_executed": 0,
+    "boundary": "Reconciliation exposes accepted feedback and stale investigation reviews for human follow-up; it does not approve a mode or mutate evidence, requirements or the PRD."
   },
   "limitations": [
     "All discovery, feedback and trial inputs are synthetic.",

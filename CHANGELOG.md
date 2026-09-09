@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.0 - 2026-09-09
+
+- added deterministic reconciliation of accepted feedback to current product reviews;
+- surfaced stale investigation reviews at an explicit analysis date;
+- preserved no-approval, no-evidence-mutation, no-requirement-mutation, no-PRD-mutation and zero-external-action boundaries.
+
 ## 1.0.0 - 2026-09-04
 
 - added accepted-only synthetic reviewer-feedback replay against product review history;

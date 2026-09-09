@@ -13,6 +13,7 @@ from .service_contract import analyze_request
 from .service_comparison import compare_service_outputs
 from .review_history import summarize_review_history
 from .reviewer_feedback_replay import replay_reviewer_feedback
+from .review_reconciliation import reconcile_discovery_review_feedback
 
 
 def run_trial(root: Path) -> dict[str, Any]:
@@ -44,6 +45,14 @@ def run_trial(root: Path) -> dict[str, Any]:
         json.loads((root / "data" / "reviewer_feedback.json").read_text(encoding="utf-8")),
         review_history_payload,
     )
+    review_reconciliation = reconcile_discovery_review_feedback(
+        service_comparison,
+        service_first["request_receipt"]["request_fingerprint"],
+        review_history_payload,
+        reviewer_feedback_replay,
+        as_of_date="2026-09-09",
+        stale_after_days=14,
+    )
     service_receipt_stable = service_first["request_receipt"] == service_retry["request_receipt"]
     evidence_paths_valid = _evidence_paths_exist(root, evidence_index)
     template_keys = [item["section_key"] for item in result["report_template"]["sections"]]
@@ -61,7 +70,7 @@ def run_trial(root: Path) -> dict[str, Any]:
         "accepted_feedback_replayed": feedback["summary"]["replayed"] == 1
         and feedback["summary"]["passed"] == 1,
         "pending_feedback_excluded": feedback["summary"]["excluded"] == 1,
-        "evidence_index_has_twelve_claims": len(evidence_index.get("claims", [])) == 12,
+        "evidence_index_has_thirteen_claims": len(evidence_index.get("claims", [])) == 13,
         "evidence_paths_exist": evidence_paths_valid,
         "fallback_grounded_response_cited": result["grounded_response"]["grounded"]
         and result["grounded_response"]["model_call_executed"] is False
@@ -88,6 +97,11 @@ def run_trial(root: Path) -> dict[str, Any]:
         and reviewer_feedback_replay["excluded_count"] == 1
         and reviewer_feedback_replay["approval_applied"] is False
         and reviewer_feedback_replay["external_actions_executed"] == 0,
+        "review_reconciliation_is_bounded": review_reconciliation["reconciled_count"] == 1
+        and review_reconciliation["stale_review_count"] == 1
+        and review_reconciliation["approval_applied"] is False
+        and review_reconciliation["evidence_mutated"] is False
+        and review_reconciliation["external_actions_executed"] == 0,
     }
     return {
         "trial_version": "1.0",
@@ -117,7 +131,10 @@ def run_trial(root: Path) -> dict[str, Any]:
             "review_history_entries": review_history["entry_count"],
             "reviewer_feedback_replayed": reviewer_feedback_replay["replayed_count"],
             "reviewer_feedback_excluded": reviewer_feedback_replay["excluded_count"],
+            "review_feedback_reconciled": review_reconciliation["reconciled_count"],
+            "stale_reviews_surfaced": review_reconciliation["stale_review_count"],
         },
+        "review_reconciliation": review_reconciliation,
         "limitations": [
             "All discovery, feedback and trial inputs are synthetic.",
             "Template validation proves structural governance, not product-market demand or design quality.",
