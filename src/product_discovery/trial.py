@@ -101,6 +101,8 @@ def run_trial(root: Path) -> dict[str, Any]:
         and review_reconciliation["stale_review_count"] == 1
         and review_reconciliation["approval_applied"] is False
         and review_reconciliation["evidence_mutated"] is False
+        and review_reconciliation["requirements_mutated"] is False
+        and review_reconciliation["prd_mutated"] is False
         and review_reconciliation["external_actions_executed"] == 0,
     }
     return {
