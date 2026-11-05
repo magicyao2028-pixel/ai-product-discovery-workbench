@@ -16,7 +16,7 @@
     {
       "claim_id": "EVID-CORRECTNESS-003",
       "claim": "The core workflow, template boundaries, feedback replay and trial are covered by automated tests.",
-      "evidence_paths": ["tests/test_workbench.py", "tests/test_trial_readiness.py"]
+      "evidence_paths": ["tests/test_workbench.py", "tests/test_trial_readiness.py", "tests/test_external_action_contract.py"]
     },
     {
       "claim_id": "EVID-EXAMPLE-004",

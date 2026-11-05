@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.1 - 2026-10-05
+
+- require an explicit boolean `external_action` in mapped and directly constructed requirements;
+- reject malformed declarations before a service response or PRD can present them as safe scope;
+- replace prior CLI review/trial reports with explicit validation failures and exit 2;
+- cover real booleans, malformed/missing declarations, prior-success replacement and recovery using offline synthetic tests;
+- align package/runtime metadata with this patch after the previously documented 1.1.0 change (metadata had remained at 1.0.0).
+
 ## 1.1.0 - 2026-09-09
 
 - added deterministic reconciliation of accepted feedback to current product reviews;

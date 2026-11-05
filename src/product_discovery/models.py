@@ -76,6 +76,10 @@ class Requirement:
     evidence_ids: tuple[str, ...]
     external_action: bool
 
+    def __post_init__(self) -> None:
+        if type(self.external_action) is not bool:
+            raise ValueError("external_action must be explicitly true or false")
+
     @classmethod
     def from_mapping(cls, value: dict[str, Any]) -> "Requirement":
         item = cls(
@@ -86,7 +90,7 @@ class Requirement:
             user_story=_required(value, "user_story"),
             acceptance_criteria=_strings(value.get("acceptance_criteria"), "acceptance_criteria"),
             evidence_ids=_strings(value.get("evidence_ids"), "evidence_ids"),
-            external_action=value.get("external_action") is True,
+            external_action=value.get("external_action"),
         )
         parts = item.version.split(".")
         if len(parts) != 2 or not all(part.isdigit() for part in parts):

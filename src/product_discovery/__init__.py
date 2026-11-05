@@ -21,4 +21,4 @@ __all__ = [
     "analyze_request", "build_request_receipt", "compare_service_outputs", "summarize_review_history", "replay_reviewer_feedback",
     "reconcile_discovery_review_feedback",
 ]
-__version__ = "1.0.0"
+__version__ = "1.1.1"

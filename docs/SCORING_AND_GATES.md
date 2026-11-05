@@ -37,6 +37,13 @@ A requirement is included only when:
 
 Excluded requirements remain in the review with machine-readable reasons. This avoids silently deleting stakeholder requests while preventing weak or unsafe scope from entering the PRD.
 
+Every requirement must explicitly declare `external_action` as a JSON boolean.
+`true` excludes that requirement; `false` permits the remaining gates to be evaluated.
+Strings (including `"true"` and `"false"`), numbers, null, collections, and a missing
+declaration are invalid inputs, not permission to include a requirement. The file
+loader, service API, and direct `Requirement` construction raise `ValueError` with
+`external_action must be explicitly true or false` for these invalid declarations.
+
 ## Traceability
 
 Each included evidence-requirement pair becomes one row containing:

@@ -56,6 +56,12 @@ python -m product_discovery.trial_cli
 
 The package requires Python 3.10 or later and has no runtime dependencies.
 
+Each requirement must explicitly supply a boolean `external_action`. Invalid or
+missing declarations fail validation instead of entering the PRD as `false`.
+Both discovery and trial CLIs replace the requested reports with a
+`failed_validation` / `FAIL` result and exit 2 on input validation errors; see
+[the trial recovery instructions](docs/TRIAL_GUIDE.md).
+
 The optional `--grounded-mode local_extractive` path is a local extractive adapter, not a remote LLM. `fallback` remains the deterministic default. Both modes cite only the packet evidence register, make no external call, and remain subject to human approval. The service contract returns a retry receipt over the validated packet and grounded mode; it does not persist requests or perform distributed deduplication. A bounded comparison exposes differences between these outputs for human review without approving a mode or mutating the PRD.
 
 ## Workflow
